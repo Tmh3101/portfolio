@@ -23,7 +23,9 @@ export default function AdminLoginPage() {
   const redirectTo = redirectParam.startsWith('/admin') ? redirectParam : '/admin';
 
   useEffect(() => {
+    console.log('isAuthenticated:', isAuthenticated);
     if (isAuthenticated) {
+      console.log('Redirecting to /admin');
       router.replace('/admin');
     }
   }, [isAuthenticated, router]);
@@ -33,10 +35,13 @@ export default function AdminLoginPage() {
     setSubmitting(true);
 
     try {
+      console.log('Attempting to sign in with:', { email, password });
       await signIn({ email, password });
       showToast(t.toasts.loginSuccess, 'success');
-      router.replace(redirectTo);
+      console.log('Redirecting to:', redirectTo);
+      await router.replace(redirectTo);
     } catch (error) {
+      console.error('Login error:', error);
       showToast(error.message || t.toasts.loginError, 'error');
     } finally {
       setSubmitting(false);

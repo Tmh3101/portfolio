@@ -73,7 +73,7 @@ export default function AdminShell({ children, sectionLabel, title, description,
   return (
     <div className="admin-shell">
       <aside className="admin-sidebar">
-        <Link to="/admin" className="admin-sidebar__brand">
+        <Link href="/admin" className="admin-sidebar__brand">
           <span className="admin-sidebar__mark">MH</span>
           <div className="admin-sidebar__brand-copy">
             <span className="admin-sidebar__brand-label">MINHHIEU OPS</span>

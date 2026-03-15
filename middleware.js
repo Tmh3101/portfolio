@@ -1,26 +1,16 @@
 import { NextResponse } from 'next/server';
-import { verifyAccessTokenEdge } from './lib/auth/edge.js';
-import { ACCESS_TOKEN_COOKIE } from './lib/auth/cookies.js';
+import { createRouteHandlerSupabaseClient } from './lib/supabase/route-client.js';
+import { mapSupabaseUser } from './lib/auth/supabase-user.js';
 
 export async function middleware(request) {
   const { pathname } = request.nextUrl;
   const isAdminApi = pathname.startsWith('/api/admin');
-  const token = request.cookies.get(ACCESS_TOKEN_COOKIE)?.value;
-
-  if (!token) {
-    if (isAdminApi) {
-      return NextResponse.json({ message: 'Unauthorized.' }, { status: 401 });
-    }
-
-    const redirectUrl = new URL('/login', request.url);
-    redirectUrl.searchParams.set('from', pathname);
-    return NextResponse.redirect(redirectUrl);
-  }
 
   try {
-    const payload = await verifyAccessTokenEdge(token);
+    const { supabase } = createRouteHandlerSupabaseClient(request);
+    const { data, error } = await supabase.auth.getUser();
 
-    if (payload?.type !== 'access') {
+    if (error || !data?.user) {
       if (isAdminApi) {
         return NextResponse.json({ message: 'Unauthorized.' }, { status: 401 });
       }
@@ -30,7 +20,9 @@ export async function middleware(request) {
       return NextResponse.redirect(redirectUrl);
     }
 
-    if (payload?.role !== 'admin') {
+    const user = mapSupabaseUser(data.user);
+
+    if (user.role !== 'admin') {
       if (isAdminApi) {
         return NextResponse.json({ message: 'Forbidden.' }, { status: 403 });
       }
@@ -39,10 +31,7 @@ export async function middleware(request) {
     }
   } catch (error) {
     if (isAdminApi) {
-      return NextResponse.json(
-        { message: error?.message || 'Unauthorized.' },
-        { status: error?.statusCode || 401 }
-      );
+      return NextResponse.json({ message: error?.message || 'Unauthorized.' }, { status: 401 });
     }
 
     const redirectUrl = new URL('/login', request.url);

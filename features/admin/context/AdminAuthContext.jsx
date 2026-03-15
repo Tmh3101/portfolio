@@ -35,6 +35,8 @@ export const AdminAuthProvider = ({ children }) => {
 
   const signIn = useCallback(
     async ({ email, password }) => {
+      console.log('Attempting to sign in with:', { email, password });
+
       const response = await fetch(apiUrl('/api/auth/login'), {
         method: 'POST',
         headers: {
@@ -46,7 +48,10 @@ export const AdminAuthProvider = ({ children }) => {
 
       const data = await readJson(response);
 
+      console.log('API response:', response.status, data);
+
       if (!response.ok) {
+        console.error('Sign-in failed:', data);
         throw new Error(data.message || 'Unable to sign in.');
       }
 

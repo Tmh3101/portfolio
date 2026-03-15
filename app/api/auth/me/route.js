@@ -1,5 +1,6 @@
-import { getCurrentUser, updateCurrentUser } from '../../../../lib/services/auth.service.js';
 import { requireUser } from '../../../../lib/auth/server.js';
+import { createRouteHandlerSupabaseClient } from '../../../../lib/supabase/route-client.js';
+import { mapSupabaseUser } from '../../../../lib/auth/supabase-user.js';
 import { json, errorResponse } from '../../../../lib/http/response.js';
 
 export const runtime = 'nodejs';
@@ -7,8 +8,7 @@ export const runtime = 'nodejs';
 export async function GET(request) {
   try {
     const user = await requireUser(request);
-    const result = await getCurrentUser({ userId: Number(user.id) });
-    return json({ user: result });
+    return json({ user });
   } catch (error) {
     return errorResponse(error);
   }
@@ -16,15 +16,37 @@ export async function GET(request) {
 
 export async function PATCH(request) {
   try {
-    const user = await requireUser(request);
+    await requireUser(request);
+    const { supabase, applyCookies } = createRouteHandlerSupabaseClient(request);
     const body = await request.json();
-    const result = await updateCurrentUser({
-      userId: Number(user.id),
-      email: body?.email,
-      fullName: body?.fullName,
+
+    const updates = {};
+
+    if (typeof body?.email === 'string') {
+      updates.email = body.email;
+    }
+
+    const userMetadata = {};
+    if (typeof body?.fullName === 'string') {
+      userMetadata.full_name = body.fullName;
+    }
+
+    const { data, error } = await supabase.auth.updateUser({
+      ...updates,
+      data: Object.keys(userMetadata).length ? userMetadata : undefined,
     });
-    return json({ user: result });
+
+    if (error || !data?.user) {
+      throw error || new Error('Unable to update profile.');
+    }
+
+    const response = json({ user: mapSupabaseUser(data.user) });
+    applyCookies(response);
+    return response;
   } catch (error) {
-    return errorResponse(error);
+    const { applyCookies } = createRouteHandlerSupabaseClient(request);
+    const response = errorResponse(error);
+    applyCookies(response);
+    return response;
   }
 }

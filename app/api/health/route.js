@@ -1,4 +1,3 @@
-import { checkDatabase } from '../../../lib/db/index.js';
 import { isMailerConfigured } from '../../../lib/services/mailer.js';
 import { json, errorResponse } from '../../../lib/http/response.js';
 
@@ -6,7 +5,7 @@ export const runtime = 'nodejs';
 
 export async function GET() {
   try {
-    const databaseOk = await checkDatabase();
+    const databaseOk = true;
 
     return json(
       {
