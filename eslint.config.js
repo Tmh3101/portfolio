@@ -1,23 +1,34 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import js from '@eslint/js';
+import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
+import next from 'eslint-config-next';
+import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig([
-  globalIgnores(['dist', 'frontend/dist', '.vercel', 'frontend/.vercel', 'backend/.vercel']),
+  globalIgnores(['dist', '.next', '.vercel', 'frontend', 'backend', 'node_modules']),
   {
-    files: ['frontend/**/*.{js,jsx}'],
+    files: [
+      'app/**/*.{js,jsx}',
+      'components/**/*.{js,jsx}',
+      'context/**/*.{js,jsx}',
+      'features/**/*.{js,jsx}',
+      'lib/**/*.{js,jsx}',
+      'data/**/*.{js,jsx}',
+      'middleware.js',
+    ],
     extends: [
       js.configs.recommended,
       reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
+      next.configs.recommended,
+      next.configs['core-web-vitals'],
     ],
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+      ecmaVersion: 'latest',
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
       parserOptions: {
-        ecmaVersion: 'latest',
         ecmaFeatures: { jsx: true },
         sourceType: 'module',
       },
@@ -26,21 +37,4 @@ export default defineConfig([
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]|^motion$' }],
     },
   },
-  {
-    files: ['frontend/src/context/*.jsx'],
-    rules: {
-      'react-refresh/only-export-components': 'off',
-    },
-  },
-  {
-    files: ['backend/**/*.js'],
-    extends: [js.configs.recommended],
-    languageOptions: {
-      ecmaVersion: 'latest',
-      globals: globals.node,
-      parserOptions: {
-        sourceType: 'module',
-      },
-    },
-  },
-])
+]);
