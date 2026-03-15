@@ -1,22 +1,16 @@
-"use client";
+'use client';
 
 import React from 'react';
 
 /**
  * FormField wrapper for common styling (label, error).
  */
-export const FormField = ({ label, error, children, className = "" }) => {
+export const FormField = ({ label, error, children, className = '' }) => {
   return (
     <div className={`space-y-1.5 ${className}`}>
-      {label && (
-        <label className="block text-sm font-bold text-[#4a5968]">
-          {label}
-        </label>
-      )}
+      {label && <label className="block text-sm font-bold text-[#4a5968]">{label}</label>}
       {children}
-      {error && (
-        <p className="text-xs text-red-500 font-medium">{error}</p>
-      )}
+      {error && <p className="text-xs text-red-500 font-medium">{error}</p>}
     </div>
   );
 };
@@ -36,7 +30,7 @@ export const TextInput = React.forwardRef(({ label, error, ...props }, ref) => {
   );
 });
 
-TextInput.displayName = "TextInput";
+TextInput.displayName = 'TextInput';
 
 /**
  * TextArea component compatible with react-hook-form.
@@ -54,7 +48,7 @@ export const TextArea = React.forwardRef(({ label, error, rows = 4, ...props }, 
   );
 });
 
-TextArea.displayName = "TextArea";
+TextArea.displayName = 'TextArea';
 
 /**
  * Switch / Checkbox component for boolean values.
@@ -68,16 +62,11 @@ export const Switch = React.forwardRef(({ label, error, description, ...props },
         {error && <p className="text-xs text-red-500 font-medium">{error}</p>}
       </div>
       <label className="relative inline-flex items-center cursor-pointer pt-1">
-        <input
-          type="checkbox"
-          ref={ref}
-          className="sr-only peer"
-          {...props}
-        />
+        <input type="checkbox" ref={ref} className="sr-only peer" {...props} />
         <div className="w-11 h-6 bg-[#e3e8ee] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#1f4f82]/10 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1f4f82]"></div>
       </label>
     </div>
   );
 });
 
-Switch.displayName = "Switch";
+Switch.displayName = 'Switch';

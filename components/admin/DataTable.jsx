@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
 import React from 'react';
 import { Edit2, Trash2, Search, Plus, ChevronLeft, ChevronRight } from 'lucide-react';
 
 /**
  * DataTable component for admin list views.
- * 
+ *
  * @param {Object} props
  * @param {Array} props.columns - Array of column definitions: { key, label, render }.
  * @param {Array} props.data - Array of data objects to display.
@@ -22,11 +22,11 @@ const DataTable = ({
   data = [],
   onEdit,
   onDelete,
-  searchPlaceholder = "Search...",
+  searchPlaceholder = 'Search...',
   onSearchChange,
   onAddClick,
-  addLabel = "Add New",
-  isLoading = false
+  addLabel = 'Add New',
+  isLoading = false,
 }) => {
   return (
     <div className="space-y-4">
@@ -41,12 +41,9 @@ const DataTable = ({
             className="admin-form-input pl-10 h-10"
           />
         </div>
-        
+
         {onAddClick && (
-          <button
-            onClick={onAddClick}
-            className="admin-primary-button"
-          >
+          <button onClick={onAddClick} className="admin-primary-button">
             <Plus className="w-4 h-4" />
             <span>{addLabel}</span>
           </button>
@@ -59,15 +56,9 @@ const DataTable = ({
             <thead>
               <tr>
                 {columns.map((col) => (
-                  <th key={col.key}>
-                    {col.label}
-                  </th>
+                  <th key={col.key}>{col.label}</th>
                 ))}
-                {(onEdit || onDelete) && (
-                  <th className="w-24 text-right">
-                    Actions
-                  </th>
-                )}
+                {(onEdit || onDelete) && <th className="w-24 text-right">Actions</th>}
               </tr>
             </thead>
             <tbody>
@@ -89,7 +80,9 @@ const DataTable = ({
                   <tr key={item.id || index}>
                     {columns.map((col) => (
                       <td key={col.key}>
-                        {col.render ? col.render(item[col.key], item) : (
+                        {col.render ? (
+                          col.render(item[col.key], item)
+                        ) : (
                           <span className="admin-table__primary">{item[col.key]}</span>
                         )}
                       </td>
@@ -122,8 +115,8 @@ const DataTable = ({
                 ))
               ) : (
                 <tr>
-                  <td 
-                    colSpan={columns.length + (onEdit || onDelete ? 1 : 0)} 
+                  <td
+                    colSpan={columns.length + (onEdit || onDelete ? 1 : 0)}
                     className="py-12 text-center text-gray-500 italic"
                   >
                     No data found.
@@ -137,7 +130,9 @@ const DataTable = ({
         {/* Footer / Pagination */}
         {data.length > 0 && (
           <div className="p-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
-            <p>Showing <strong>{data.length}</strong> entries</p>
+            <p>
+              Showing <strong>{data.length}</strong> entries
+            </p>
             <div className="flex gap-2">
               <button disabled className="admin-pagination__button h-8 px-2">
                 <ChevronLeft className="w-4 h-4" />

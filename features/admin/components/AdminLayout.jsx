@@ -24,6 +24,62 @@ export default function AdminLayout({ children }) {
       };
     }
 
+    if (pathname.startsWith('/admin/settings')) {
+      return {
+        sectionLabel: t.admin.settings,
+        title: t.admin.settingsPageTitle,
+        description: t.admin.settingsPageDescription,
+      };
+    }
+
+    if (pathname.startsWith('/admin/hero')) {
+      return {
+        sectionLabel: t.admin.hero,
+        title: t.admin.heroPageTitle,
+        description: t.admin.heroPageDescription,
+      };
+    }
+
+    if (pathname.startsWith('/admin/projects')) {
+      return {
+        sectionLabel: t.admin.projects,
+        title: t.admin.projectsPageTitle,
+        description: t.admin.projectsPageDescription,
+      };
+    }
+
+    if (pathname.startsWith('/admin/experiences')) {
+      return {
+        sectionLabel: t.admin.experiences,
+        title: t.admin.experiencesPageTitle,
+        description: t.admin.experiencesPageDescription,
+      };
+    }
+
+    if (pathname.startsWith('/admin/approaches')) {
+      return {
+        sectionLabel: 'Approaches',
+        title: 'Work Approaches',
+        description: 'Manage your work philosophy and methodologies.',
+      };
+    }
+
+    if (pathname.startsWith('/admin/skills')) {
+      return {
+        sectionLabel: t.admin.skills,
+        title: t.admin.skillsPageTitle,
+        description: t.admin.skillsPageDescription,
+      };
+    }
+
+    if (pathname.startsWith('/admin/stats')) {
+      return {
+        sectionLabel: t.admin.stats,
+        title: t.admin.statsPageTitle,
+        description: t.admin.statsPageDescription,
+      };
+    }
+
     if (pathname.startsWith('/admin/password')) {
       return {
         sectionLabel: t.admin.passwordSettings,
@@ -70,6 +126,24 @@ export default function AdminLayout({ children }) {
     t.admin.visits,
     t.admin.visitsPageDescription,
     t.admin.visitsPageTitle,
+    t.admin.settings,
+    t.admin.settingsPageTitle,
+    t.admin.settingsPageDescription,
+    t.admin.hero,
+    t.admin.heroPageTitle,
+    t.admin.heroPageDescription,
+    t.admin.projects,
+    t.admin.projectsPageTitle,
+    t.admin.projectsPageDescription,
+    t.admin.experiences,
+    t.admin.experiencesPageTitle,
+    t.admin.experiencesPageDescription,
+    t.admin.skills,
+    t.admin.skillsPageTitle,
+    t.admin.skillsPageDescription,
+    t.admin.stats,
+    t.admin.statsPageTitle,
+    t.admin.statsPageDescription,
   ]);
 
   const handleSignOut = async () => {

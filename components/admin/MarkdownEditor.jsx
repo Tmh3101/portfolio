@@ -1,19 +1,18 @@
-"use client";
+'use client';
 
 import React from 'react';
 import dynamic from 'next/dynamic';
-import "@uiw/react-md-editor/markdown-editor.css";
-import "@uiw/react-markdown-preview/markdown.css";
+import '@uiw/react-md-editor/markdown-editor.css';
+import '@uiw/react-markdown-preview/markdown.css';
 
 // Dynamically import the MD editor to prevent SSR issues
-const MDEditor = dynamic(
-  () => import("@uiw/react-md-editor").then((mod) => mod.default),
-  { ssr: false }
-);
+const MDEditor = dynamic(() => import('@uiw/react-md-editor').then((mod) => mod.default), {
+  ssr: false,
+});
 
 /**
  * MarkdownEditor component for admin forms.
- * 
+ *
  * @param {Object} props
  * @param {string} props.value - Current markdown text.
  * @param {function} props.onChange - Callback with the updated text.
@@ -23,13 +22,9 @@ const MDEditor = dynamic(
 const MarkdownEditor = ({ value, onChange, label, error }) => {
   return (
     <div className="space-y-1.5" data-color-mode="light">
-      {label && (
-        <label className="block text-sm font-bold text-[#4a5968]">
-          {label}
-        </label>
-      )}
-      
-      <div 
+      {label && <label className="block text-sm font-bold text-[#4a5968]">{label}</label>}
+
+      <div
         className={`rounded-xl overflow-hidden border transition-all duration-200
           ${error ? 'border-red-500 bg-red-50' : 'border-[#d8e0e8] focus-within:border-[#7aa5d8] focus-within:ring-4 focus-within:ring-[#7aa5d8]/10'}`}
       >
@@ -42,9 +37,7 @@ const MarkdownEditor = ({ value, onChange, label, error }) => {
         />
       </div>
 
-      {error && (
-        <p className="text-xs text-red-500 font-medium">{error}</p>
-      )}
+      {error && <p className="text-xs text-red-500 font-medium">{error}</p>}
 
       <style jsx global>{`
         .admin-md-editor {

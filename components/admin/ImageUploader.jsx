@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState, useRef } from 'react';
 import { Upload, X, Loader2 } from 'lucide-react';
@@ -7,7 +7,7 @@ import { getSupabaseBrowserClient } from '../../lib/supabase/client';
 /**
  * ImageUploader component for admin forms.
  * Handles uploading images directly to Supabase Storage.
- * 
+ *
  * @param {Object} props
  * @param {string} props.value - Current image URL (if any).
  * @param {function} props.onChange - Callback with the new image URL.
@@ -16,13 +16,13 @@ import { getSupabaseBrowserClient } from '../../lib/supabase/client';
  * @param {string} props.label - Label for the uploader.
  * @param {string} props.error - Error message if validation fails.
  */
-const ImageUploader = ({ 
-  value, 
-  onChange, 
-  bucket = 'portfolio-assets', 
-  folder = '', 
+const ImageUploader = ({
+  value,
+  onChange,
+  bucket = 'portfolio-assets',
+  folder = '',
   label = 'Upload Image',
-  error
+  error,
 }) => {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -55,21 +55,19 @@ const ImageUploader = ({
 
       setUploadProgress(30);
 
-      const { data, error: uploadError } = await supabase.storage
-        .from(bucket)
-        .upload(filePath, file, {
-          cacheControl: '3600',
-          upsert: false
-        });
+      const { error: uploadError } = await supabase.storage.from(bucket).upload(filePath, file, {
+        cacheControl: '3600',
+        upsert: false,
+      });
 
       if (uploadError) throw uploadError;
 
       setUploadProgress(70);
 
       // Get public URL
-      const { data: { publicUrl } } = supabase.storage
-        .from(bucket)
-        .getPublicUrl(filePath);
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from(bucket).getPublicUrl(filePath);
 
       setUploadProgress(100);
       onChange(publicUrl);
@@ -93,19 +91,15 @@ const ImageUploader = ({
   return (
     <div className="space-y-1.5">
       {label && <label className="block text-sm font-bold text-[#4a5968]">{label}</label>}
-      
-      <div 
+
+      <div
         className={`relative group border-2 border-dashed rounded-xl overflow-hidden transition-all duration-200 
           ${error ? 'border-red-500 bg-red-50' : 'border-[#d8e0e8] hover:border-[#7aa5d8] bg-[#f8fafc]'}
           ${value ? 'aspect-video' : 'h-32'}`}
       >
         {value ? (
           <>
-            <img 
-              src={value} 
-              alt="Uploaded" 
-              className="w-full h-full object-cover"
-            />
+            <img src={value} alt="Uploaded" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
               <button
                 type="button"
