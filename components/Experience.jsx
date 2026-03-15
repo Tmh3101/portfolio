@@ -131,9 +131,7 @@ const Experience = () => {
           >
             {t.experience.title1} <span className="text-gradient">{t.experience.title2}</span>
           </motion.h2>
-          <p className="mt-5 text-lg leading-8 text-muted-foreground">
-            {t.experience.description}
-          </p>
+          <p className="mt-5 text-lg leading-8 text-muted-foreground">{t.experience.description}</p>
         </div>
 
         <div className="grid gap-5">
@@ -238,7 +236,9 @@ const Experience = () => {
                           <p className="text-sm font-bold uppercase tracking-[0.22em] text-muted-foreground">
                             {exp.company}
                           </p>
-                          <h3 className="mt-2 text-2xl font-black tracking-[-0.05em]">{exp.role}</h3>
+                          <h3 className="mt-2 text-2xl font-black tracking-[-0.05em]">
+                            {exp.role}
+                          </h3>
                         </div>
 
                         <div className="inline-flex items-center gap-2 rounded-full border border-primary/18 bg-primary/8 px-3.5 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-primary">
@@ -253,7 +253,10 @@ const Experience = () => {
 
                       <div className="mt-4 grid gap-2">
                         {exp.highlights.map((item) => (
-                          <div key={item} className="flex items-start gap-3 text-sm leading-7 text-muted-foreground">
+                          <div
+                            key={item}
+                            className="flex items-start gap-3 text-sm leading-7 text-muted-foreground"
+                          >
                             <span className="mt-[0.7rem] h-1.5 w-1.5 rounded-full bg-primary" />
                             <span>{item}</span>
                           </div>

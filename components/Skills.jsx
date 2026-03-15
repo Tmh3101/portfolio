@@ -2,12 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import {
-  AppWindow,
-  Boxes,
-  Database,
-  ServerCog,
-} from 'lucide-react';
+import { AppWindow, Boxes, Database, ServerCog } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 const Skills = () => {
@@ -84,9 +79,7 @@ const Skills = () => {
           >
             {t.skills.title1} <span className="text-gradient">{t.skills.title2}</span>
           </motion.h2>
-          <p className="mt-5 text-lg leading-8 text-muted-foreground">
-            {t.skills.description}
-          </p>
+          <p className="mt-5 text-lg leading-8 text-muted-foreground">{t.skills.description}</p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -119,7 +112,9 @@ const Skills = () => {
                     </span>
                   </div>
 
-                  <h3 className="mt-8 text-[1.85rem] font-black tracking-[-0.05em]">{category.title}</h3>
+                  <h3 className="mt-8 text-[1.85rem] font-black tracking-[-0.05em]">
+                    {category.title}
+                  </h3>
                   <p className="mt-4 text-sm leading-7 text-muted-foreground">
                     {category.description}
                   </p>

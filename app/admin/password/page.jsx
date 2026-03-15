@@ -2,7 +2,6 @@ import AdminPasswordPage from '../../../features/admin/pages/AdminPasswordPage.j
 
 export const dynamic = 'force-dynamic';
 
-
 export const metadata = {
   title: 'Admin Password',
   robots: 'noindex, nofollow, noarchive',

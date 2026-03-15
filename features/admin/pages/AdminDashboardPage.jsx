@@ -28,7 +28,11 @@ export default function AdminDashboardPage() {
 
   return (
     <div className="admin-dashboard">
-      <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="admin-overview-card">
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="admin-overview-card"
+      >
         <div className="admin-overview-card__copy">
           <div className="admin-overview-card__eyebrow">
             <Database size={16} />
@@ -65,7 +69,9 @@ export default function AdminDashboardPage() {
             <p className="admin-stat-card__label">{t.admin.contacts}</p>
             <p className="admin-stat-card__value">{dashboard.contacts.total}</p>
             <p className="admin-stat-card__meta">
-              {latestContact ? formatAdminDateTime(latestContact.createdAt, lang) : t.admin.emptyContacts}
+              {latestContact
+                ? formatAdminDateTime(latestContact.createdAt, lang)
+                : t.admin.emptyContacts}
             </p>
           </div>
         </article>
@@ -90,7 +96,9 @@ export default function AdminDashboardPage() {
           <div>
             <p className="admin-stat-card__label">{t.admin.session}</p>
             <p className="admin-stat-card__value">{dashboard.profile?.role || 'admin'}</p>
-            <p className="admin-stat-card__meta">{dashboard.profile?.email || 'admin@example.com'}</p>
+            <p className="admin-stat-card__meta">
+              {dashboard.profile?.email || 'admin@example.com'}
+            </p>
           </div>
         </article>
       </div>

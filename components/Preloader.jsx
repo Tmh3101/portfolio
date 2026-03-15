@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import React, { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import { useLanguage } from "../context/LanguageContext";
-import { getLocalizedName, siteConfig } from "../data/siteConfig";
-const profileImg = "/assets/profile.jpg";
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
+import { getLocalizedName, siteConfig } from '../data/siteConfig';
+const profileImg = '/assets/profile.jpg';
 
 const fallbackPreloaderText = {
-  label: "Opening portfolio",
+  label: 'Opening portfolio',
   phases: {
-    boot: "align",
-    kernel: "lock",
-    assets: "sync",
-    ready: "open",
+    boot: 'align',
+    kernel: 'lock',
+    assets: 'sync',
+    ready: 'open',
   },
 };
 
@@ -38,11 +38,7 @@ const getTimelineValue = (progress) => {
     const next = PROGRESS_TIMELINE[index + 1];
 
     if (progress <= next.at) {
-      const localProgress = clamp(
-        (progress - current.at) / (next.at - current.at),
-        0,
-        1,
-      );
+      const localProgress = clamp((progress - current.at) / (next.at - current.at), 0, 1);
       const eased = easeOutCubic(localProgress);
 
       return current.value + (next.value - current.value) * eased;
@@ -82,7 +78,7 @@ const waitForCriticalAssets = async () => {
 };
 
 const getBrandMonogram = (brand) => {
-  const initials = brand.match(/[A-Z]/g)?.slice(0, 2).join("");
+  const initials = brand.match(/[A-Z]/g)?.slice(0, 2).join('');
 
   if (initials) {
     return initials;
@@ -101,24 +97,22 @@ const Preloader = ({ onComplete }) => {
   const preloaderText = t?.preloader || fallbackPreloaderText;
   const phaseEntries = [
     {
-      key: "boot",
+      key: 'boot',
       label: preloaderText.phases?.boot || fallbackPreloaderText.phases.boot,
       threshold: PHASE_THRESHOLDS[0],
     },
     {
-      key: "kernel",
-      label:
-        preloaderText.phases?.kernel || fallbackPreloaderText.phases.kernel,
+      key: 'kernel',
+      label: preloaderText.phases?.kernel || fallbackPreloaderText.phases.kernel,
       threshold: PHASE_THRESHOLDS[1],
     },
     {
-      key: "assets",
-      label:
-        preloaderText.phases?.assets || fallbackPreloaderText.phases.assets,
+      key: 'assets',
+      label: preloaderText.phases?.assets || fallbackPreloaderText.phases.assets,
       threshold: PHASE_THRESHOLDS[2],
     },
     {
-      key: "ready",
+      key: 'ready',
       label: preloaderText.phases?.ready || fallbackPreloaderText.phases.ready,
       threshold: PHASE_THRESHOLDS[3],
     },
@@ -140,8 +134,8 @@ const Preloader = ({ onComplete }) => {
     const previousHtmlOverflow = document.documentElement.style.overflow;
     const previousBodyOverflow = document.body.style.overflow;
 
-    document.documentElement.style.overflow = "hidden";
-    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
 
     return () => {
       document.documentElement.style.overflow = previousHtmlOverflow;
@@ -171,7 +165,7 @@ const Preloader = ({ onComplete }) => {
             onComplete?.();
           }
         },
-        reduceMotion ? 80 : 180,
+        reduceMotion ? 80 : 180
       );
     };
 
@@ -184,9 +178,7 @@ const Preloader = ({ onComplete }) => {
 
       const rawProgress = clamp((now - start) / LOADER_DURATION, 0, 1);
       const nextProgress =
-        rawProgress >= 1 && readyToFinishRef.current
-          ? 100
-          : getTimelineValue(rawProgress);
+        rawProgress >= 1 && readyToFinishRef.current ? 100 : getTimelineValue(rawProgress);
 
       setProgress(nextProgress);
 
@@ -206,10 +198,7 @@ const Preloader = ({ onComplete }) => {
       frameId = window.requestAnimationFrame(tick);
     }
 
-    Promise.all([
-      waitForCriticalAssets(),
-      wait(reduceMotion ? 120 : MIN_VISIBLE_TIME),
-    ]).then(() => {
+    Promise.all([waitForCriticalAssets(), wait(reduceMotion ? 120 : MIN_VISIBLE_TIME)]).then(() => {
       if (cancelled) {
         return;
       }
@@ -248,11 +237,9 @@ const Preloader = ({ onComplete }) => {
       <motion.div
         className="preloader-console__halo"
         animate={
-          reduceMotion
-            ? undefined
-            : { scale: [0.96, 1.04, 0.98], opacity: [0.54, 0.78, 0.58] }
+          reduceMotion ? undefined : { scale: [0.96, 1.04, 0.98], opacity: [0.54, 0.78, 0.58] }
         }
-        transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut' }}
         exit={{
           opacity: 0,
           scale: 1.08,
@@ -267,7 +254,7 @@ const Preloader = ({ onComplete }) => {
           opacity: 0,
           y: -14,
           scale: 0.96,
-          filter: "blur(12px)",
+          filter: 'blur(12px)',
           transition: { duration: 0.28, ease: CONTAINER_EASE },
         }}
         transition={{ duration: 0.64, ease: CONTAINER_EASE }}
@@ -281,9 +268,7 @@ const Preloader = ({ onComplete }) => {
           <div className="preloader-console__brand">
             <span className="preloader-console__monogram">{brandMonogram}</span>
             <div className="preloader-console__brand-copy">
-              <p className="preloader-console__eyebrow">
-                {preloaderText.label}
-              </p>
+              <p className="preloader-console__eyebrow">{preloaderText.label}</p>
               <h2 className="preloader-console__title">{siteConfig.brand}</h2>
             </div>
           </div>
@@ -291,15 +276,11 @@ const Preloader = ({ onComplete }) => {
           <div className="preloader-console__status-chip">
             <motion.span
               className="preloader-console__status-dot"
-              animate={
-                reduceMotion
-                  ? undefined
-                  : { scale: [1, 1.28, 1], opacity: [0.6, 1, 0.6] }
-              }
+              animate={reduceMotion ? undefined : { scale: [1, 1.28, 1], opacity: [0.6, 1, 0.6] }}
               transition={{
                 duration: 1.6,
                 repeat: Infinity,
-                ease: "easeInOut",
+                ease: 'easeInOut',
               }}
             />
             <span>{currentPhase.label}</span>
@@ -313,13 +294,10 @@ const Preloader = ({ onComplete }) => {
 
             <div className="preloader-console__progress-meta">
               <span>{currentPhase.label}</span>
-              <span>{String(progressValue).padStart(2, "0")}%</span>
+              <span>{String(progressValue).padStart(2, '0')}%</span>
             </div>
 
-            <div
-              className="preloader-console__progress-track"
-              aria-hidden="true"
-            >
+            <div className="preloader-console__progress-track" aria-hidden="true">
               <span
                 className="preloader-console__progress-fill"
                 style={{ width: `${progressValue}%` }}
@@ -331,43 +309,39 @@ const Preloader = ({ onComplete }) => {
             <motion.div
               className="preloader-console__orbit"
               animate={reduceMotion ? undefined : { rotate: 360 }}
-              transition={{ duration: 5.2, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 5.2, repeat: Infinity, ease: 'linear' }}
             >
               <span className="preloader-console__orbit-dot" />
             </motion.div>
 
             <motion.div
               className="preloader-console__ring"
-              style={{ "--preloader-progress": `${progressValue}%` }}
+              style={{ '--preloader-progress': `${progressValue}%` }}
               animate={reduceMotion ? undefined : { rotate: [0, 4, -4, 0] }}
               transition={{
                 duration: 6.2,
                 repeat: Infinity,
-                ease: "easeInOut",
+                ease: 'easeInOut',
               }}
             >
               <div className="preloader-console__ring-core">
                 <div className="preloader-console__ring-value-wrap">
                   <span className="preloader-console__ring-value">
-                    {String(progressValue).padStart(2, "0")}
+                    {String(progressValue).padStart(2, '0')}
                   </span>
                   <span className="preloader-console__ring-unit">%</span>
                 </div>
-                <span className="preloader-console__ring-phase">
-                  {currentPhase.label}
-                </span>
+                <span className="preloader-console__ring-phase">{currentPhase.label}</span>
               </div>
             </motion.div>
 
             <motion.span
               className="preloader-console__scan"
-              animate={
-                reduceMotion ? undefined : { y: ["-46%", "46%", "-46%"] }
-              }
+              animate={reduceMotion ? undefined : { y: ['-46%', '46%', '-46%'] }}
               transition={{
                 duration: 3.6,
                 repeat: Infinity,
-                ease: "easeInOut",
+                ease: 'easeInOut',
               }}
             />
           </div>
@@ -381,14 +355,12 @@ const Preloader = ({ onComplete }) => {
             return (
               <div
                 key={phase.key}
-                className={`preloader-console__phase${isComplete ? " preloader-console__phase--complete" : ""}${isCurrent ? " preloader-console__phase--current" : ""}`}
+                className={`preloader-console__phase${isComplete ? ' preloader-console__phase--complete' : ''}${isCurrent ? ' preloader-console__phase--current' : ''}`}
               >
                 <span className="preloader-console__phase-index">
-                  {String(index + 1).padStart(2, "0")}
+                  {String(index + 1).padStart(2, '0')}
                 </span>
-                <span className="preloader-console__phase-label">
-                  {phase.label}
-                </span>
+                <span className="preloader-console__phase-label">{phase.label}</span>
                 <span className="preloader-console__phase-bar" />
               </div>
             );

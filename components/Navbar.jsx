@@ -1,18 +1,18 @@
 'use client';
 
-import React, { useEffect, useState } from "react";
-import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
-import { ArrowUpRight, Menu, Moon, Sun, X } from "lucide-react";
-import { useLanguage } from "../context/LanguageContext";
-import { useToast } from "../context/ToastContext";
-import { siteConfig } from "../data/siteConfig";
+import React, { useEffect, useState } from 'react';
+import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
+import { ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { useToast } from '../context/ToastContext';
+import { siteConfig } from '../data/siteConfig';
 
 const Navbar = ({ theme, toggleTheme }) => {
   const { lang, t, toggleLang } = useLanguage();
   const { showToast } = useToast();
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [activeHref, setActiveHref] = useState("");
+  const [activeHref, setActiveHref] = useState('');
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -23,25 +23,19 @@ const Navbar = ({ theme, toggleTheme }) => {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 16);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
-    const sectionLinks = [
-      "#focus",
-      "#projects",
-      "#experience",
-      "#skills",
-      "#contact",
-    ];
+    const sectionLinks = ['#focus', '#projects', '#experience', '#skills', '#contact'];
     let frameId = 0;
 
     const updateActiveSection = () => {
       frameId = 0;
 
       const marker = Math.max(112, window.innerHeight * 0.24);
-      let nextActive = "";
+      let nextActive = '';
 
       for (const href of sectionLinks) {
         const section = document.getElementById(href.slice(1));
@@ -62,9 +56,7 @@ const Navbar = ({ theme, toggleTheme }) => {
         }
       }
 
-      setActiveHref((current) =>
-        current === nextActive ? current : nextActive,
-      );
+      setActiveHref((current) => (current === nextActive ? current : nextActive));
     };
 
     const requestActiveUpdate = () => {
@@ -76,40 +68,37 @@ const Navbar = ({ theme, toggleTheme }) => {
     };
 
     updateActiveSection();
-    window.addEventListener("scroll", requestActiveUpdate, { passive: true });
-    window.addEventListener("resize", requestActiveUpdate);
-    window.addEventListener("hashchange", requestActiveUpdate);
+    window.addEventListener('scroll', requestActiveUpdate, { passive: true });
+    window.addEventListener('resize', requestActiveUpdate);
+    window.addEventListener('hashchange', requestActiveUpdate);
 
     return () => {
       if (frameId) {
         window.cancelAnimationFrame(frameId);
       }
 
-      window.removeEventListener("scroll", requestActiveUpdate);
-      window.removeEventListener("resize", requestActiveUpdate);
-      window.removeEventListener("hashchange", requestActiveUpdate);
+      window.removeEventListener('scroll', requestActiveUpdate);
+      window.removeEventListener('resize', requestActiveUpdate);
+      window.removeEventListener('hashchange', requestActiveUpdate);
     };
   }, []);
 
   const navLinks = [
-    { name: t.nav.about, href: "#focus" },
-    { name: t.nav.projects, href: "#projects" },
-    { name: t.nav.experience, href: "#experience" },
-    { name: t.nav.skills, href: "#skills" },
-    { name: t.nav.contact, href: "#contact" },
+    { name: t.nav.about, href: '#focus' },
+    { name: t.nav.projects, href: '#projects' },
+    { name: t.nav.experience, href: '#experience' },
+    { name: t.nav.skills, href: '#skills' },
+    { name: t.nav.contact, href: '#contact' },
   ];
 
   const handleThemeToggle = () => {
     toggleTheme();
-    showToast(t.toasts.themeChanged, "info");
+    showToast(t.toasts.themeChanged, 'info');
   };
 
   const handleLangToggle = () => {
     toggleLang();
-    showToast(
-      lang === "vi" ? "English activated" : "Đã kích hoạt Tiếng Việt",
-      "info",
-    );
+    showToast(lang === 'vi' ? 'English activated' : 'Đã kích hoạt Tiếng Việt', 'info');
   };
 
   const handleNavClick = (href) => {
@@ -127,14 +116,14 @@ const Navbar = ({ theme, toggleTheme }) => {
       <div
         className={`mx-auto max-w-7xl rounded-[28px] border px-4 py-3 transition-all duration-300 md:px-5 ${
           scrolled
-            ? "border-border/90 bg-background/82 shadow-[0_28px_90px_-48px_rgba(3,11,16,0.5)] backdrop-blur-2xl dark:bg-[#08141d]/82"
-            : "border-white/12 bg-background/62 backdrop-blur-xl dark:border-white/8 dark:bg-[#07121a]/62"
+            ? 'border-border/90 bg-background/82 shadow-[0_28px_90px_-48px_rgba(3,11,16,0.5)] backdrop-blur-2xl dark:bg-[#08141d]/82'
+            : 'border-white/12 bg-background/62 backdrop-blur-xl dark:border-white/8 dark:bg-[#07121a]/62'
         }`}
       >
         <div className="flex items-center gap-4">
           <a
             href="#hero"
-            onClick={() => setActiveHref("")}
+            onClick={() => setActiveHref('')}
             className="flex min-w-0 items-center gap-3"
           >
             <div className="flex h-11 w-11 items-center justify-center rounded-[18px] border border-primary/30 bg-primary/14 text-sm font-black tracking-[0.2em] text-primary">
@@ -144,9 +133,7 @@ const Navbar = ({ theme, toggleTheme }) => {
               <p className="truncate text-sm font-black uppercase tracking-[0.25em] text-foreground">
                 {siteConfig.brand}
               </p>
-              <p className="truncate text-xs text-muted-foreground/90">
-                {siteConfig.role}
-              </p>
+              <p className="truncate text-xs text-muted-foreground/90">{siteConfig.role}</p>
             </div>
           </a>
 
@@ -160,14 +147,11 @@ const Navbar = ({ theme, toggleTheme }) => {
                     key={link.name}
                     href={link.href}
                     onClick={() => handleNavClick(link.href)}
-                    aria-current={isActive ? "page" : undefined}
-                    className={`nav-link ${isActive ? "nav-link--active" : ""}`}
+                    aria-current={isActive ? 'page' : undefined}
+                    className={`nav-link ${isActive ? 'nav-link--active' : ''}`}
                   >
                     {isActive ? (
-                      <motion.span
-                        layoutId="navbar-active-pill"
-                        className="nav-link__pill"
-                      />
+                      <motion.span layoutId="navbar-active-pill" className="nav-link__pill" />
                     ) : null}
                     <span className="nav-link__label">{link.name}</span>
                   </a>
@@ -193,7 +177,7 @@ const Navbar = ({ theme, toggleTheme }) => {
               aria-label="Toggle theme"
               className="flex h-11 w-11 items-center justify-center rounded-full border border-border/90 bg-background/84 text-foreground/88 transition-colors hover:bg-background dark:bg-card/88 dark:hover:bg-card"
             >
-              {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
+              {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
             </button>
 
             <button
@@ -202,7 +186,7 @@ const Navbar = ({ theme, toggleTheme }) => {
               aria-label="Toggle language"
               className="rounded-full border border-border/90 bg-background/84 px-4 py-3 text-xs font-black uppercase tracking-[0.24em] text-foreground/88 transition-colors hover:bg-background dark:bg-card/88 dark:hover:bg-card"
             >
-              {lang === "vi" ? "EN" : "VI"}
+              {lang === 'vi' ? 'EN' : 'VI'}
             </button>
           </div>
 
@@ -235,8 +219,8 @@ const Navbar = ({ theme, toggleTheme }) => {
                     key={link.name}
                     href={link.href}
                     onClick={() => handleNavClick(link.href)}
-                    aria-current={activeHref === link.href ? "page" : undefined}
-                    className={`mobile-nav-link ${activeHref === link.href ? "mobile-nav-link--active" : ""}`}
+                    aria-current={activeHref === link.href ? 'page' : undefined}
+                    className={`mobile-nav-link ${activeHref === link.href ? 'mobile-nav-link--active' : ''}`}
                   >
                     {link.name}
                   </a>
@@ -259,15 +243,15 @@ const Navbar = ({ theme, toggleTheme }) => {
                   onClick={handleThemeToggle}
                   className="button-secondary w-full text-xs"
                 >
-                  {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
-                  {theme === "light" ? "Dark" : "Light"}
+                  {theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}
+                  {theme === 'light' ? 'Dark' : 'Light'}
                 </button>
                 <button
                   type="button"
                   onClick={handleLangToggle}
                   className="button-secondary w-full text-xs"
                 >
-                  {lang === "vi" ? "English" : "Tiếng Việt"}
+                  {lang === 'vi' ? 'English' : 'Tiếng Việt'}
                 </button>
               </div>
             </div>

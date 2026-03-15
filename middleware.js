@@ -41,7 +41,7 @@ export async function middleware(request) {
     if (isAdminApi) {
       return NextResponse.json(
         { message: error?.message || 'Unauthorized.' },
-        { status: error?.statusCode || 401 },
+        { status: error?.statusCode || 401 }
       );
     }
 

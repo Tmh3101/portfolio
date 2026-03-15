@@ -15,7 +15,7 @@
   --admin-electric: #79b5ff;
   --admin-electric-soft: rgba(121, 181, 255, 0.36);
   --admin-electric-strong: #f6fdff;
-  font-family: "Manrope", sans-serif;
+  font-family: 'Manrope', sans-serif;
 }
 
 .cosmic-login {
@@ -54,7 +54,12 @@
     radial-gradient(circle at 34% 78%, rgba(255, 255, 255, 0.65) 1px, transparent 1px),
     radial-gradient(circle at 62% 56%, rgba(255, 255, 255, 0.5) 0.8px, transparent 0.8px),
     radial-gradient(circle at 92% 72%, rgba(255, 255, 255, 0.45) 0.9px, transparent 0.9px);
-  background-size: 280px 280px, 340px 340px, 360px 360px, 300px 300px, 420px 420px;
+  background-size:
+    280px 280px,
+    340px 340px,
+    360px 360px,
+    300px 300px,
+    420px 420px;
   animation: cosmic-stars-drift 26s linear infinite;
 }
 
@@ -88,7 +93,13 @@
   box-shadow:
     0 0 0 28px rgba(151, 189, 255, 0.04),
     0 0 0 62px rgba(151, 189, 255, 0.018);
-  mask-image: radial-gradient(circle at center, transparent 34%, black 36%, black 68%, transparent 70%);
+  mask-image: radial-gradient(
+    circle at center,
+    transparent 34%,
+    black 36%,
+    black 68%,
+    transparent 70%
+  );
   animation: cosmic-orbit-spin 20s linear infinite;
 }
 
@@ -99,7 +110,12 @@
   border-radius: 9999px;
   transform: translate(-50%, -50%);
   background:
-    radial-gradient(circle, rgba(122, 178, 255, 0.22) 0%, rgba(122, 178, 255, 0.06) 38%, transparent 72%),
+    radial-gradient(
+      circle,
+      rgba(122, 178, 255, 0.22) 0%,
+      rgba(122, 178, 255, 0.06) 38%,
+      transparent 72%
+    ),
     radial-gradient(circle, rgba(255, 255, 255, 0.14) 0%, transparent 60%);
   filter: blur(28px);
   animation: cosmic-core-pulse 7.5s ease-in-out infinite;
@@ -139,7 +155,7 @@
   border-radius: 1rem;
   background: linear-gradient(135deg, rgba(85, 152, 230, 0.82), rgba(70, 102, 185, 0.92));
   color: #f7fbff;
-  font-family: "IBM Plex Mono", monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.28em;
@@ -155,7 +171,7 @@
 .cosmic-login__ghost,
 .cosmic-login__panel-badge,
 .cosmic-login__field > span {
-  font-family: "IBM Plex Mono", monospace;
+  font-family: 'IBM Plex Mono', monospace;
 }
 
 .cosmic-login__brand-label {
@@ -194,7 +210,10 @@
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  transition: border-color 180ms ease, color 180ms ease, transform 180ms ease;
+  transition:
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
 }
 
 .cosmic-login__ghost:hover {
@@ -216,8 +235,7 @@
   border: 1px solid rgba(132, 175, 255, 0.09);
   border-radius: 1.8rem;
   background:
-    linear-gradient(180deg, rgba(13, 22, 39, 0.9), rgba(7, 12, 23, 0.92)),
-    rgba(5, 9, 18, 0.88);
+    linear-gradient(180deg, rgba(13, 22, 39, 0.9), rgba(7, 12, 23, 0.92)), rgba(5, 9, 18, 0.88);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.04),
     0 40px 120px -72px rgba(0, 0, 0, 0.9),
@@ -226,7 +244,7 @@
 }
 
 .cosmic-login__panel::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   border-radius: inherit;
@@ -266,9 +284,7 @@
   stroke: rgba(121, 181, 255, 0.46);
   stroke-width: 5.4px;
   stroke-dasharray: 18 82;
-  filter:
-    blur(2.4px)
-    drop-shadow(0 0 12px rgba(121, 181, 255, 0.38))
+  filter: blur(2.4px) drop-shadow(0 0 12px rgba(121, 181, 255, 0.38))
     drop-shadow(0 0 22px rgba(121, 181, 255, 0.22));
   opacity: 0.54;
   animation:
@@ -280,8 +296,7 @@
   stroke: rgba(218, 241, 255, 0.94);
   stroke-width: 2.2px;
   stroke-dasharray: 10 90;
-  filter:
-    drop-shadow(0 0 5px rgba(246, 253, 255, 0.7))
+  filter: drop-shadow(0 0 5px rgba(246, 253, 255, 0.7))
     drop-shadow(0 0 12px rgba(121, 181, 255, 0.28));
   opacity: 0.9;
   animation:
@@ -307,7 +322,7 @@
 
 .cosmic-login__corner-spark::before,
 .cosmic-login__corner-spark::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -315,12 +330,16 @@
 
 .cosmic-login__corner-spark::before {
   background:
-    linear-gradient(135deg, transparent 0 36%, rgba(255, 255, 255, 0.98) 44%, rgba(121, 181, 255, 0.7) 48%, transparent 56%),
+    linear-gradient(
+      135deg,
+      transparent 0 36%,
+      rgba(255, 255, 255, 0.98) 44%,
+      rgba(121, 181, 255, 0.7) 48%,
+      transparent 56%
+    ),
     linear-gradient(160deg, transparent 0 45%, rgba(201, 232, 255, 0.88) 49%, transparent 53%),
     linear-gradient(104deg, transparent 0 42%, rgba(121, 181, 255, 0.78) 46%, transparent 50%);
-  filter:
-    url(#cosmic-electric-border)
-    drop-shadow(0 0 6px rgba(246, 253, 255, 0.84))
+  filter: url(#cosmic-electric-border) drop-shadow(0 0 6px rgba(246, 253, 255, 0.84))
     drop-shadow(0 0 14px rgba(121, 181, 255, 0.42));
   opacity: 0;
   animation: cosmic-corner-crackle 5.2s linear infinite;
@@ -330,10 +349,13 @@
 .cosmic-login__corner-spark::after {
   inset: 0.2rem;
   border-radius: inherit;
-  background: radial-gradient(circle, rgba(246, 253, 255, 0.9) 0%, rgba(121, 181, 255, 0.54) 26%, transparent 72%);
-  filter:
-    blur(6px)
-    drop-shadow(0 0 16px rgba(121, 181, 255, 0.38));
+  background: radial-gradient(
+    circle,
+    rgba(246, 253, 255, 0.9) 0%,
+    rgba(121, 181, 255, 0.54) 26%,
+    transparent 72%
+  );
+  filter: blur(6px) drop-shadow(0 0 16px rgba(121, 181, 255, 0.38));
   opacity: 0;
   animation: cosmic-corner-glow 5.2s ease-in-out infinite;
   animation-delay: var(--spark-delay);
@@ -394,7 +416,7 @@
 }
 
 .cosmic-login__title {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(2.2rem, 5vw, 3.3rem);
   font-weight: 700;
   line-height: 0.96;
@@ -433,7 +455,10 @@
   border-radius: 1.2rem;
   background: rgba(255, 255, 255, 0.04);
   color: rgba(182, 198, 225, 0.58);
-  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
 }
 
 .cosmic-login__input:focus-within {
@@ -463,13 +488,15 @@
   border-radius: 1.15rem;
   background: linear-gradient(135deg, var(--admin-accent), var(--admin-accent-strong));
   color: #f3fbff;
-  font-family: "IBM Plex Mono", monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 0.73rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   box-shadow: 0 18px 34px -24px rgba(29, 81, 105, 0.42);
-  transition: transform 180ms ease, filter 180ms ease;
+  transition:
+    transform 180ms ease,
+    filter 180ms ease;
 }
 
 .cosmic-login__submit:hover,
@@ -751,7 +778,9 @@
   color: #31404d;
   font-size: 0.96rem;
   font-weight: 600;
-  transition: background-color 160ms ease, color 160ms ease;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
 }
 
 .admin-nav-item svg {
@@ -872,7 +901,7 @@
 }
 
 .admin-main__title {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
   line-height: 0.98;
@@ -937,7 +966,10 @@
   border-radius: 0.85rem;
   font-size: 0.92rem;
   font-weight: 700;
-  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
 }
 
 .admin-toolbar-button,
@@ -1007,7 +1039,7 @@
 }
 
 .admin-overview-card__copy h2 {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 700;
   line-height: 1.05;
@@ -1084,7 +1116,7 @@
 
 .admin-stat-card__value {
   margin-top: 0.2rem;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 2.05rem;
   font-weight: 700;
   line-height: 1;
@@ -1113,7 +1145,7 @@
 
 .admin-card__title {
   margin-top: 0.18rem;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 1.3rem;
   font-weight: 700;
   line-height: 1.05;
@@ -1175,7 +1207,9 @@
   border-radius: 0.85rem;
   background: #ffffff;
   color: #13202a;
-  transition: border-color 160ms ease, box-shadow 160ms ease;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
 }
 
 .admin-form-input:focus {
@@ -1283,7 +1317,7 @@
 
 .admin-table__primary--mono,
 .admin-table__secondary--mono {
-  font-family: "IBM Plex Mono", monospace;
+  font-family: 'IBM Plex Mono', monospace;
 }
 
 .admin-table__secondary {

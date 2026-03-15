@@ -71,9 +71,13 @@ export default function AdminContactsPage() {
           </span>
           <div>
             <p className="admin-stat-card__label">{t.admin.latestContacts}</p>
-            <p className="admin-stat-card__value">{latestContact ? latestContact.name || latestContact.email : '-'}</p>
+            <p className="admin-stat-card__value">
+              {latestContact ? latestContact.name || latestContact.email : '-'}
+            </p>
             <p className="admin-stat-card__meta">
-              {latestContact ? formatAdminDateTime(latestContact.createdAt, lang) : t.admin.emptyContacts}
+              {latestContact
+                ? formatAdminDateTime(latestContact.createdAt, lang)
+                : t.admin.emptyContacts}
             </p>
           </div>
         </article>
@@ -135,13 +139,20 @@ export default function AdminContactsPage() {
                           <p className="admin-table__secondary">{item.country || '--'}</p>
                         </td>
                         <td>
-                          <p className="admin-table__copy admin-table__copy--message" title={item.message || t.admin.noMessage}>
+                          <p
+                            className="admin-table__copy admin-table__copy--message"
+                            title={item.message || t.admin.noMessage}
+                          >
                             {item.message || t.admin.noMessage}
                           </p>
                         </td>
                         <td>
-                          <span className="admin-table__primary admin-table__primary--mono">{submittedAt.date}</span>
-                          <p className="admin-table__secondary admin-table__secondary--mono">{submittedAt.time}</p>
+                          <span className="admin-table__primary admin-table__primary--mono">
+                            {submittedAt.date}
+                          </span>
+                          <p className="admin-table__secondary admin-table__secondary--mono">
+                            {submittedAt.time}
+                          </p>
                         </td>
                       </tr>
                     );

@@ -15,7 +15,10 @@ export async function POST(request) {
     });
 
     const response = json({ user: result.user });
-    setAuthCookies(response, { accessToken: result.accessToken, refreshToken: result.refreshToken });
+    setAuthCookies(response, {
+      accessToken: result.accessToken,
+      refreshToken: result.refreshToken,
+    });
     return response;
   } catch (error) {
     return errorResponse(error);

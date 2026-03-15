@@ -16,7 +16,7 @@ export async function GET() {
           mailer: isMailerConfigured ? 'configured' : 'missing',
         },
       },
-      { status: databaseOk ? 200 : 503 },
+      { status: databaseOk ? 200 : 503 }
     );
   } catch (error) {
     return errorResponse(error);

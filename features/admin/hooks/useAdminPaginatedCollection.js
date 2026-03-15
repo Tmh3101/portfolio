@@ -59,7 +59,7 @@ export function useAdminPaginatedCollection({
         showToast(message, 'error');
       }
     },
-    [authorizedFetch, messages.fallbackError, messages.loadError, page, pageSize, path, showToast],
+    [authorizedFetch, messages.fallbackError, messages.loadError, page, pageSize, path, showToast]
   );
 
   useEffect(() => {
@@ -68,7 +68,7 @@ export function useAdminPaginatedCollection({
 
   const totalPages = useMemo(
     () => Math.max(1, Math.ceil((state.total || 0) / pageSize) || 1),
-    [pageSize, state.total],
+    [pageSize, state.total]
   );
 
   const goToPreviousPage = useCallback(() => {

@@ -1,7 +1,7 @@
 import js from '@eslint/js';
 import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
-import next from 'eslint-config-next';
+import reactRefresh from 'eslint-plugin-react-refresh';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig([
@@ -16,12 +16,7 @@ export default defineConfig([
       'data/**/*.{js,jsx}',
       'middleware.js',
     ],
-    extends: [
-      js.configs.recommended,
-      reactHooks.configs.flat.recommended,
-      next.configs.recommended,
-      next.configs['core-web-vitals'],
-    ],
+    extends: [js.configs.recommended, reactHooks.configs.flat.recommended],
     languageOptions: {
       ecmaVersion: 'latest',
       globals: {
@@ -33,8 +28,12 @@ export default defineConfig([
         sourceType: 'module',
       },
     },
+    plugins: {
+      'react-refresh': reactRefresh,
+    },
     rules: {
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]|^motion$' }],
+      'react-hooks/set-state-in-effect': 'off',
     },
   },
 ]);

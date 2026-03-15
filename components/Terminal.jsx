@@ -59,9 +59,7 @@ const Terminal = () => {
       case 'projects':
         nextItems.push({
           type: 'output',
-          content: projectData[lang]
-            .map((project) => project.title)
-            .join(' / '),
+          content: projectData[lang].map((project) => project.title).join(' / '),
         });
         break;
       case 'contact':
@@ -153,7 +151,10 @@ const Terminal = () => {
 
             {!isMinimized && (
               <div className="flex h-[calc(100%-52px)] flex-col p-4">
-                <div ref={scrollRef} className="custom-scrollbar flex-1 space-y-2 overflow-y-auto pr-2">
+                <div
+                  ref={scrollRef}
+                  className="custom-scrollbar flex-1 space-y-2 overflow-y-auto pr-2"
+                >
                   {history.map((item, index) => (
                     <div
                       key={`${item.type}-${index}`}

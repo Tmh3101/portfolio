@@ -2,7 +2,6 @@ import AdminContactsPage from '../../../features/admin/pages/AdminContactsPage.j
 
 export const dynamic = 'force-dynamic';
 
-
 export const metadata = {
   title: 'Admin Contacts',
   robots: 'noindex, nofollow, noarchive',

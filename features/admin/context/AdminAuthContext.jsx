@@ -1,6 +1,4 @@
 'use client';
-
-/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { apiUrl } from '../../../lib/api.js';
 
@@ -35,26 +33,29 @@ export const AdminAuthProvider = ({ children }) => {
     setSession({ user: null, isReady: true });
   }, []);
 
-  const signIn = useCallback(async ({ email, password }) => {
-    const response = await fetch(apiUrl('/api/auth/login'), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify({ email, password }),
-    });
+  const signIn = useCallback(
+    async ({ email, password }) => {
+      const response = await fetch(apiUrl('/api/auth/login'), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ email, password }),
+      });
 
-    const data = await readJson(response);
+      const data = await readJson(response);
 
-    if (!response.ok) {
-      throw new Error(data.message || 'Unable to sign in.');
-    }
+      if (!response.ok) {
+        throw new Error(data.message || 'Unable to sign in.');
+      }
 
-    setUser(data.user);
+      setUser(data.user);
 
-    return data.user;
-  }, [setUser]);
+      return data.user;
+    },
+    [setUser]
+  );
 
   const refreshSession = useCallback(async () => {
     const response = await fetch(apiUrl('/api/auth/refresh'), {
@@ -103,7 +104,7 @@ export const AdminAuthProvider = ({ children }) => {
 
       return response;
     },
-    [clearSession, refreshSession],
+    [clearSession, refreshSession]
   );
 
   const fetchCurrentUser = useCallback(async () => {
@@ -139,7 +140,7 @@ export const AdminAuthProvider = ({ children }) => {
 
       return data.user;
     },
-    [authorizedFetch, setUser],
+    [authorizedFetch, setUser]
   );
 
   const changePassword = useCallback(
@@ -164,7 +165,7 @@ export const AdminAuthProvider = ({ children }) => {
 
       return data;
     },
-    [authorizedFetch, clearSession],
+    [authorizedFetch, clearSession]
   );
 
   const signOut = useCallback(async () => {
@@ -226,7 +227,7 @@ export const AdminAuthProvider = ({ children }) => {
       changePassword,
       authorizedFetch,
       clearSession,
-    ],
+    ]
   );
 
   return <AdminAuthContext.Provider value={value}>{children}</AdminAuthContext.Provider>;

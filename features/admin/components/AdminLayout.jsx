@@ -79,7 +79,11 @@ export default function AdminLayout({ children }) {
   };
 
   const actions = (
-    <button type="button" onClick={handleSignOut} className="admin-toolbar-button admin-toolbar-button--danger">
+    <button
+      type="button"
+      onClick={handleSignOut}
+      className="admin-toolbar-button admin-toolbar-button--danger"
+    >
       <LogOut size={15} />
       <span>{t.admin.signOut}</span>
     </button>

@@ -31,9 +31,7 @@ const Approach = () => {
 
               <div className="content-plane mt-10 rounded-[24px] p-6 md:p-7">
                 <p className="section-kicker">{t.approach.noteLabel}</p>
-                <p className="mt-4 text-base leading-8 text-muted-foreground">
-                  {t.approach.note}
-                </p>
+                <p className="mt-4 text-base leading-8 text-muted-foreground">{t.approach.note}</p>
               </div>
             </div>
           </div>

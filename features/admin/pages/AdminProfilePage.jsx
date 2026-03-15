@@ -30,7 +30,7 @@ export default function AdminProfilePage() {
     const nextProfile = normalizeProfile(user);
     setForm(nextProfile);
     setInitialForm(nextProfile);
-  }, [user?.email, user?.fullName]);
+  }, [user]);
 
   useEffect(() => {
     let active = true;
@@ -135,7 +135,12 @@ export default function AdminProfilePage() {
               <h2 className="admin-card__title">{t.admin.profileFormTitle}</h2>
             </div>
 
-            <button type="button" onClick={handleReload} className="admin-card__ghost-button" disabled={loading || submitting}>
+            <button
+              type="button"
+              onClick={handleReload}
+              className="admin-card__ghost-button"
+              disabled={loading || submitting}
+            >
               <RefreshCcw size={16} />
               <span>{t.admin.refresh}</span>
             </button>
@@ -177,12 +182,21 @@ export default function AdminProfilePage() {
               {error ? <p className="admin-card__empty admin-card__empty--error">{error}</p> : null}
 
               <div className="admin-form-actions">
-                <button type="submit" className="admin-primary-button" disabled={!isDirty || submitting}>
+                <button
+                  type="submit"
+                  className="admin-primary-button"
+                  disabled={!isDirty || submitting}
+                >
                   <Save size={16} />
                   <span>{submitting ? t.admin.saving : t.admin.saveChanges}</span>
                 </button>
 
-                <button type="button" onClick={handleReset} className="admin-card__ghost-button" disabled={!isDirty || submitting}>
+                <button
+                  type="button"
+                  onClick={handleReset}
+                  className="admin-card__ghost-button"
+                  disabled={!isDirty || submitting}
+                >
                   {t.admin.resetForm}
                 </button>
               </div>

@@ -17,7 +17,7 @@ export async function POST(request) {
     if (!rate.ok) {
       return json(
         { message: 'Too many contact requests. Please try again later.' },
-        { status: 429 },
+        { status: 429 }
       );
     }
 

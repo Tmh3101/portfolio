@@ -1,6 +1,6 @@
 'use client';
 
-import React from "react";
+import React from 'react';
 import {
   Activity,
   FileText,
@@ -10,48 +10,42 @@ import {
   Lock,
   Mail,
   User,
-} from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useLanguage } from "../../../context/LanguageContext.jsx";
-import { useAdminAuth } from "../context/AdminAuthContext.jsx";
-import { apiUrl } from "../../../lib/api.js";
+} from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useLanguage } from '../../../context/LanguageContext.jsx';
+import { useAdminAuth } from '../context/AdminAuthContext.jsx';
+import { apiUrl } from '../../../lib/api.js';
 
-export default function AdminShell({
-  children,
-  sectionLabel,
-  title,
-  description,
-  actions,
-}) {
+export default function AdminShell({ children, sectionLabel, title, description, actions }) {
   const { lang, toggleLang, t } = useLanguage();
   const { user } = useAdminAuth();
   const pathname = usePathname();
 
   const navigationItems = [
     {
-      to: "/admin",
+      to: '/admin',
       end: true,
       icon: LayoutDashboard,
       label: t.admin.overview,
     },
     {
-      to: "/admin/profile",
+      to: '/admin/profile',
       icon: User,
       label: t.admin.profile,
     },
     {
-      to: "/admin/password",
+      to: '/admin/password',
       icon: Lock,
       label: t.admin.passwordSettings,
     },
     {
-      to: "/admin/contacts",
+      to: '/admin/contacts',
       icon: Mail,
       label: t.admin.contacts,
     },
     {
-      to: "/admin/visits",
+      to: '/admin/visits',
       icon: Activity,
       label: t.admin.visits,
     },
@@ -59,13 +53,13 @@ export default function AdminShell({
 
   const toolItems = [
     {
-      href: apiUrl("/api/docs"),
+      href: apiUrl('/api/docs'),
       label: t.admin.documentation,
       icon: FileText,
       external: true,
     },
     {
-      to: "/",
+      to: '/',
       label: t.admin.openSite,
       icon: Globe2,
     },
@@ -73,7 +67,7 @@ export default function AdminShell({
 
   const activeItem =
     navigationItems.find((item) =>
-      item.end ? pathname === item.to : pathname.startsWith(item.to),
+      item.end ? pathname === item.to : pathname.startsWith(item.to)
     ) || navigationItems[0];
 
   return (
@@ -83,9 +77,7 @@ export default function AdminShell({
           <span className="admin-sidebar__mark">MH</span>
           <div className="admin-sidebar__brand-copy">
             <span className="admin-sidebar__brand-label">MINHHIEU OPS</span>
-            <span className="admin-sidebar__brand-value">
-              {t.admin.workspace}
-            </span>
+            <span className="admin-sidebar__brand-value">{t.admin.workspace}</span>
           </div>
         </Link>
 
@@ -100,7 +92,13 @@ export default function AdminShell({
                   key={item.to}
                   href={item.to}
                   className={`admin-nav-item${
-                    item.end ? (pathname === item.to ? " is-active" : "") : pathname.startsWith(item.to) ? " is-active" : ""
+                    item.end
+                      ? pathname === item.to
+                        ? ' is-active'
+                        : ''
+                      : pathname.startsWith(item.to)
+                        ? ' is-active'
+                        : ''
                   }`}
                 >
                   <Icon size={18} />
@@ -148,13 +146,9 @@ export default function AdminShell({
 
         <div className="admin-sidebar__profile">
           <p className="admin-sidebar__profile-label">{t.admin.signedInAs}</p>
-          <p className="admin-sidebar__profile-name">
-            {user?.fullName || "Admin user"}
-          </p>
-          <p className="admin-sidebar__profile-email">
-            {user?.email || "admin@example.com"}
-          </p>
-          <span className="admin-sidebar__role">{user?.role || "admin"}</span>
+          <p className="admin-sidebar__profile-name">{user?.fullName || 'Admin user'}</p>
+          <p className="admin-sidebar__profile-email">{user?.email || 'admin@example.com'}</p>
+          <span className="admin-sidebar__role">{user?.role || 'admin'}</span>
         </div>
       </aside>
 
@@ -162,9 +156,7 @@ export default function AdminShell({
         <header className="admin-main__header">
           <div className="admin-main__headline">
             <div className="admin-main__eyebrow-row">
-              <span className="admin-main__badge">
-                {sectionLabel || activeItem.label}
-              </span>
+              <span className="admin-main__badge">{sectionLabel || activeItem.label}</span>
               <span className="admin-main__eyebrow">{t.admin.protected}</span>
             </div>
             <h1 className="admin-main__title">{title}</h1>
@@ -173,23 +165,15 @@ export default function AdminShell({
 
           <div className="admin-main__header-side">
             <div className="admin-main__session">
-              <span className="admin-main__session-label">
-                {t.admin.sessionOwner}
-              </span>
+              <span className="admin-main__session-label">{t.admin.sessionOwner}</span>
               <strong className="admin-main__session-value">
-                {user?.email || "admin@example.com"}
+                {user?.email || 'admin@example.com'}
               </strong>
-              <span className="admin-main__session-meta">
-                {user?.role || "admin"}
-              </span>
+              <span className="admin-main__session-meta">{user?.role || 'admin'}</span>
             </div>
 
             <div className="admin-main__actions">
-              <button
-                type="button"
-                onClick={toggleLang}
-                className="admin-toolbar-button"
-              >
+              <button type="button" onClick={toggleLang} className="admin-toolbar-button">
                 <Languages size={15} />
                 <span>{lang.toUpperCase()}</span>
               </button>

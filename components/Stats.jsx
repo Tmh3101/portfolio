@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import React, { useEffect, useRef, useState } from "react";
-import { animate, motion, useInView, useReducedMotion } from "framer-motion";
-import { BriefcaseBusiness, Layers3, Rocket, Wrench } from "lucide-react";
-import { useLanguage } from "../context/LanguageContext";
+import React, { useEffect, useRef, useState } from 'react';
+import { animate, motion, useInView, useReducedMotion } from 'framer-motion';
+import { BriefcaseBusiness, Layers3, Rocket, Wrench } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
-const CountUpValue = ({ value, suffix = "" }) => {
+const CountUpValue = ({ value, suffix = '' }) => {
   const valueRef = useRef(null);
-  const isInView = useInView(valueRef, { once: true, margin: "-80px" });
+  const isInView = useInView(valueRef, { once: true, margin: '-80px' });
   const prefersReducedMotion = useReducedMotion();
   const [displayValue, setDisplayValue] = useState(0);
 
@@ -48,7 +48,7 @@ const StatItem = ({ icon, count, suffix, title, copy, index }) => {
       initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       whileHover={{ y: -4 }}
-      viewport={{ once: true, margin: "-40px" }}
+      viewport={{ once: true, margin: '-40px' }}
       transition={{ delay: index * 0.05 }}
       className="stats-card content-plane h-full rounded-[24px] p-5 text-left md:p-6"
     >
@@ -86,65 +86,65 @@ const Stats = () => {
   const yearsExperience = Math.max(1, Math.floor(diffMonths / 12));
 
   const statsData =
-    lang === "vi"
+    lang === 'vi'
       ? [
           {
             icon: Rocket,
             count: yearsExperience,
-            suffix: "+",
-            title: "Năm kinh nghiệm",
-            copy: "Từ giai đoạn intern đến backend product work trong môi trường thực tế.",
+            suffix: '+',
+            title: 'Năm kinh nghiệm',
+            copy: 'Từ giai đoạn intern đến backend product work trong môi trường thực tế.',
           },
           {
             icon: BriefcaseBusiness,
             count: 1,
-            suffix: "+",
-            title: "Freelance work",
-            copy: "Các project nhận ngoài công việc chính, tập trung vào backend và workflow thực tế.",
+            suffix: '+',
+            title: 'Freelance work',
+            copy: 'Các project nhận ngoài công việc chính, tập trung vào backend và workflow thực tế.',
           },
           {
             icon: Layers3,
             count: 3,
-            suffix: "",
-            title: "Ưu tiên chính",
-            copy: "APIs, data flow và integrations cho các workflow nghiệp vụ.",
+            suffix: '',
+            title: 'Ưu tiên chính',
+            copy: 'APIs, data flow và integrations cho các workflow nghiệp vụ.',
           },
           {
             icon: Wrench,
             count: 4,
-            suffix: "",
-            title: "Trụ cột kỹ năng",
-            copy: "Backend, data, delivery và support cho end-to-end flow.",
+            suffix: '',
+            title: 'Trụ cột kỹ năng',
+            copy: 'Backend, data, delivery và support cho end-to-end flow.',
           },
         ]
       : [
           {
             icon: Rocket,
             count: yearsExperience,
-            suffix: "+",
-            title: "Years experience",
-            copy: "From internship work into backend product delivery in real environments.",
+            suffix: '+',
+            title: 'Years experience',
+            copy: 'From internship work into backend product delivery in real environments.',
           },
           {
             icon: BriefcaseBusiness,
             count: 1,
-            suffix: "+",
-            title: "Freelance work",
-            copy: "Selected work outside full-time roles, focused on backend delivery and practical workflows.",
+            suffix: '+',
+            title: 'Freelance work',
+            copy: 'Selected work outside full-time roles, focused on backend delivery and practical workflows.',
           },
           {
             icon: Layers3,
             count: 3,
-            suffix: "",
-            title: "Current priorities",
-            copy: "APIs, data flow, and integrations for real business workflows.",
+            suffix: '',
+            title: 'Current priorities',
+            copy: 'APIs, data flow, and integrations for real business workflows.',
           },
           {
             icon: Wrench,
             count: 4,
-            suffix: "",
-            title: "Core pillars",
-            copy: "Backend, data, delivery, and support across the full product flow.",
+            suffix: '',
+            title: 'Core pillars',
+            copy: 'Backend, data, delivery, and support across the full product flow.',
           },
         ];
 

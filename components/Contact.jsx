@@ -1,20 +1,12 @@
 'use client';
 
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import {
-  ArrowUpRight,
-  Facebook,
-  Github,
-  LoaderCircle,
-  Mail,
-  Phone,
-  Send,
-} from "lucide-react";
-import { useLanguage } from "../context/LanguageContext";
-import { useToast } from "../context/ToastContext";
-import { siteConfig } from "../data/siteConfig";
-import { apiUrl } from "../lib/api";
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowUpRight, Facebook, Github, LoaderCircle, Mail, Phone, Send } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { useToast } from '../context/ToastContext';
+import { siteConfig } from '../data/siteConfig';
+import { apiUrl } from '../lib/api';
 
 const Contact = () => {
   const { t, lang } = useLanguage();
@@ -22,12 +14,12 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const inputClassName =
-    "contact-input w-full rounded-[22px] border border-border/90 bg-background/84 px-5 py-4 text-foreground placeholder:text-muted-foreground/75 backdrop-blur-xl transition-colors focus:border-primary/60 focus:bg-background/96 dark:bg-card/88 dark:focus:bg-card";
+    'contact-input w-full rounded-[22px] border border-border/90 bg-background/84 px-5 py-4 text-foreground placeholder:text-muted-foreground/75 backdrop-blur-xl transition-colors focus:border-primary/60 focus:bg-background/96 dark:bg-card/88 dark:focus:bg-card';
 
   const contactInfo = [
     {
       icon: Mail,
-      label: "Email",
+      label: 'Email',
       value: siteConfig.email,
       href: siteConfig.emailHref,
     },
@@ -40,8 +32,8 @@ const Contact = () => {
   ];
 
   const socialLinks = [
-    { icon: Github, href: siteConfig.github, label: "GitHub" },
-    { icon: Facebook, href: siteConfig.facebook, label: "Facebook" },
+    { icon: Github, href: siteConfig.github, label: 'GitHub' },
+    { icon: Facebook, href: siteConfig.facebook, label: 'Facebook' },
   ];
 
   const handleSubmit = async (event) => {
@@ -49,35 +41,35 @@ const Contact = () => {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const payload = {
-      name: String(formData.get("name") || "").trim(),
-      email: String(formData.get("email") || "").trim(),
-      message: String(formData.get("message") || "").trim(),
+      name: String(formData.get('name') || '').trim(),
+      email: String(formData.get('email') || '').trim(),
+      message: String(formData.get('message') || '').trim(),
     };
 
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(apiUrl("/api/contact"), {
-        method: "POST",
+      const response = await fetch(apiUrl('/api/contact'), {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
       });
       const result = await response.json().catch(() => null);
 
       if (!response.ok) {
-        throw new Error("submit_failed");
+        throw new Error('submit_failed');
       }
 
       form.reset();
       if (result?.mailDelivered === false) {
-        showToast(t.toasts.successSendStored, "info");
+        showToast(t.toasts.successSendStored, 'info');
       } else {
-        showToast(t.toasts.successSend, "success");
+        showToast(t.toasts.successSend, 'success');
       }
     } catch {
-      showToast(t.toasts.errorSend, "error");
+      showToast(t.toasts.errorSend, 'error');
     } finally {
       setIsSubmitting(false);
     }
@@ -94,12 +86,9 @@ const Contact = () => {
             viewport={{ once: true }}
             className="section-title"
           >
-            {t.contact.title1}{" "}
-            <span className="text-gradient">{t.contact.title2}</span>
+            {t.contact.title1} <span className="text-gradient">{t.contact.title2}</span>
           </motion.h2>
-          <p className="mt-5 text-lg leading-8 text-muted-foreground">
-            {t.contact.description}
-          </p>
+          <p className="mt-5 text-lg leading-8 text-muted-foreground">{t.contact.description}</p>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
@@ -111,9 +100,9 @@ const Contact = () => {
           >
             <p className="section-kicker">{t.contact.infoTitle}</p>
             <p className="mt-5 max-w-2xl text-base leading-8 text-muted-foreground">
-              {lang === "vi"
-                ? "Nếu hợp gu làm việc, bạn có thể gửi email trực tiếp hoặc để lại một lời nhắn ngắn. Tôi ưu tiên các cuộc trò chuyện rõ ràng, thực tế và có định hướng."
-                : "If the fit feels right, send an email directly or leave a short note. I prefer conversations that are clear, practical, and intentional."}
+              {lang === 'vi'
+                ? 'Nếu hợp gu làm việc, bạn có thể gửi email trực tiếp hoặc để lại một lời nhắn ngắn. Tôi ưu tiên các cuộc trò chuyện rõ ràng, thực tế và có định hướng.'
+                : 'If the fit feels right, send an email directly or leave a short note. I prefer conversations that are clear, practical, and intentional.'}
             </p>
 
             <div className="mt-8 grid gap-4">
@@ -131,12 +120,8 @@ const Contact = () => {
                         <Icon size={20} className="text-primary" />
                       </div>
                       <div>
-                        <p className="text-sm font-semibold text-muted-foreground">
-                          {item.label}
-                        </p>
-                        <p className="mt-2 text-lg font-bold tracking-[-0.02em]">
-                          {item.value}
-                        </p>
+                        <p className="text-sm font-semibold text-muted-foreground">{item.label}</p>
+                        <p className="mt-2 text-lg font-bold tracking-[-0.02em]">{item.value}</p>
                       </div>
                     </div>
                   </a>
@@ -180,10 +165,7 @@ const Contact = () => {
             className="contact-form-panel content-plane-strong rounded-[32px] overflow-hidden p-8 md:p-10"
           >
             <span aria-hidden="true" className="contact-form-panel__glow" />
-            <span
-              aria-hidden="true"
-              className="contact-form-panel__grid ambient-grid"
-            />
+            <span aria-hidden="true" className="contact-form-panel__grid ambient-grid" />
             <span aria-hidden="true" className="contact-form-panel__sheen" />
 
             <div className="relative z-[1]">
@@ -209,10 +191,7 @@ const Contact = () => {
                         className={inputClassName}
                         placeholder="Tran Minh Hieu"
                       />
-                      <span
-                        aria-hidden="true"
-                        className="contact-field__line"
-                      />
+                      <span aria-hidden="true" className="contact-field__line" />
                     </div>
                   </label>
                   <label className="contact-field grid gap-2">
@@ -227,10 +206,7 @@ const Contact = () => {
                         className={inputClassName}
                         placeholder="name@email.com"
                       />
-                      <span
-                        aria-hidden="true"
-                        className="contact-field__line"
-                      />
+                      <span aria-hidden="true" className="contact-field__line" />
                     </div>
                   </label>
                 </div>

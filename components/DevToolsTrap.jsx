@@ -31,11 +31,11 @@ export default function DevToolsTrap() {
       hasWarnedAboutDevTools = true;
       console.warn(
         '%cStop',
-        'color: #b91c1c; font-size: 48px; font-weight: 800; letter-spacing: 0.08em;',
+        'color: #b91c1c; font-size: 48px; font-weight: 800; letter-spacing: 0.08em;'
       );
       console.warn(
         '%cThis panel is for developers. Do not paste code or run commands here unless you understand exactly what they do.',
-        'color: #f59e0b; font-size: 14px; font-weight: 600;',
+        'color: #f59e0b; font-size: 14px; font-weight: 600;'
       );
     };
 
@@ -79,8 +79,7 @@ export default function DevToolsTrap() {
       const isF12 = key === 'F12';
       const isWindowsDevToolsShortcut =
         event.ctrlKey && event.shiftKey && ['I', 'J', 'C'].includes(key);
-      const isMacDevToolsShortcut =
-        event.metaKey && event.altKey && ['I', 'J', 'C'].includes(key);
+      const isMacDevToolsShortcut = event.metaKey && event.altKey && ['I', 'J', 'C'].includes(key);
       const isViewSourceShortcut =
         (event.ctrlKey && key === 'U') || (event.metaKey && event.altKey && key === 'U');
 

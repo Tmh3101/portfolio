@@ -14,7 +14,7 @@ const Projects = () => {
   const [showAll, setShowAll] = useState(false);
   const visibleProjects = useMemo(
     () => (showAll ? projects : projects.slice(0, 4)),
-    [projects, showAll],
+    [projects, showAll]
   );
   const hasMoreProjects = projects.length > 4;
 
@@ -56,9 +56,7 @@ const Projects = () => {
             >
               {t.projects.title1} <span className="text-gradient">{t.projects.title2}</span>
             </motion.h2>
-            <p className="mt-5 text-lg leading-8 text-muted-foreground">
-              {t.projects.description}
-            </p>
+            <p className="mt-5 text-lg leading-8 text-muted-foreground">{t.projects.description}</p>
           </div>
 
           <a
@@ -121,12 +119,16 @@ const Projects = () => {
                         </span>
                       </div>
 
-                      <p className="mt-3 text-sm leading-7 text-muted-foreground">{project.summary}</p>
+                      <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                        {project.summary}
+                      </p>
 
                       <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(12rem,0.62fr)]">
                         <div>
                           <p className="section-kicker">{t.projects.compactNote}</p>
-                          <p className="mt-2 text-sm leading-7 text-muted-foreground">{project.impact}</p>
+                          <p className="mt-2 text-sm leading-7 text-muted-foreground">
+                            {project.impact}
+                          </p>
                         </div>
 
                         <div className="flex flex-wrap content-start gap-2 xl:justify-end">

@@ -17,7 +17,7 @@ const CustomCursor = () => {
 
   useEffect(() => {
     const mediaQuery = window.matchMedia(
-      '(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)',
+      '(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)'
     );
 
     const updateState = () => setIsEnabled(mediaQuery.matches);

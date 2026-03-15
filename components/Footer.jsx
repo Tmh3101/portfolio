@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import { Eye, MoveUpRight } from "lucide-react";
-import { useLanguage } from "../context/LanguageContext";
-import { getLocalizedName } from "../data/siteConfig";
+import React, { useEffect, useState } from 'react';
+import { Eye, MoveUpRight } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { getLocalizedName } from '../data/siteConfig';
 // import { getLocalizedName, siteConfig } from '../data/siteConfig';
-import { apiUrl } from "../lib/api";
+import { apiUrl } from '../lib/api';
 
 const Footer = () => {
   const { lang } = useLanguage();
@@ -14,17 +14,17 @@ const Footer = () => {
   const localizedName = getLocalizedName(lang);
 
   const footerStatus =
-    lang === "vi"
-      ? "Open cho backend role phù hợp và selected freelance work."
-      : "Open to the right backend roles and selected freelance work.";
-  const visitorLabel = lang === "vi" ? "Lượt truy cập" : "Visitors";
+    lang === 'vi'
+      ? 'Open cho backend role phù hợp và selected freelance work.'
+      : 'Open to the right backend roles and selected freelance work.';
+  const visitorLabel = lang === 'vi' ? 'Lượt truy cập' : 'Visitors';
 
   useEffect(() => {
     const controller = new AbortController();
 
     const fetchSummary = async () => {
       try {
-        const response = await fetch(apiUrl("/api/visits/summary"), {
+        const response = await fetch(apiUrl('/api/visits/summary'), {
           signal: controller.signal,
         });
 
@@ -34,9 +34,7 @@ const Footer = () => {
 
         const data = await response.json();
         const nextCount =
-          data?.uniqueVisitors > 0
-            ? data.uniqueVisitors
-            : (data?.totalVisits ?? null);
+          data?.uniqueVisitors > 0 ? data.uniqueVisitors : (data?.totalVisits ?? null);
         setVisitorCount(nextCount);
       } catch {
         // Ignore non-critical footer metrics errors.
@@ -48,11 +46,11 @@ const Footer = () => {
     };
 
     fetchSummary();
-    window.addEventListener("visit-recorded", handleVisitRecorded);
+    window.addEventListener('visit-recorded', handleVisitRecorded);
 
     return () => {
       controller.abort();
-      window.removeEventListener("visit-recorded", handleVisitRecorded);
+      window.removeEventListener('visit-recorded', handleVisitRecorded);
     };
   }, []);
 
@@ -66,13 +64,13 @@ const Footer = () => {
               <p>{footerStatus}</p>
               <span className="inline-flex items-center gap-2 rounded-full border border-border/90 bg-background/82 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-foreground/86 dark:bg-card/84">
                 <Eye size={14} className="text-primary" />
-                {visitorLabel}: {visitorCount ?? "--"}
+                {visitorLabel}: {visitorCount ?? '--'}
               </span>
               <a
                 href="#hero"
                 className="inline-flex items-center gap-2 font-semibold text-foreground/78 transition-colors duration-300 hover:text-primary"
               >
-                {lang === "vi" ? "Lên đầu trang" : "Back to top"}
+                {lang === 'vi' ? 'Lên đầu trang' : 'Back to top'}
                 <MoveUpRight size={16} className="text-primary" />
               </a>
             </div>

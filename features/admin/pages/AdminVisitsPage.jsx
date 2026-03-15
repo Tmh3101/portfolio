@@ -144,8 +144,12 @@ export default function AdminVisitsPage() {
                           <p className="admin-table__secondary">{item.country || '--'}</p>
                         </td>
                         <td>
-                          <span className="admin-table__primary admin-table__primary--mono">{visitedAt.date}</span>
-                          <p className="admin-table__secondary admin-table__secondary--mono">{visitedAt.time}</p>
+                          <span className="admin-table__primary admin-table__primary--mono">
+                            {visitedAt.date}
+                          </span>
+                          <p className="admin-table__secondary admin-table__secondary--mono">
+                            {visitedAt.time}
+                          </p>
                         </td>
                       </tr>
                     );

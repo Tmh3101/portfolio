@@ -1,12 +1,12 @@
 'use client';
 
-import React from "react";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import { ArrowRight, ArrowUpRight, Github, Mail } from "lucide-react";
-const profileImg = "/assets/profile.jpg";
-import { useLanguage } from "../context/LanguageContext";
-import { getLocalizedName, siteConfig } from "../data/siteConfig";
+import React from 'react';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { ArrowRight, ArrowUpRight, Github, Mail } from 'lucide-react';
+const profileImg = '/assets/profile.jpg';
+import { useLanguage } from '../context/LanguageContext';
+import { getLocalizedName, siteConfig } from '../data/siteConfig';
 
 const Hero = () => {
   const { t, lang } = useLanguage();
@@ -14,12 +14,12 @@ const Hero = () => {
   const quickLinks = [
     {
       href: siteConfig.emailHref,
-      label: "Email",
+      label: 'Email',
       icon: Mail,
     },
     {
       href: siteConfig.github,
-      label: "GitHub",
+      label: 'GitHub',
       icon: Github,
       external: true,
     },
@@ -62,8 +62,7 @@ const Hero = () => {
 
             <h1 className="mt-8 max-w-[11ch] font-outfit text-[clamp(3.8rem,8vw,6.4rem)] leading-[0.88] tracking-[-0.07em] text-foreground">
               <span className="block text-balance">
-                {t.hero.title1}{" "}
-                <span className="text-gradient">{t.hero.title2}</span>
+                {t.hero.title1} <span className="text-gradient">{t.hero.title2}</span>
               </span>
               <span className="mt-4 block max-w-[12ch] text-[0.46em] leading-[1.08] tracking-[-0.04em] text-foreground/94">
                 {t.hero.title3}
@@ -98,8 +97,8 @@ const Hero = () => {
                   <a
                     key={item.label}
                     href={item.href}
-                    target={item.external ? "_blank" : undefined}
-                    rel={item.external ? "noreferrer" : undefined}
+                    target={item.external ? '_blank' : undefined}
+                    rel={item.external ? 'noreferrer' : undefined}
                     className="inline-flex items-center gap-2 text-sm font-semibold text-foreground/78 transition-colors duration-300 hover:text-primary"
                   >
                     <Icon size={16} className="text-primary" />
@@ -119,9 +118,7 @@ const Hero = () => {
                   className="content-plane rounded-[24px] p-5 md:p-6"
                 >
                   <p className="section-kicker">{item.label}</p>
-                  <p className="mt-4 text-sm leading-7 text-muted-foreground">
-                    {item.value}
-                  </p>
+                  <p className="mt-4 text-sm leading-7 text-muted-foreground">{item.value}</p>
                 </motion.article>
               ))}
             </div>
@@ -192,14 +189,8 @@ const Hero = () => {
                       pathLength="100"
                     />
                   </svg>
-                  <span
-                    aria-hidden="true"
-                    className="hero-hud-corner hero-hud-corner--top-left"
-                  />
-                  <span
-                    aria-hidden="true"
-                    className="hero-hud-corner hero-hud-corner--top-right"
-                  />
+                  <span aria-hidden="true" className="hero-hud-corner hero-hud-corner--top-left" />
+                  <span aria-hidden="true" className="hero-hud-corner hero-hud-corner--top-right" />
                   <span
                     aria-hidden="true"
                     className="hero-hud-corner hero-hud-corner--bottom-right"
@@ -208,14 +199,8 @@ const Hero = () => {
                     aria-hidden="true"
                     className="hero-hud-corner hero-hud-corner--bottom-left"
                   />
-                  <div
-                    aria-hidden="true"
-                    className="hero-hud-grid ambient-grid"
-                  />
-                  <div
-                    aria-hidden="true"
-                    className="hero-hud-scan scene-scanlines"
-                  />
+                  <div aria-hidden="true" className="hero-hud-grid ambient-grid" />
+                  <div aria-hidden="true" className="hero-hud-scan scene-scanlines" />
                   <div aria-hidden="true" className="hero-hud-sweep" />
 
                   <div className="relative">
@@ -234,10 +219,7 @@ const Hero = () => {
                       height={1000}
                       className="aspect-[4/5] w-full object-cover object-center"
                     />
-                    <div
-                      aria-hidden="true"
-                      className="hero-hud-noise noise-overlay"
-                    />
+                    <div aria-hidden="true" className="hero-hud-noise noise-overlay" />
                     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,13,19,0.02)_10%,rgba(5,13,19,0.16)_48%,rgba(5,13,19,0.9)_100%)]" />
 
                     <div className="absolute inset-x-0 bottom-0 p-6 md:p-7">

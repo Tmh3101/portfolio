@@ -1,20 +1,13 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import {
-  ArrowLeft,
-  ArrowRight,
-  Languages,
-  LockKeyhole,
-  Mail,
-  ShieldCheck,
-} from "lucide-react";
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useAdminAuth } from "../context/AdminAuthContext.jsx";
-import { useLanguage } from "../../../context/LanguageContext.jsx";
-import { useToast } from "../../../context/ToastContext.jsx";
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowLeft, ArrowRight, Languages, LockKeyhole, Mail, ShieldCheck } from 'lucide-react';
+import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useAdminAuth } from '../context/AdminAuthContext.jsx';
+import { useLanguage } from '../../../context/LanguageContext.jsx';
+import { useToast } from '../../../context/ToastContext.jsx';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -22,18 +15,16 @@ export default function AdminLoginPage() {
   const { t, lang, toggleLang } = useLanguage();
   const { showToast } = useToast();
   const { isAuthenticated, isReady, signIn } = useAdminAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
-  const redirectParam = searchParams.get("from") || "/admin";
-  const redirectTo = redirectParam.startsWith("/admin")
-    ? redirectParam
-    : "/admin";
+  const redirectParam = searchParams.get('from') || '/admin';
+  const redirectTo = redirectParam.startsWith('/admin') ? redirectParam : '/admin';
 
   useEffect(() => {
     if (isAuthenticated) {
-      router.replace("/admin");
+      router.replace('/admin');
     }
   }, [isAuthenticated, router]);
 
@@ -43,10 +34,10 @@ export default function AdminLoginPage() {
 
     try {
       await signIn({ email, password });
-      showToast(t.toasts.loginSuccess, "success");
+      showToast(t.toasts.loginSuccess, 'success');
       router.replace(redirectTo);
     } catch (error) {
-      showToast(error.message || t.toasts.loginError, "error");
+      showToast(error.message || t.toasts.loginError, 'error');
     } finally {
       setSubmitting(false);
     }
@@ -58,11 +49,7 @@ export default function AdminLoginPage() {
 
   return (
     <div className="cosmic-login">
-      <svg
-        className="cosmic-login__filters"
-        aria-hidden="true"
-        focusable="false"
-      >
+      <svg className="cosmic-login__filters" aria-hidden="true" focusable="false">
         <defs>
           <filter
             id="cosmic-electric-border"
@@ -100,12 +87,7 @@ export default function AdminLoginPage() {
                 repeatCount="indefinite"
               />
             </feTurbulence>
-            <feBlend
-              in="noisePrimary"
-              in2="noiseDetail"
-              mode="screen"
-              result="combinedNoise"
-            />
+            <feBlend in="noisePrimary" in2="noiseDetail" mode="screen" result="combinedNoise" />
             <feDisplacementMap
               in="SourceGraphic"
               in2="combinedNoise"
@@ -114,11 +96,7 @@ export default function AdminLoginPage() {
               yChannelSelector="G"
               result="distortedBorder"
             />
-            <feGaussianBlur
-              in="distortedBorder"
-              stdDeviation="0.22"
-              result="softenedBorder"
-            />
+            <feGaussianBlur in="distortedBorder" stdDeviation="0.22" result="softenedBorder" />
             <feColorMatrix
               in="softenedBorder"
               type="matrix"
@@ -149,11 +127,7 @@ export default function AdminLoginPage() {
         </Link>
 
         <div className="cosmic-login__topbar-actions">
-          <button
-            type="button"
-            onClick={toggleLang}
-            className="cosmic-login__ghost"
-          >
+          <button type="button" onClick={toggleLang} className="cosmic-login__ghost">
             <Languages size={16} />
             <span>{lang.toUpperCase()}</span>
           </button>
@@ -265,11 +239,7 @@ export default function AdminLoginPage() {
             </div>
           </label>
 
-          <button
-            type="submit"
-            className="cosmic-login__submit"
-            disabled={submitting}
-          >
+          <button type="submit" className="cosmic-login__submit" disabled={submitting}>
             <span>{submitting ? t.auth.submitting : t.auth.submit}</span>
             <ArrowRight size={18} />
           </button>

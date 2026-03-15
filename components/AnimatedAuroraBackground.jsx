@@ -27,11 +27,7 @@ const buildStarSet = (seed, count, config) => {
 
 const buildMeteorSet = (seed, count) => {
   const random = createSeededRandom(seed);
-  const colors = [
-    'rgba(255,255,255,0.96)',
-    'rgba(181,220,255,0.92)',
-    'rgba(126,184,255,0.88)',
-  ];
+  const colors = ['rgba(255,255,255,0.96)', 'rgba(181,220,255,0.92)', 'rgba(126,184,255,0.88)'];
 
   return Array.from({ length: count }, (_, index) => ({
     id: `meteor-${index + 1}`,
@@ -115,11 +111,7 @@ const speedPresets = {
   },
 };
 
-function AnimatedAuroraBackground({
-  variant = 'soft',
-  speed = 'slow',
-  opacity = 0.8,
-}) {
+function AnimatedAuroraBackground({ variant = 'soft', speed = 'slow', opacity = 0.8 }) {
   const reducedMotion = useReducedMotion();
   const timing = speedPresets[speed] || speedPresets.slow;
 
