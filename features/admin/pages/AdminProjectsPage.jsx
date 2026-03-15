@@ -2,7 +2,18 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { Plus, Search, Edit2, Trash2, Save, X, ExternalLink, Github, Star } from 'lucide-react';
+import {
+  Plus,
+  Search,
+  Edit2,
+  Trash2,
+  Save,
+  X,
+  ExternalLink,
+  Github,
+  Star,
+  RefreshCcw,
+} from 'lucide-react';
 import { getSupabaseBrowserClient } from '../../../lib/supabase/client';
 import { useLanguage } from '../../../context/LanguageContext.jsx';
 import { useToast } from '../../../context/ToastContext.jsx';

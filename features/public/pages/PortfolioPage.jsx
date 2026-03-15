@@ -18,7 +18,7 @@ import { apiUrl } from '../../../lib/api.js';
 
 const Terminal = lazy(() => import('../../../components/Terminal.jsx'));
 
-export default function PortfolioPage() {
+export default function PortfolioPage({ cmsData }) {
   const [theme, setTheme] = useState('dark');
   const [loading, setLoading] = useState(true);
 
@@ -130,16 +130,16 @@ export default function PortfolioPage() {
         <div className="relative z-10">
           <Navbar toggleTheme={toggleTheme} theme={theme} />
           <main className="pb-6">
-            <Hero />
+            <Hero data={cmsData.hero} settings={cmsData.settings} />
             <TechMarquee />
-            <Stats />
-            <Approach />
-            <Skills />
-            <Projects />
-            <Experience />
+            <Stats data={cmsData.stats} />
+            <Approach data={cmsData.approaches} />
+            <Skills data={cmsData.skills} />
+            <Projects data={cmsData.projects} />
+            <Experience data={cmsData.experiences} />
             <Contact />
           </main>
-          <Footer />
+          <Footer settings={cmsData.settings} />
           <Suspense fallback={null}>
             <Terminal />
           </Suspense>

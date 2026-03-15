@@ -42,7 +42,16 @@ const CountUpValue = ({ value, suffix = '' }) => {
   );
 };
 
+const iconMap = {
+  Rocket: Rocket,
+  BriefcaseBusiness: BriefcaseBusiness,
+  Layers3: Layers3,
+  Wrench: Wrench,
+};
+
 const StatItem = ({ icon, count, suffix, title, copy, index }) => {
+  const IconComponent = typeof icon === 'string' ? iconMap[icon] || Rocket : icon;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 18 }}
@@ -58,7 +67,7 @@ const StatItem = ({ icon, count, suffix, title, copy, index }) => {
       <div className="relative z-[1]">
         <div className="mb-5 flex items-center justify-between">
           <div className="stats-card__icon flex h-12 w-12 items-center justify-center rounded-[18px] bg-primary/12 text-primary">
-            {React.createElement(icon, { size: 22 })}
+            <IconComponent size={22} />
           </div>
           <span className="text-[11px] font-black uppercase tracking-[0.22em] text-primary/82">
             0{index + 1}
@@ -76,77 +85,81 @@ const StatItem = ({ icon, count, suffix, title, copy, index }) => {
   );
 };
 
-const Stats = () => {
-  const { lang } = useLanguage();
-  const startDate = new Date(2023, 5, 1);
-  const today = new Date();
-  const diffMonths =
-    (today.getFullYear() - startDate.getFullYear()) * 12 +
-    (today.getMonth() - startDate.getMonth());
-  const yearsExperience = Math.max(1, Math.floor(diffMonths / 12));
+const Stats = ({ data }) => {
+  const { lang, t } = useLanguage();
+
+  const defaultIcons = [Rocket, BriefcaseBusiness, Layers3, Wrench];
 
   const statsData =
-    lang === 'vi'
-      ? [
-          {
-            icon: Rocket,
-            count: yearsExperience,
-            suffix: '+',
-            title: 'Năm kinh nghiệm',
-            copy: 'Từ giai đoạn intern đến backend product work trong môi trường thực tế.',
-          },
-          {
-            icon: BriefcaseBusiness,
-            count: 1,
-            suffix: '+',
-            title: 'Freelance work',
-            copy: 'Các project nhận ngoài công việc chính, tập trung vào backend và workflow thực tế.',
-          },
-          {
-            icon: Layers3,
-            count: 3,
-            suffix: '',
-            title: 'Ưu tiên chính',
-            copy: 'APIs, data flow và integrations cho các workflow nghiệp vụ.',
-          },
-          {
-            icon: Wrench,
-            count: 4,
-            suffix: '',
-            title: 'Trụ cột kỹ năng',
-            copy: 'Backend, data, delivery và support cho end-to-end flow.',
-          },
-        ]
-      : [
-          {
-            icon: Rocket,
-            count: yearsExperience,
-            suffix: '+',
-            title: 'Years experience',
-            copy: 'From internship work into backend product delivery in real environments.',
-          },
-          {
-            icon: BriefcaseBusiness,
-            count: 1,
-            suffix: '+',
-            title: 'Freelance work',
-            copy: 'Selected work outside full-time roles, focused on backend delivery and practical workflows.',
-          },
-          {
-            icon: Layers3,
-            count: 3,
-            suffix: '',
-            title: 'Current priorities',
-            copy: 'APIs, data flow, and integrations for real business workflows.',
-          },
-          {
-            icon: Wrench,
-            count: 4,
-            suffix: '',
-            title: 'Core pillars',
-            copy: 'Backend, data, delivery, and support across the full product flow.',
-          },
-        ];
+    data && data.length > 0
+      ? data.map((item, idx) => ({
+          icon: defaultIcons[idx % defaultIcons.length],
+          count: parseFloat(item.value),
+          suffix: item.suffix || '',
+          title: item.label,
+          copy: t.stats?.items?.[idx]?.copy || '',
+        }))
+      : lang === 'vi'
+        ? [
+            {
+              icon: Rocket,
+              count: 1,
+              suffix: '+',
+              title: 'Năm kinh nghiệm',
+              copy: 'Từ giai đoạn intern đến backend product work trong môi trường thực tế.',
+            },
+            {
+              icon: BriefcaseBusiness,
+              count: 1,
+              suffix: '+',
+              title: 'Freelance work',
+              copy: 'Các project nhận ngoài công việc chính, tập trung vào backend và workflow thực tế.',
+            },
+            {
+              icon: Layers3,
+              count: 3,
+              suffix: '',
+              title: 'Ưu tiên chính',
+              copy: 'APIs, data flow và integrations cho các workflow nghiệp vụ.',
+            },
+            {
+              icon: Wrench,
+              count: 4,
+              suffix: '',
+              title: 'Trụ cột kỹ năng',
+              copy: 'Backend, data, delivery và support cho end-to-end flow.',
+            },
+          ]
+        : [
+            {
+              icon: Rocket,
+              count: 1,
+              suffix: '+',
+              title: 'Years experience',
+              copy: 'From internship work into backend product delivery in real environments.',
+            },
+            {
+              icon: BriefcaseBusiness,
+              count: 1,
+              suffix: '+',
+              title: 'Freelance work',
+              copy: 'Selected work outside full-time roles, focused on backend delivery and practical workflows.',
+            },
+            {
+              icon: Layers3,
+              count: 3,
+              suffix: '',
+              title: 'Current priorities',
+              copy: 'APIs, data flow, and integrations for real business workflows.',
+            },
+            {
+              icon: Wrench,
+              count: 4,
+              suffix: '',
+              title: 'Core pillars',
+              copy: 'Backend, data, delivery, and support across the full product flow.',
+            },
+          ];
 
   return (
     <section className="px-6 pb-8 md:px-10 lg:px-20 xl:px-24">

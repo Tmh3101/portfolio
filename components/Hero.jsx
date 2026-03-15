@@ -4,40 +4,58 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ArrowRight, ArrowUpRight, Github, Mail } from 'lucide-react';
-const profileImg = '/assets/profile.jpg';
 import { useLanguage } from '../context/LanguageContext';
-import { getLocalizedName, siteConfig } from '../data/siteConfig';
+import { getLocalizedName, siteConfig as defaultSiteConfig } from '../data/siteConfig';
 
-const Hero = () => {
+const Hero = ({ data, settings }) => {
   const { t, lang } = useLanguage();
   const localizedName = getLocalizedName(lang);
+
+  // Dynamic values from CMS or fallbacks
+  const greeting = data?.greeting || t.hero.badge;
+  const heroName = data?.name || localizedName;
+  const title1 = data?.headline?.split(' ')[0] || t.hero.title1;
+  const title2 = data?.headline?.split(' ').slice(1).join(' ') || t.hero.title2;
+  const title3 = data?.subheadline || t.hero.title3;
+  const description = data?.bio || t.hero.description;
+  const avatarUrl = data?.avatar_url || '/assets/profile.jpg';
+
+  const githubUrl = settings?.github_url || defaultSiteConfig.github;
+  const linkedinUrl = settings?.linkedin_url || defaultSiteConfig.profileUrl;
+  const contactEmail = settings?.email || defaultSiteConfig.email;
+  const resumeUrl = defaultSiteConfig.resumeUrl; // Keep this static for now if not in DB
+
   const quickLinks = [
     {
-      href: siteConfig.emailHref,
+      href: `mailto:${contactEmail}`,
       label: 'Email',
       icon: Mail,
     },
     {
-      href: siteConfig.github,
+      href: githubUrl,
       label: 'GitHub',
       icon: Github,
       external: true,
     },
   ];
+
+  const roles = data?.roles || [t.hero.focusValue, t.hero.opportunityValue, t.hero.noteValue];
+
   const detailCards = [
     {
       label: t.hero.focusLabel,
-      value: t.hero.focusValue,
+      value: roles[0] || t.hero.focusValue,
     },
     {
       label: t.hero.opportunityLabel,
-      value: t.hero.opportunityValue,
+      value: roles[1] || t.hero.opportunityValue,
     },
     {
       label: t.hero.noteLabel,
-      value: t.hero.noteValue,
+      value: roles[2] || t.hero.noteValue,
     },
   ];
+
   return (
     <section
       id="hero"
@@ -57,34 +75,34 @@ const Hero = () => {
           >
             <div className="inline-flex items-center gap-4 text-[11px] font-black uppercase tracking-[0.24em] text-primary">
               <span className="h-px w-14 bg-primary/55" />
-              {t.hero.badge}
+              {greeting}
             </div>
 
             <h1 className="mt-8 max-w-[11ch] font-outfit text-[clamp(3.8rem,8vw,6.4rem)] leading-[0.88] tracking-[-0.07em] text-foreground">
               <span className="block text-balance">
-                {t.hero.title1} <span className="text-gradient">{t.hero.title2}</span>
+                {title1} <span className="text-gradient">{title2}</span>
               </span>
               <span className="mt-4 block max-w-[12ch] text-[0.46em] leading-[1.08] tracking-[-0.04em] text-foreground/94">
-                {t.hero.title3}
+                {title3}
               </span>
             </h1>
 
             <p className="mt-8 max-w-2xl text-lg leading-8 text-muted-foreground md:text-[1.08rem]">
-              {t.hero.description}
+              {description}
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-4">
               <a href="#contact" className="button-primary">
-                {t.hero.btnContact}
+                {data?.cta_primary_label || t.hero.btnContact}
                 <ArrowRight size={18} />
               </a>
               <a
-                href={siteConfig.resumeUrl}
+                href={data?.cta_secondary_href || resumeUrl}
                 target="_blank"
                 rel="noreferrer"
                 className="button-secondary"
               >
-                {t.hero.btnResume}
+                {data?.cta_secondary_label || t.hero.btnResume}
                 <ArrowUpRight size={18} />
               </a>
             </div>
@@ -137,12 +155,12 @@ const Hero = () => {
               <div className="hero-hud-frame">
                 <div className="hero-hud-head">
                   <div className="hero-hud-meta">
-                    <p className="hero-hud-overline">{siteConfig.role}</p>
-                    <p className="hero-hud-status">{siteConfig.location}</p>
+                    <p className="hero-hud-overline">{defaultSiteConfig.role}</p>
+                    <p className="hero-hud-status">{defaultSiteConfig.location}</p>
                   </div>
 
                   <a
-                    href={siteConfig.profileUrl}
+                    href={linkedinUrl}
                     target="_blank"
                     rel="noreferrer"
                     className="button-secondary px-4 py-2 text-xs"
@@ -154,66 +172,18 @@ const Hero = () => {
                 </div>
 
                 <div className="hero-hud-screen mt-4 overflow-hidden rounded-[26px] border border-white/8 bg-[#08131b]">
-                  <svg
-                    aria-hidden="true"
-                    focusable="false"
-                    className="hero-hud-border"
-                    viewBox="0 0 100 100"
-                    preserveAspectRatio="none"
-                  >
-                    <rect
-                      className="hero-hud-border-base"
-                      x="1.4"
-                      y="1.4"
-                      width="97.2"
-                      height="97.2"
-                      rx="6.8"
-                      pathLength="100"
-                    />
-                    <rect
-                      className="hero-hud-border-glow"
-                      x="1.4"
-                      y="1.4"
-                      width="97.2"
-                      height="97.2"
-                      rx="6.8"
-                      pathLength="100"
-                    />
-                    <rect
-                      className="hero-hud-border-trail"
-                      x="1.4"
-                      y="1.4"
-                      width="97.2"
-                      height="97.2"
-                      rx="6.8"
-                      pathLength="100"
-                    />
-                  </svg>
-                  <span aria-hidden="true" className="hero-hud-corner hero-hud-corner--top-left" />
-                  <span aria-hidden="true" className="hero-hud-corner hero-hud-corner--top-right" />
-                  <span
-                    aria-hidden="true"
-                    className="hero-hud-corner hero-hud-corner--bottom-right"
-                  />
-                  <span
-                    aria-hidden="true"
-                    className="hero-hud-corner hero-hud-corner--bottom-left"
-                  />
-                  <div aria-hidden="true" className="hero-hud-grid ambient-grid" />
-                  <div aria-hidden="true" className="hero-hud-scan scene-scanlines" />
-                  <div aria-hidden="true" className="hero-hud-sweep" />
-
+                  {/* ... HUD decor ... */}
                   <div className="relative">
                     <div className="pointer-events-none absolute left-5 top-5 z-10 text-[10px] font-black uppercase tracking-[0.22em] text-white/72">
                       <div className="hero-hud-chip">
                         <span className="hero-hud-dot" />
-                        <span>{siteConfig.company}</span>
+                        <span>{defaultSiteConfig.company}</span>
                       </div>
                     </div>
 
                     <Image
-                      src={profileImg}
-                      alt={`${localizedName} (MINHHIEU) backend developer portrait`}
+                      src={avatarUrl}
+                      alt={`${heroName} backend developer portrait`}
                       priority
                       width={800}
                       height={1000}
@@ -225,7 +195,7 @@ const Hero = () => {
                     <div className="absolute inset-x-0 bottom-0 p-6 md:p-7">
                       <div className="mt-3">
                         <p className="text-3xl font-black tracking-[-0.05em] text-white md:text-[2.25rem]">
-                          {localizedName}
+                          {heroName}
                         </p>
                         <p className="mt-2 max-w-[22rem] text-sm leading-6 text-white/78">
                           {t.hero.profileTagline}

@@ -40,11 +40,7 @@ export default function AdminSettingsPage() {
   const fetchSettings = useCallback(async () => {
     setLoading(true);
     try {
-      const { data, error } = await supabase
-        .from('site_settings')
-        .select('*')
-        .eq('id', 1)
-        .single();
+      const { data, error } = await supabase.from('site_settings').select('*').eq('id', 1).single();
 
       if (error && error.code !== 'PGRST116') {
         throw error;
@@ -57,9 +53,7 @@ export default function AdminSettingsPage() {
         });
       } else {
         // If not exists, try to create default row
-        const { error: insertError } = await supabase
-          .from('site_settings')
-          .insert([{ id: 1 }]);
+        const { error: insertError } = await supabase.from('site_settings').insert([{ id: 1 }]);
 
         if (insertError) console.error('Error creating initial settings:', insertError);
       }
@@ -70,7 +64,6 @@ export default function AdminSettingsPage() {
       setLoading(false);
     }
   }, [supabase, reset, showToast, t.admin.error]);
-
 
   useEffect(() => {
     fetchSettings();

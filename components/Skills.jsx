@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { AppWindow, Boxes, Database, ServerCog } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
-const Skills = () => {
+const Skills = ({ data }) => {
   const { t, lang } = useLanguage();
 
   const handleSkillPointerMove = (event) => {
@@ -27,44 +27,95 @@ const Skills = () => {
     card.style.removeProperty('--skill-spotlight-y');
   };
 
-  const categories = [
-    {
-      title: 'Backend',
-      icon: ServerCog,
-      description:
-        lang === 'vi'
-          ? 'API design, service layers, auth, business logic và các tích hợp backend.'
-          : 'API design, service layers, auth, business logic, and backend integrations.',
-      skills: ['Python', 'FastAPI', 'Laravel', 'PHP'],
-    },
-    {
-      title: 'Data',
-      icon: Database,
-      description:
-        lang === 'vi'
-          ? 'Thiết kế schema, tối ưu truy vấn và giữ dữ liệu nhất quán cho sản phẩm.'
-          : 'Schema design, query optimization, and data consistency for product workloads.',
-      skills: ['PostgreSQL', 'MySQL', 'SQL Server', 'ETL'],
-    },
-    {
-      title: 'Delivery',
-      icon: Boxes,
-      description:
-        lang === 'vi'
-          ? 'Containerization, môi trường triển khai và quy trình release ổn định.'
-          : 'Containerization, deployment environments, and reliable release workflows.',
-      skills: ['Docker', 'Nginx', 'CI/CD', 'AWS'],
-    },
-    {
-      title: 'Support',
-      icon: AppWindow,
-      description:
-        lang === 'vi'
-          ? 'Đủ để phối hợp với frontend, debug flow end-to-end và hỗ trợ khi cần chạm vào bề mặt sản phẩm.'
-          : 'Enough to collaborate with frontend, debug end-to-end flows, and support product delivery when needed.',
-      skills: ['React', 'JavaScript', 'Debugging', 'Vite'],
-    },
-  ];
+  const categories = useMemo(() => {
+    if (data && data.length > 0) {
+      // Group skills by category from CMS
+      const grouped = data.reduce((acc, skill) => {
+        const cat = skill.category || 'General';
+        if (!acc[cat]) acc[cat] = [];
+        acc[cat].push(skill.name);
+        return acc;
+      }, {});
+
+      const iconMap = {
+        Backend: ServerCog,
+        Data: Database,
+        Delivery: Boxes,
+        Support: AppWindow,
+        Frontend: AppWindow,
+        Languages: ServerCog,
+        Tools: Boxes,
+      };
+
+      const descMap = {
+        Backend:
+          lang === 'vi'
+            ? 'API design, service layers, auth và business logic.'
+            : 'API design, service layers, auth, and business logic.',
+        Data:
+          lang === 'vi'
+            ? 'Thiết kế schema, tối ưu truy vấn và dữ liệu.'
+            : 'Schema design, query optimization, and data.',
+        Delivery:
+          lang === 'vi'
+            ? 'Containerization và quy trình triển khai.'
+            : 'Containerization and deployment workflows.',
+        Support:
+          lang === 'vi'
+            ? 'Phối hợp frontend và debug end-to-end.'
+            : 'Frontend collaboration and end-to-end debugging.',
+      };
+
+      return Object.keys(grouped).map((catName) => ({
+        title: catName,
+        icon: iconMap[catName] || ServerCog,
+        description:
+          descMap[catName] ||
+          (lang === 'vi' ? `Kỹ năng về ${catName}` : `${catName} related skills`),
+        skills: grouped[catName],
+      }));
+    }
+
+    // Fallback to static
+    return [
+      {
+        title: 'Backend',
+        icon: ServerCog,
+        description:
+          lang === 'vi'
+            ? 'API design, service layers, auth, business logic và các tích hợp backend.'
+            : 'API design, service layers, auth, business logic, and backend integrations.',
+        skills: ['Python', 'FastAPI', 'Laravel', 'PHP'],
+      },
+      {
+        title: 'Data',
+        icon: Database,
+        description:
+          lang === 'vi'
+            ? 'Thiết kế schema, tối ưu truy vấn và giữ dữ liệu nhất quán cho sản phẩm.'
+            : 'Schema design, query optimization, and data consistency for product workloads.',
+        skills: ['PostgreSQL', 'MySQL', 'SQL Server', 'ETL'],
+      },
+      {
+        title: 'Delivery',
+        icon: Boxes,
+        description:
+          lang === 'vi'
+            ? 'Containerization, môi trường triển khai và quy trình release ổn định.'
+            : 'Containerization, deployment environments, and reliable release workflows.',
+        skills: ['Docker', 'Nginx', 'CI/CD', 'AWS'],
+      },
+      {
+        title: 'Support',
+        icon: AppWindow,
+        description:
+          lang === 'vi'
+            ? 'Đủ để phối hợp với frontend, debug flow end-to-end và hỗ trợ khi cần chạm vào bề mặt sản phẩm.'
+            : 'Enough to collaborate with frontend, debug end-to-end flows, and support product delivery when needed.',
+        skills: ['React', 'JavaScript', 'Debugging', 'Vite'],
+      },
+    ];
+  }, [data, lang]);
 
   return (
     <section id="skills" className="section-padding">
