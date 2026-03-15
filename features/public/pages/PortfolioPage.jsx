@@ -19,24 +19,29 @@ import { apiUrl } from '../../../lib/api.js';
 const Terminal = lazy(() => import('../../../components/Terminal.jsx'));
 
 export default function PortfolioPage() {
-  const [theme, setTheme] = useState(() => {
-    if (typeof window === 'undefined') {
-      return 'dark';
-    }
-
-    return localStorage.getItem('theme') || 'dark';
-  });
-  const [loading, setLoading] = useState(() => {
-    try {
-      return sessionStorage.getItem('portfolio-preloaded') !== '1';
-    } catch {
-      return true;
-    }
-  });
+  const [theme, setTheme] = useState('dark');
+  const [loading, setLoading] = useState(true);
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
   };
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme === 'dark' || storedTheme === 'light') {
+      setTheme(storedTheme);
+    }
+
+    try {
+      setLoading(sessionStorage.getItem('portfolio-preloaded') !== '1');
+    } catch {
+      setLoading(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (typeof document === 'undefined') {
