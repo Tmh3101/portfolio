@@ -11,7 +11,7 @@ import { useToast } from '../../context/ToastContext.jsx';
  * @param {function} onTranslate - Callback function called with the translated text.
  * @param {string} className - Additional CSS classes.
  */
-export const AITranslateButton = ({ sourceText, onTranslate, className = '' }) => {
+const AITranslateButton = ({ sourceText, onTranslate, className = '' }) => {
   const [loading, setLoading] = useState(false);
   const { showToast } = useToast();
 
@@ -72,3 +72,5 @@ export const AITranslateButton = ({ sourceText, onTranslate, className = '' }) =
     </button>
   );
 };
+
+export default AITranslateButton;

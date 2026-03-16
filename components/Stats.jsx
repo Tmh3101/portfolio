@@ -2,8 +2,18 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { animate, motion, useInView, useReducedMotion } from 'framer-motion';
-import { BriefcaseBusiness, Layers3, Rocket, Wrench } from 'lucide-react';
+import { BriefcaseBusiness, Layers3, Rocket, Wrench, Globe } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+
+const IconMap = {
+  Rocket,
+  BriefcaseBusiness,
+  Layers3,
+  Wrench,
+  Globe,
+  ...Icons,
+};
 
 const CountUpValue = ({ value, suffix = '' }) => {
   const valueRef = useRef(null);
@@ -42,15 +52,8 @@ const CountUpValue = ({ value, suffix = '' }) => {
   );
 };
 
-const iconMap = {
-  Rocket: Rocket,
-  BriefcaseBusiness: BriefcaseBusiness,
-  Layers3: Layers3,
-  Wrench: Wrench,
-};
-
 const StatItem = ({ icon, count, suffix, title, copy, index }) => {
-  const IconComponent = typeof icon === 'string' ? iconMap[icon] || Rocket : icon;
+  const IconComponent = typeof icon === 'string' ? IconMap[icon] || Rocket : icon;
 
   return (
     <motion.div
@@ -93,11 +96,17 @@ const Stats = ({ data }) => {
   const statsData =
     data && data.length > 0
       ? data.map((item, idx) => ({
-          icon: defaultIcons[idx % defaultIcons.length],
+          icon:
+            item.icon && IconMap[item.icon]
+              ? IconMap[item.icon]
+              : defaultIcons[idx % defaultIcons.length],
           count: parseFloat(item.value),
-          suffix: lang === 'en' && item.suffix_en ? item.suffix_en : item.suffix_vi || '',
+          suffix: item.suffix || '',
           title: lang === 'en' && item.label_en ? item.label_en : item.label_vi,
-          copy: t.stats?.items?.[idx]?.copy || '',
+          copy:
+            (lang === 'en' && item.copy_en ? item.copy_en : item.copy_vi) ||
+            t.stats?.items?.[idx]?.copy ||
+            '',
         }))
       : lang === 'vi'
         ? [

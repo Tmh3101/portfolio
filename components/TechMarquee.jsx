@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import * as Icons from 'lucide-react';
 import {
   AppWindow,
   Boxes,
@@ -10,10 +11,24 @@ import {
   Layers3,
   ServerCog,
   Workflow,
+  Globe,
 } from 'lucide-react';
 
-const TechMarquee = () => {
-  const techRow = [
+const IconMap = {
+  AppWindow,
+  Boxes,
+  Braces,
+  Code2,
+  Database,
+  Layers3,
+  ServerCog,
+  Workflow,
+  Globe,
+  ...Icons, // Allow any Lucide icon
+};
+
+const TechMarquee = ({ data }) => {
+  const defaultTechRow = [
     { label: 'Python', icon: Code2 },
     { label: 'FastAPI', icon: ServerCog },
     { label: 'Laravel', icon: Layers3 },
@@ -27,6 +42,14 @@ const TechMarquee = () => {
     { label: 'Postman', icon: Workflow },
     { label: 'Git', icon: Braces },
   ];
+
+  const techRow =
+    data && data.length > 0
+      ? data.map((item) => ({
+          label: item.label,
+          icon: IconMap[item.icon] || Code2,
+        }))
+      : defaultTechRow;
 
   return (
     <section className="relative -mt-4 px-6 pb-8 md:-mt-6 md:px-10 md:pb-10 lg:px-20 xl:px-24">

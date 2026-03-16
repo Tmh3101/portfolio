@@ -3,11 +3,35 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { ArrowRight, ArrowUpRight, Github, Mail } from 'lucide-react';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Github,
+  Mail,
+  Linkedin,
+  Facebook,
+  Twitter,
+  Instagram,
+  Youtube,
+  Globe,
+  Phone,
+} from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { getLocalizedName, siteConfig as defaultSiteConfig } from '../data/siteConfig';
 
-const Hero = ({ data, settings }) => {
+const IconMap = {
+  Github,
+  Mail,
+  Linkedin,
+  Facebook,
+  Twitter,
+  Instagram,
+  Youtube,
+  Globe,
+  Phone,
+};
+
+const Hero = ({ data, settings, socialLinks }) => {
   const { t, lang } = useLanguage();
   const localizedName = getLocalizedName(lang);
 
@@ -20,28 +44,42 @@ const Hero = ({ data, settings }) => {
   const headline = getLoc('headline') || '';
   const title1 = headline ? headline.split(' ')[0] : t.hero.title1;
   const title2 = headline ? headline.split(' ').slice(1).join(' ') : t.hero.title2;
-  const title3 = t.hero.title3;
+  const title3 = getLoc('subtitle') || t.hero.title3;
   const description = getLoc('subheadline') || t.hero.description;
   const avatarUrl = data?.avatar_url || '/assets/profile.jpg';
 
-  const githubUrl = settings?.github_url || defaultSiteConfig.github;
   const linkedinUrl = settings?.linkedin_url || defaultSiteConfig.profileUrl;
   const contactEmail = settings?.email || defaultSiteConfig.email;
   const resumeUrl = settings?.resume_url || defaultSiteConfig.resumeUrl;
 
-  const quickLinks = [
-    {
-      href: `mailto:${contactEmail}`,
-      label: 'Email',
-      icon: Mail,
-    },
-    {
-      href: githubUrl,
-      label: 'GitHub',
-      icon: Github,
-      external: true,
-    },
-  ];
+  const quickLinks =
+    socialLinks && socialLinks.length > 0
+      ? [
+          {
+            href: `mailto:${contactEmail}`,
+            label: 'Email',
+            icon: Mail,
+          },
+          ...socialLinks.slice(0, 3).map((link) => ({
+            href: link.url,
+            label: link.name,
+            icon: IconMap[link.icon] || Globe,
+            external: true,
+          })),
+        ]
+      : [
+          {
+            href: `mailto:${contactEmail}`,
+            label: 'Email',
+            icon: Mail,
+          },
+          {
+            href: settings?.github_url || defaultSiteConfig.github,
+            label: 'GitHub',
+            icon: Github,
+            external: true,
+          },
+        ];
 
   const roles =
     lang === 'en' && data?.roles_en?.length > 0
@@ -50,15 +88,15 @@ const Hero = ({ data, settings }) => {
 
   const detailCards = [
     {
-      label: t.hero.focusLabel,
+      label: getLoc('role1_label') || t.hero.focusLabel,
       value: roles[0] || t.hero.focusValue,
     },
     {
-      label: t.hero.opportunityLabel,
+      label: getLoc('role2_label') || t.hero.opportunityLabel,
       value: roles[1] || t.hero.opportunityValue,
     },
     {
-      label: t.hero.noteLabel,
+      label: getLoc('role3_label') || t.hero.noteLabel,
       value: roles[2] || t.hero.noteValue,
     },
   ];

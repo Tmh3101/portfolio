@@ -35,6 +35,7 @@ export default function AdminSettingsPage() {
       github_url: '',
       linkedin_url: '',
       email: '',
+      phone: '',
       resume_url: '',
     },
   });
@@ -257,6 +258,13 @@ export default function AdminSettingsPage() {
                   },
                 })}
                 error={errors.email?.message}
+              />
+
+              <TextInput
+                label="Phone Number"
+                placeholder="+84 ..."
+                {...register('phone')}
+                error={errors.phone?.message}
               />
 
               <TextInput
