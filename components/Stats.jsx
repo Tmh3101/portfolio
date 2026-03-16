@@ -95,8 +95,8 @@ const Stats = ({ data }) => {
       ? data.map((item, idx) => ({
           icon: defaultIcons[idx % defaultIcons.length],
           count: parseFloat(item.value),
-          suffix: item.suffix || '',
-          title: item.label,
+          suffix: lang === 'en' && item.suffix_en ? item.suffix_en : item.suffix_vi || '',
+          title: lang === 'en' && item.label_en ? item.label_en : item.label_vi,
           copy: t.stats?.items?.[idx]?.copy || '',
         }))
       : lang === 'vi'

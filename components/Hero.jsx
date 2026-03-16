@@ -11,13 +11,17 @@ const Hero = ({ data, settings }) => {
   const { t, lang } = useLanguage();
   const localizedName = getLocalizedName(lang);
 
+  const getLoc = (field) =>
+    lang === 'en' && data?.[`${field}_en`] ? data[`${field}_en`] : data?.[`${field}_vi`];
+
   // Dynamic values from CMS or fallbacks
-  const greeting = data?.greeting || t.hero.badge;
+  const greeting = getLoc('greeting') || t.hero.badge;
   const heroName = data?.name || localizedName;
-  const title1 = data?.headline?.split(' ')[0] || t.hero.title1;
-  const title2 = data?.headline?.split(' ').slice(1).join(' ') || t.hero.title2;
-  const title3 = data?.subheadline || t.hero.title3;
-  const description = data?.bio || t.hero.description;
+  const headline = getLoc('headline') || '';
+  const title1 = headline ? headline.split(' ')[0] : t.hero.title1;
+  const title2 = headline ? headline.split(' ').slice(1).join(' ') : t.hero.title2;
+  const title3 = t.hero.title3;
+  const description = getLoc('subheadline') || t.hero.description;
   const avatarUrl = data?.avatar_url || '/assets/profile.jpg';
 
   const githubUrl = settings?.github_url || defaultSiteConfig.github;
@@ -39,7 +43,10 @@ const Hero = ({ data, settings }) => {
     },
   ];
 
-  const roles = data?.roles || [t.hero.focusValue, t.hero.opportunityValue, t.hero.noteValue];
+  const roles =
+    lang === 'en' && data?.roles_en?.length > 0
+      ? data.roles_en
+      : data?.roles_vi || [t.hero.focusValue, t.hero.opportunityValue, t.hero.noteValue];
 
   const detailCards = [
     {
@@ -93,7 +100,7 @@ const Hero = ({ data, settings }) => {
 
             <div className="mt-10 flex flex-wrap items-center gap-4">
               <a href="#contact" className="button-primary">
-                {data?.cta_primary_label || t.hero.btnContact}
+                {getLoc('cta_primary_label') || t.hero.btnContact}
                 <ArrowRight size={18} />
               </a>
               <a
@@ -102,7 +109,7 @@ const Hero = ({ data, settings }) => {
                 rel="noreferrer"
                 className="button-secondary"
               >
-                {data?.cta_secondary_label || t.hero.btnResume}
+                {getLoc('cta_secondary_label') || t.hero.btnResume}
                 <ArrowUpRight size={18} />
               </a>
             </div>

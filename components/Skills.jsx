@@ -31,9 +31,10 @@ const Skills = ({ data }) => {
     if (data && data.length > 0) {
       // Group skills by category from CMS
       const grouped = data.reduce((acc, skill) => {
-        const cat = skill.category || 'General';
+        const cat =
+          lang === 'en' && skill.category_en ? skill.category_en : skill.category_vi || 'General';
         if (!acc[cat]) acc[cat] = [];
-        acc[cat].push(skill.name);
+        acc[cat].push(lang === 'en' && skill.name_en ? skill.name_en : skill.name_vi);
         return acc;
       }, {});
 

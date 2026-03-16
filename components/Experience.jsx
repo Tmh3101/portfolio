@@ -36,10 +36,13 @@ const Experience = ({ data }) => {
     if (data && data.length > 0) {
       return data.map((exp) => ({
         company: exp.company,
-        role: exp.role,
+        role: lang === 'en' && exp.role_en ? exp.role_en : exp.role_vi,
         period: formatPeriod(exp.start_date, exp.end_date, exp.is_current, lang),
-        description: exp.description,
-        highlights: exp.highlights || [],
+        description: lang === 'en' && exp.description_en ? exp.description_en : exp.description_vi,
+        highlights:
+          lang === 'en' && exp.highlights_en?.length > 0
+            ? exp.highlights_en
+            : exp.highlights_vi || [],
         isEducation:
           exp.company.toLowerCase().includes('university') ||
           exp.company.toLowerCase().includes('đại học'),

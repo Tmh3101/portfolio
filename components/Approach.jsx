@@ -15,13 +15,13 @@ const iconMap = {
 };
 
 const Approach = ({ data }) => {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
 
   const approachItems =
     data && data.length > 0
       ? data.map((item, idx) => ({
-          title: item.title,
-          copy: item.description,
+          title: lang === 'en' && item.title_en ? item.title_en : item.title_vi,
+          copy: lang === 'en' && item.description_en ? item.description_en : item.description_vi,
           icon: iconMap[item.icon] || [Layers3, Boxes, Sparkles][idx % 3],
         }))
       : t.approach.items.map((item, idx) => ({

@@ -14,9 +14,10 @@ const Projects = ({ data }) => {
   const projects = useMemo(() => {
     if (data && data.length > 0) {
       return data.map((p) => ({
-        title: p.title,
-        summary: p.short_description,
-        impact: p.description, // Full description or impact
+        title: lang === 'en' && p.title_en ? p.title_en : p.title_vi,
+        summary:
+          lang === 'en' && p.short_description_en ? p.short_description_en : p.short_description_vi,
+        impact: lang === 'en' && p.description_en ? p.description_en : p.description_vi,
         image: p.thumbnail_url || '/assets/optimized/project1.webp',
         tech: p.tags || [],
         repoUrl: p.repo_url || '#',
