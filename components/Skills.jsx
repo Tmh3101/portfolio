@@ -34,7 +34,10 @@ const Skills = ({ data }) => {
         const cat =
           lang === 'en' && skill.category_en ? skill.category_en : skill.category_vi || 'General';
         if (!acc[cat]) acc[cat] = [];
-        acc[cat].push(lang === 'en' && skill.name_en ? skill.name_en : skill.name_vi);
+        acc[cat].push({
+          name: skill.name,
+          color: skill.color,
+        });
         return acc;
       }, {});
 
@@ -86,7 +89,12 @@ const Skills = ({ data }) => {
           lang === 'vi'
             ? 'API design, service layers, auth, business logic và các tích hợp backend.'
             : 'API design, service layers, auth, business logic, and backend integrations.',
-        skills: ['Python', 'FastAPI', 'Laravel', 'PHP'],
+        skills: [
+          { name: 'Python', color: null },
+          { name: 'FastAPI', color: null },
+          { name: 'Laravel', color: null },
+          { name: 'PHP', color: null },
+        ],
       },
       {
         title: 'Data',
@@ -95,7 +103,12 @@ const Skills = ({ data }) => {
           lang === 'vi'
             ? 'Thiết kế schema, tối ưu truy vấn và giữ dữ liệu nhất quán cho sản phẩm.'
             : 'Schema design, query optimization, and data consistency for product workloads.',
-        skills: ['PostgreSQL', 'MySQL', 'SQL Server', 'ETL'],
+        skills: [
+          { name: 'PostgreSQL', color: null },
+          { name: 'MySQL', color: null },
+          { name: 'SQL Server', color: null },
+          { name: 'ETL', color: null },
+        ],
       },
       {
         title: 'Delivery',
@@ -104,7 +117,12 @@ const Skills = ({ data }) => {
           lang === 'vi'
             ? 'Containerization, môi trường triển khai và quy trình release ổn định.'
             : 'Containerization, deployment environments, and reliable release workflows.',
-        skills: ['Docker', 'Nginx', 'CI/CD', 'AWS'],
+        skills: [
+          { name: 'Docker', color: null },
+          { name: 'Nginx', color: null },
+          { name: 'CI/CD', color: null },
+          { name: 'AWS', color: null },
+        ],
       },
       {
         title: 'Support',
@@ -113,7 +131,12 @@ const Skills = ({ data }) => {
           lang === 'vi'
             ? 'Đủ để phối hợp với frontend, debug flow end-to-end và hỗ trợ khi cần chạm vào bề mặt sản phẩm.'
             : 'Enough to collaborate with frontend, debug end-to-end flows, and support product delivery when needed.',
-        skills: ['React', 'JavaScript', 'Debugging', 'Vite'],
+        skills: [
+          { name: 'React', color: null },
+          { name: 'JavaScript', color: null },
+          { name: 'Debugging', color: null },
+          { name: 'Vite', color: null },
+        ],
       },
     ];
   }, [data, lang]);
@@ -176,10 +199,19 @@ const Skills = ({ data }) => {
                   <div className="mt-6 flex flex-wrap gap-2">
                     {category.skills.map((skill) => (
                       <span
-                        key={skill}
+                        key={skill.name}
                         className="skill-chip rounded-full border border-primary/16 bg-primary/8 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-foreground/82 dark:bg-primary/10 dark:text-foreground/84"
+                        style={
+                          skill.color
+                            ? {
+                                borderColor: `${skill.color}33`,
+                                backgroundColor: `${skill.color}14`,
+                                color: skill.color,
+                              }
+                            : {}
+                        }
                       >
-                        {skill}
+                        {skill.name}
                       </span>
                     ))}
                   </div>

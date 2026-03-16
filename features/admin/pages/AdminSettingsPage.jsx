@@ -35,6 +35,7 @@ export default function AdminSettingsPage() {
       github_url: '',
       linkedin_url: '',
       email: '',
+      resume_url: '',
     },
   });
 
@@ -99,6 +100,13 @@ export default function AdminSettingsPage() {
       const { error } = await supabase.from('site_settings').upsert(payload);
 
       if (error) throw error;
+
+      // Trigger on-demand revalidation
+      fetch('/api/admin/revalidate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: '/' }),
+      }).catch((err) => console.error('Failed to trigger revalidation:', err));
 
       showToast(t.admin.updateSuccess, 'success');
       reset(data); // Mark as not dirty
@@ -270,6 +278,13 @@ export default function AdminSettingsPage() {
                 placeholder="@username"
                 {...register('twitter_handle')}
                 error={errors.twitter_handle?.message}
+              />
+
+              <TextInput
+                label="Resume/CV URL"
+                placeholder="https://.../resume.pdf"
+                {...register('resume_url')}
+                error={errors.resume_url?.message}
               />
             </div>
           </div>

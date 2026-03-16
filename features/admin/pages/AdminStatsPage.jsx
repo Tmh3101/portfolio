@@ -121,6 +121,13 @@ export default function AdminStatsPage() {
 
       if (error) throw error;
 
+      // Trigger on-demand revalidation
+      fetch('/api/admin/revalidate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: '/' }),
+      }).catch((err) => console.error('Failed to trigger revalidation:', err));
+
       showToast(editingStat ? t.admin.updateSuccess : t.admin.addSuccess, 'success');
       handleCloseModal();
       fetchStats();

@@ -55,9 +55,12 @@ export default function AdminProjectsPage() {
       description_vi: '',
       description_en: '',
       thumbnail_url: '',
+      images_url: '',
       repo_url: '',
       live_url: '',
-      tags: '',
+      technologies: '',
+      features_vi: '',
+      features_en: '',
       featured: false,
       sort_order: 0,
     },
@@ -67,6 +70,7 @@ export default function AdminProjectsPage() {
   const watchedTitleVi = watch('title_vi');
   const watchedShortDescVi = watch('short_description_vi');
   const watchedDescVi = watch('description_vi');
+  const watchedFeaturesVi = watch('features_vi');
 
   const fetchProjects = useCallback(async () => {
     setLoading(true);
@@ -96,7 +100,10 @@ export default function AdminProjectsPage() {
     if (project) {
       reset({
         ...project,
-        tags: project.tags ? project.tags.join(', ') : '',
+        technologies: project.technologies ? project.technologies.join(', ') : '',
+        images_url: project.images_url ? project.images_url.join(', ') : '',
+        features_vi: project.features_vi ? project.features_vi.join('\n') : '',
+        features_en: project.features_en ? project.features_en.join('\n') : '',
       });
     } else {
       reset({
@@ -108,9 +115,12 @@ export default function AdminProjectsPage() {
         description_vi: '',
         description_en: '',
         thumbnail_url: '',
+        images_url: '',
         repo_url: '',
         live_url: '',
-        tags: '',
+        technologies: '',
+        features_vi: '',
+        features_en: '',
         featured: false,
         sort_order: projects.length,
       });
@@ -144,10 +154,28 @@ export default function AdminProjectsPage() {
     try {
       const payload = {
         ...data,
-        tags: data.tags
-          ? data.tags
+        technologies: data.technologies
+          ? data.technologies
               .split(',')
               .map((tag) => tag.trim())
+              .filter(Boolean)
+          : [],
+        images_url: data.images_url
+          ? data.images_url
+              .split(',')
+              .map((url) => url.trim())
+              .filter(Boolean)
+          : [],
+        features_vi: data.features_vi
+          ? data.features_vi
+              .split('\n')
+              .map((f) => f.trim())
+              .filter(Boolean)
+          : [],
+        features_en: data.features_en
+          ? data.features_en
+              .split('\n')
+              .map((f) => f.trim())
               .filter(Boolean)
           : [],
         sort_order: parseInt(data.sort_order, 10) || 0,
@@ -166,6 +194,13 @@ export default function AdminProjectsPage() {
       }
 
       if (error) throw error;
+
+      // Trigger on-demand revalidation to update the public page
+      fetch('/api/admin/revalidate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: '/' }),
+      }).catch((err) => console.error('Failed to trigger revalidation:', err));
 
       showToast(editingProject ? t.admin.updateSuccess : t.admin.addSuccess, 'success');
       handleCloseModal();
@@ -345,10 +380,38 @@ export default function AdminProjectsPage() {
                   </div>
 
                   <TextInput
-                    label="Tags (comma separated)"
+                    label="Technologies (comma separated)"
                     placeholder="React, Supabase, Tailwind"
-                    {...register('tags')}
+                    {...register('technologies')}
                   />
+
+                  <div className="grid grid-cols-1 gap-4 p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="text-sm font-bold text-gray-700 uppercase tracking-wider">
+                        Key Features (one per line)
+                      </h4>
+                      <AITranslateButton
+                        sourceText={watchedFeaturesVi}
+                        onTranslate={(val) =>
+                          setValue('features_en', val, { shouldValidate: true })
+                        }
+                      />
+                    </div>
+                    <div className="space-y-4">
+                      <TextArea
+                        label="Features (VN)"
+                        placeholder="Feature 1&#10;Feature 2"
+                        {...register('features_vi')}
+                        error={errors.features_vi?.message}
+                      />
+                      <TextArea
+                        label="Features (EN)"
+                        placeholder="Feature 1&#10;Feature 2"
+                        {...register('features_en')}
+                        error={errors.features_en?.message}
+                      />
+                    </div>
+                  </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <TextInput label="Sort Order" type="number" {...register('sort_order')} />
@@ -383,6 +446,13 @@ export default function AdminProjectsPage() {
                         error={errors.thumbnail_url?.message}
                       />
                     )}
+                  />
+
+                  <TextArea
+                    label="Gallery Images (comma separated URLs)"
+                    placeholder="https://.../img1.png, https://.../img2.png"
+                    {...register('images_url')}
+                    error={errors.images_url?.message}
                   />
 
                   <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">

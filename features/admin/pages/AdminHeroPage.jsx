@@ -107,6 +107,13 @@ export default function AdminHeroPage() {
 
       if (error) throw error;
 
+      // Trigger on-demand revalidation
+      fetch('/api/admin/revalidate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: '/' }),
+      }).catch((err) => console.error('Failed to trigger revalidation:', err));
+
       showToast(t.admin.updateSuccess, 'success');
       reset(data);
     } catch (error) {

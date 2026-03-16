@@ -3,8 +3,6 @@ import { publicService } from '../../lib/services/public.service.js';
 import { siteConfig } from '../../data/siteConfig.js';
 import { getSiteUrl } from '../../lib/seo.js';
 
-export const revalidate = 3600; // Revalidate every hour
-
 export async function generateMetadata() {
   const data = await publicService.getPortfolioData();
   const settings = data?.settings || {};

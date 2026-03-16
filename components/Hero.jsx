@@ -27,7 +27,7 @@ const Hero = ({ data, settings }) => {
   const githubUrl = settings?.github_url || defaultSiteConfig.github;
   const linkedinUrl = settings?.linkedin_url || defaultSiteConfig.profileUrl;
   const contactEmail = settings?.email || defaultSiteConfig.email;
-  const resumeUrl = defaultSiteConfig.resumeUrl; // Keep this static for now if not in DB
+  const resumeUrl = settings?.resume_url || defaultSiteConfig.resumeUrl;
 
   const quickLinks = [
     {
