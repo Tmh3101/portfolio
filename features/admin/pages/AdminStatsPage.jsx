@@ -1,12 +1,19 @@
 'use client';
 
 import React, { useEffect, useState, useCallback } from 'react';
-import { useForm } from 'react-hook-form';
-import { Plus, RefreshCcw, Save, X, BarChart3 } from 'lucide-react';
+import { useForm, Controller } from 'react-hook-form';
+import { Plus, RefreshCcw, Save, X, BarChart3, Globe } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { getSupabaseBrowserClient } from '../../../lib/supabase/client';
 import { useLanguage } from '../../../context/LanguageContext.jsx';
 import { useToast } from '../../../context/ToastContext.jsx';
-import { DataTable, TextInput, AITranslateButton } from '../../../components/admin';
+import {
+  DataTable,
+  TextInput,
+  AITranslateButton,
+  IconPicker,
+  TextArea,
+} from '../../../components/admin';
 
 export default function AdminStatsPage() {
   const { t } = useLanguage();
@@ -24,20 +31,23 @@ export default function AdminStatsPage() {
     reset,
     watch,
     setValue,
+    control,
     formState: { errors },
   } = useForm({
     defaultValues: {
       label_vi: '',
       label_en: '',
       value: '',
-      suffix_vi: '',
-      suffix_en: '',
+      suffix: '',
+      copy_vi: '',
+      copy_en: '',
+      icon: '',
       sort_order: 0,
     },
   });
 
   const watchedLabelVi = watch('label_vi');
-  const watchedSuffixVi = watch('suffix_vi');
+  const watchedCopyVi = watch('copy_vi');
 
   const fetchStats = useCallback(async () => {
     setLoading(true);
@@ -70,8 +80,10 @@ export default function AdminStatsPage() {
         label_vi: '',
         label_en: '',
         value: '',
-        suffix_vi: '',
-        suffix_en: '',
+        suffix: '',
+        copy_vi: '',
+        copy_en: '',
+        icon: '',
         sort_order: stats.length,
       });
     }
@@ -121,6 +133,13 @@ export default function AdminStatsPage() {
 
       if (error) throw error;
 
+      // Trigger on-demand revalidation
+      fetch('/api/admin/revalidate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: '/' }),
+      }).catch((err) => console.error('Failed to trigger revalidation:', err));
+
       showToast(editingStat ? t.admin.updateSuccess : t.admin.addSuccess, 'success');
       handleCloseModal();
       fetchStats();
@@ -136,7 +155,17 @@ export default function AdminStatsPage() {
     {
       key: 'label_vi',
       label: 'Stat Label',
-      render: (val) => <span className="admin-table__primary">{val}</span>,
+      render: (val, item) => {
+        const Icon = item.icon && Icons[item.icon] ? Icons[item.icon] : Globe;
+        return (
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded bg-gray-50 border border-gray-100 flex items-center justify-center text-blue-600">
+              <Icon size={16} />
+            </div>
+            <span className="admin-table__primary">{val}</span>
+          </div>
+        );
+      },
     },
     {
       key: 'value',
@@ -144,7 +173,7 @@ export default function AdminStatsPage() {
       render: (val, item) => (
         <span className="font-mono font-bold text-blue-600">
           {val}
-          {item.suffix_vi}
+          {item.suffix}
         </span>
       ),
     },
@@ -183,8 +212,8 @@ export default function AdminStatsPage() {
       {/* Stat Editor Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl animate-in fade-in zoom-in duration-200">
-            <div className="p-6 border-b border-gray-100 flex items-center justify-between">
+          <div className="bg-white rounded-2xl w-full max-w-4xl shadow-2xl animate-in fade-in zoom-in duration-200 flex flex-col max-h-[90vh]">
+            <div className="p-6 border-b border-gray-100 flex items-center justify-between shrink-0">
               <h3 className="text-xl font-bold text-gray-900">
                 {editingStat ? t.admin.edit : t.admin.create} Stat
               </h3>
@@ -196,34 +225,12 @@ export default function AdminStatsPage() {
               </button>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
-              <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
-                <div className="flex items-center justify-between mb-2">
-                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
-                    Label
-                  </h4>
-                  <AITranslateButton
-                    sourceText={watchedLabelVi}
-                    onTranslate={(val) => setValue('label_en', val, { shouldValidate: true })}
-                  />
-                </div>
-                <div className="space-y-4">
-                  <TextInput
-                    label="Label (VN)"
-                    placeholder="Dự án hoàn thành"
-                    {...register('label_vi', { required: 'Vietnamese label is required' })}
-                    error={errors.label_vi?.message}
-                  />
-                  <TextInput
-                    label="Label (EN)"
-                    placeholder="Projects Completed"
-                    {...register('label_en')}
-                    error={errors.label_en?.message}
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="p-6 space-y-6 overflow-y-auto custom-scrollbar"
+            >
+              {/* Core Data Row */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6 p-4 bg-blue-50/30 rounded-2xl border border-blue-100/50">
                 <TextInput
                   label="Numeric Value"
                   type="number"
@@ -232,26 +239,83 @@ export default function AdminStatsPage() {
                   {...register('value', { required: 'Value is required' })}
                   error={errors.value?.message}
                 />
+                <TextInput label="Suffix" placeholder="+" {...register('suffix')} />
+                <Controller
+                  name="icon"
+                  control={control}
+                  render={({ field }) => (
+                    <IconPicker
+                      label="Icon"
+                      value={field.value}
+                      onChange={field.onChange}
+                      error={errors.icon?.message}
+                    />
+                  )}
+                />
                 <TextInput label="Sort Order" type="number" {...register('sort_order')} />
               </div>
 
-              <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
-                <div className="flex items-center justify-between mb-2">
-                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
-                    Suffix
-                  </h4>
-                  <AITranslateButton
-                    sourceText={watchedSuffixVi}
-                    onTranslate={(val) => setValue('suffix_en', val, { shouldValidate: true })}
-                  />
+              <div className="space-y-6">
+                <h3 className="text-xs font-black uppercase tracking-[0.2em] text-gray-400 border-b border-gray-100 pb-2">
+                  Multilingual Content
+                </h3>
+
+                {/* Labels Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+                  <div className="space-y-4">
+                    <TextInput
+                      label="Label (VN)"
+                      placeholder="Dự án hoàn thành"
+                      {...register('label_vi', { required: 'Vietnamese label is required' })}
+                      error={errors.label_vi?.message}
+                    />
+                  </div>
+                  <div className="space-y-4 relative pt-8 md:pt-2">
+                    <div className="absolute -top-1 right-0 z-10 md:top-0">
+                      <AITranslateButton
+                        sourceText={watchedLabelVi}
+                        onTranslate={(val) => setValue('label_en', val, { shouldValidate: true })}
+                      />
+                    </div>
+                    <TextInput
+                      label="Label (EN)"
+                      placeholder="Projects Completed"
+                      {...register('label_en')}
+                      error={errors.label_en?.message}
+                    />
+                  </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <TextInput label="Suffix (VN)" placeholder="+" {...register('suffix_vi')} />
-                  <TextInput label="Suffix (EN)" placeholder="+" {...register('suffix_en')} />
+
+                {/* Copy Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+                  <div>
+                    <TextArea
+                      label="Copy (VN)"
+                      rows={3}
+                      placeholder="Brief description of the stat"
+                      {...register('copy_vi')}
+                      error={errors.copy_vi?.message}
+                    />
+                  </div>
+                  <div className="relative pt-6 md:pt-2">
+                    <div className="absolute -top-1 right-0 z-10 md:top-0">
+                      <AITranslateButton
+                        sourceText={watchedCopyVi}
+                        onTranslate={(val) => setValue('copy_en', val, { shouldValidate: true })}
+                      />
+                    </div>
+                    <TextArea
+                      label="Copy (EN)"
+                      rows={3}
+                      placeholder="Brief description of the stat"
+                      {...register('copy_en')}
+                      error={errors.copy_en?.message}
+                    />
+                  </div>
                 </div>
               </div>
 
-              <div className="flex justify-end gap-3 pt-6 border-t border-gray-100">
+              <div className="flex justify-end gap-3 pt-6 border-t border-gray-100 shrink-0">
                 <button
                   type="button"
                   onClick={handleCloseModal}

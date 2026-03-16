@@ -130,14 +130,14 @@ export default function PortfolioPage({ cmsData }) {
         <div className="relative z-10">
           <Navbar toggleTheme={toggleTheme} theme={theme} />
           <main className="pb-6">
-            <Hero data={cmsData.hero} settings={cmsData.settings} />
-            <TechMarquee />
+            <Hero data={cmsData.hero} settings={cmsData.settings} socialLinks={cmsData.socialLinks} />
+            <TechMarquee data={cmsData.techMarquee} />
             <Stats data={cmsData.stats} />
             <Approach data={cmsData.approaches} />
             <Skills data={cmsData.skills} />
             <Projects data={cmsData.projects} />
             <Experience data={cmsData.experiences} />
-            <Contact />
+            <Contact socialLinks={cmsData.socialLinks} settings={cmsData.settings} />
           </main>
           <Footer settings={cmsData.settings} />
           <Suspense fallback={null}>

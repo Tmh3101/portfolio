@@ -28,18 +28,17 @@ export default function AdminSkillsPage() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name_vi: '',
-      name_en: '',
+      name: '',
       category_vi: '',
       category_en: '',
       level_vi: '',
       level_en: '',
+      color: '',
       icon_url: '',
       sort_order: 0,
     },
   });
 
-  const watchedNameVi = watch('name_vi');
   const watchedCategoryVi = watch('category_vi');
   const watchedLevelVi = watch('level_vi');
 
@@ -72,12 +71,12 @@ export default function AdminSkillsPage() {
       reset(skill);
     } else {
       reset({
-        name_vi: '',
-        name_en: '',
+        name: '',
         category_vi: '',
         category_en: '',
         level_vi: '',
         level_en: '',
+        color: '',
         icon_url: '',
         sort_order: skills.length,
       });
@@ -127,6 +126,13 @@ export default function AdminSkillsPage() {
 
       if (error) throw error;
 
+      // Trigger on-demand revalidation
+      fetch('/api/admin/revalidate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: '/' }),
+      }).catch((err) => console.error('Failed to trigger revalidation:', err));
+
       showToast(editingSkill ? t.admin.updateSuccess : t.admin.addSuccess, 'success');
       handleCloseModal();
       fetchSkills();
@@ -142,18 +148,33 @@ export default function AdminSkillsPage() {
     {
       key: 'icon_url',
       label: 'Icon',
-      render: (val) => (
-        <div className="w-8 h-8 rounded bg-gray-50 border border-gray-100 p-1">
-          {val ? (
-            <img src={val} alt="" className="w-full h-full object-contain" />
-          ) : (
-            <Code2 className="w-full h-full text-gray-300" />
+      render: (val, item) => (
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded bg-gray-50 border border-gray-100 p-1 flex items-center justify-center relative overflow-hidden">
+            {item.color && (
+              <div
+                className="absolute inset-0 opacity-10"
+                style={{ backgroundColor: item.color }}
+              />
+            )}
+            {val ? (
+              <img src={val} alt="" className="w-full h-full object-contain relative z-10" />
+            ) : (
+              <Code2 className="w-full h-full text-gray-300 relative z-10" />
+            )}
+          </div>
+          {item.color && (
+            <div
+              className="w-3 h-3 rounded-full border border-gray-200"
+              style={{ backgroundColor: item.color }}
+              title={item.color}
+            />
           )}
         </div>
       ),
     },
     {
-      key: 'name_vi',
+      key: 'name',
       label: 'Skill Name',
       render: (val) => <span className="admin-table__primary">{val}</span>,
     },
@@ -223,29 +244,15 @@ export default function AdminSkillsPage() {
               <div className="flex flex-col md:flex-row gap-8">
                 <div className="flex-1 space-y-6">
                   <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
-                    <div className="flex items-center justify-between mb-2">
-                      <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
-                        Skill Name
-                      </h4>
-                      <AITranslateButton
-                        sourceText={watchedNameVi}
-                        onTranslate={(val) => setValue('name_en', val, { shouldValidate: true })}
-                      />
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <TextInput
-                        label="Name (VN)"
-                        placeholder="Python"
-                        {...register('name_vi', { required: 'Vietnamese name is required' })}
-                        error={errors.name_vi?.message}
-                      />
-                      <TextInput
-                        label="Name (EN)"
-                        placeholder="Python"
-                        {...register('name_en')}
-                        error={errors.name_en?.message}
-                      />
-                    </div>
+                    <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
+                      Skill Name
+                    </h4>
+                    <TextInput
+                      label="Name"
+                      placeholder="Python"
+                      {...register('name', { required: 'Skill name is required' })}
+                      error={errors.name?.message}
+                    />
                   </div>
 
                   <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
@@ -281,7 +288,7 @@ export default function AdminSkillsPage() {
                       <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
                         <div className="flex items-center justify-between mb-2">
                           <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
-                            Level
+                            Level & Color
                           </h4>
                           <AITranslateButton
                             sourceText={watchedLevelVi}
@@ -291,15 +298,23 @@ export default function AdminSkillsPage() {
                           />
                         </div>
                         <div className="grid grid-cols-1 gap-4">
+                          <div className="grid grid-cols-2 gap-2">
+                            <TextInput
+                              label="Level (VN)"
+                              placeholder="Trung cấp"
+                              {...register('level_vi')}
+                            />
+                            <TextInput
+                              label="Level (EN)"
+                              placeholder="Intermediate"
+                              {...register('level_en')}
+                            />
+                          </div>
                           <TextInput
-                            label="Level (VN)"
-                            placeholder="Trung cấp"
-                            {...register('level_vi')}
-                          />
-                          <TextInput
-                            label="Level (EN)"
-                            placeholder="Intermediate"
-                            {...register('level_en')}
+                            label="Brand Color (Hex)"
+                            placeholder="#3776AB"
+                            {...register('color')}
+                            error={errors.color?.message}
                           />
                         </div>
                       </div>

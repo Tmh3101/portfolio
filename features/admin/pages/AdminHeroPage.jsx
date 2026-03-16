@@ -29,10 +29,24 @@ export default function AdminHeroPage() {
       name: '',
       headline_vi: '',
       headline_en: '',
+      subtitle_vi: '',
+      subtitle_en: '',
       subheadline_vi: '',
       subheadline_en: '',
       roles_vi: '',
       roles_en: '',
+      role1_label_vi: '',
+      role1_label_en: '',
+      role1_value_vi: '',
+      role1_value_en: '',
+      role2_label_vi: '',
+      role2_label_en: '',
+      role2_value_vi: '',
+      role2_value_en: '',
+      role3_label_vi: '',
+      role3_label_en: '',
+      role3_value_vi: '',
+      role3_value_en: '',
       avatar_url: '',
       cta_primary_label_vi: '',
       cta_primary_label_en: '',
@@ -46,8 +60,14 @@ export default function AdminHeroPage() {
   const avatarUrl = watch('avatar_url');
   const watchedGreetingVi = watch('greeting_vi');
   const watchedHeadlineVi = watch('headline_vi');
+  const watchedSubtitleVi = watch('subtitle_vi');
   const watchedSubheadlineVi = watch('subheadline_vi');
-  const watchedRolesVi = watch('roles_vi');
+  const watchedRole1LabelVi = watch('role1_label_vi');
+  const watchedRole1ValueVi = watch('role1_value_vi');
+  const watchedRole2LabelVi = watch('role2_label_vi');
+  const watchedRole2ValueVi = watch('role2_value_vi');
+  const watchedRole3LabelVi = watch('role3_label_vi');
+  const watchedRole3ValueVi = watch('role3_value_vi');
   const watchedCtaPrimaryLabelVi = watch('cta_primary_label_vi');
   const watchedCtaSecondaryLabelVi = watch('cta_secondary_label_vi');
 
@@ -63,8 +83,14 @@ export default function AdminHeroPage() {
       if (data) {
         reset({
           ...data,
-          roles_vi: data.roles_vi ? data.roles_vi.join(', ') : '',
-          roles_en: data.roles_en ? data.roles_en.join(', ') : '',
+          role1_vi: data.roles_vi ? data.roles_vi.join(', ') : '',
+          role1_en: data.roles_en ? data.roles_en.join(', ') : '',
+          role1_value_vi: data.roles_vi?.[0] || '',
+          role1_value_en: data.roles_en?.[0] || '',
+          role2_value_vi: data.roles_vi?.[1] || '',
+          role2_value_en: data.roles_en?.[1] || '',
+          role3_value_vi: data.roles_vi?.[2] || '',
+          role3_value_en: data.roles_en?.[2] || '',
         });
       } else {
         const { error: insertError } = await supabase.from('hero_section').insert([{ id: 1 }]);
@@ -83,34 +109,56 @@ export default function AdminHeroPage() {
     fetchHero();
   }, [fetchHero]);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (formData) => {
     setSubmitting(true);
     try {
-      const payload = {
-        ...data,
-        id: 1,
-        roles_vi: data.roles_vi
-          ? data.roles_vi
-              .split(',')
-              .map((r) => r.trim())
-              .filter(Boolean)
-          : [],
-        roles_en: data.roles_en
-          ? data.roles_en
-              .split(',')
-              .map((r) => r.trim())
-              .filter(Boolean)
-          : [],
-      };
+      // Create a clean payload from form data
+      const payload = { ...formData };
+
+      // 1. Map individual role values back to the arrays the DB expects
+      payload.roles_vi = [
+        formData.role1_value_vi || '',
+        formData.role2_value_vi || '',
+        formData.role3_value_vi || '',
+      ];
+      payload.roles_en = [
+        formData.role1_value_en || '',
+        formData.role2_value_en || '',
+        formData.role3_value_en || '',
+      ];
+
+      // 2. Remove temporary fields that ARE NOT columns in the database
+      const fieldsToRemove = [
+        'role1_vi',
+        'role1_en',
+        'role1_value_vi',
+        'role1_value_en',
+        'role2_value_vi',
+        'role2_value_en',
+        'role3_value_vi',
+        'role3_value_en',
+      ];
+
+      fieldsToRemove.forEach((field) => delete payload[field]);
+
+      // 3. Ensure ID is present
+      payload.id = 1;
 
       const { error } = await supabase.from('hero_section').upsert(payload);
 
       if (error) throw error;
 
+      // Trigger on-demand revalidation
+      fetch('/api/admin/revalidate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: '/' }),
+      }).catch((err) => console.error('Failed to trigger revalidation:', err));
+
       showToast(t.admin.updateSuccess, 'success');
-      reset(data);
+      reset(formData);
     } catch (error) {
-      console.error('Error updating hero section:', error);
+      console.error('Error updating hero section:', error.message || error);
       showToast(t.admin.error, 'error');
     } finally {
       setSubmitting(false);
@@ -207,6 +255,30 @@ export default function AdminHeroPage() {
               <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Subtitle
+                  </h4>
+                  <AITranslateButton
+                    sourceText={watchedSubtitleVi}
+                    onTranslate={(val) => setValue('subtitle_en', val, { shouldDirty: true })}
+                  />
+                </div>
+                <div className="space-y-4">
+                  <TextInput
+                    label="Subtitle (VN)"
+                    placeholder="Chuyên gia xây dựng trải nghiệm..."
+                    {...register('subtitle_vi')}
+                  />
+                  <TextInput
+                    label="Subtitle (EN)"
+                    placeholder="Specializing in building experiences..."
+                    {...register('subtitle_en')}
+                  />
+                </div>
+              </div>
+
+              <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
                     Subheadline / Bio
                   </h4>
                   <AITranslateButton
@@ -228,27 +300,117 @@ export default function AdminHeroPage() {
                 </div>
               </div>
 
-              <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
-                <div className="flex items-center justify-between mb-2">
-                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
-                    Roles
-                  </h4>
-                  <AITranslateButton
-                    sourceText={watchedRolesVi}
-                    onTranslate={(val) => setValue('roles_en', val, { shouldDirty: true })}
-                  />
-                </div>
+              <div className="p-4 bg-blue-50/30 rounded-xl border border-blue-100/50">
+                <h4 className="text-xs font-bold text-blue-700 uppercase tracking-wider mb-4">
+                  Hero Info Box 1
+                </h4>
                 <div className="space-y-4">
-                  <TextInput
-                    label="Roles (VN)"
-                    placeholder="Backend, Frontend"
-                    {...register('roles_vi')}
-                  />
-                  <TextInput
-                    label="Roles (EN)"
-                    placeholder="Backend Developer"
-                    {...register('roles_en')}
-                  />
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-bold text-gray-500 uppercase">Label</span>
+                        <AITranslateButton
+                          sourceText={watchedRole1LabelVi}
+                          onTranslate={(val) =>
+                            setValue('role1_label_en', val, { shouldDirty: true })
+                          }
+                        />
+                      </div>
+                      <TextInput placeholder="Stack chính" {...register('role1_label_vi')} />
+                      <TextInput placeholder="Core stack" {...register('role1_label_en')} />
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-bold text-gray-500 uppercase">Value</span>
+                        <AITranslateButton
+                          sourceText={watchedRole1ValueVi}
+                          onTranslate={(val) =>
+                            setValue('role1_value_en', val, { shouldDirty: true })
+                          }
+                        />
+                      </div>
+                      <TextInput placeholder="Python, FastAPI..." {...register('role1_value_vi')} />
+                      <TextInput placeholder="Python, FastAPI..." {...register('role1_value_en')} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-4 bg-blue-50/30 rounded-xl border border-blue-100/50">
+                <h4 className="text-xs font-bold text-blue-700 uppercase tracking-wider mb-4">
+                  Hero Info Box 2
+                </h4>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-bold text-gray-500 uppercase">Label</span>
+                        <AITranslateButton
+                          sourceText={watchedRole2LabelVi}
+                          onTranslate={(val) =>
+                            setValue('role2_label_en', val, { shouldDirty: true })
+                          }
+                        />
+                      </div>
+                      <TextInput placeholder="Thường xử lý" {...register('role2_label_vi')} />
+                      <TextInput placeholder="Typical scope" {...register('role2_label_en')} />
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-bold text-gray-500 uppercase">Value</span>
+                        <AITranslateButton
+                          sourceText={watchedRole2ValueVi}
+                          onTranslate={(val) =>
+                            setValue('role2_value_en', val, { shouldDirty: true })
+                          }
+                        />
+                      </div>
+                      <TextInput placeholder="REST APIs..." {...register('role2_value_vi')} />
+                      <TextInput placeholder="REST APIs..." {...register('role2_value_en')} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-4 bg-blue-50/30 rounded-xl border border-blue-100/50">
+                <h4 className="text-xs font-bold text-blue-700 uppercase tracking-wider mb-4">
+                  Hero Info Box 3
+                </h4>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-bold text-gray-500 uppercase">Label</span>
+                        <AITranslateButton
+                          sourceText={watchedRole3LabelVi}
+                          onTranslate={(val) =>
+                            setValue('role3_label_en', val, { shouldDirty: true })
+                          }
+                        />
+                      </div>
+                      <TextInput placeholder="Cách tôi làm việc" {...register('role3_label_vi')} />
+                      <TextInput placeholder="How I work" {...register('role3_label_en')} />
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-bold text-gray-500 uppercase">Value</span>
+                        <AITranslateButton
+                          sourceText={watchedRole3ValueVi}
+                          onTranslate={(val) =>
+                            setValue('role3_value_en', val, { shouldDirty: true })
+                          }
+                        />
+                      </div>
+                      <TextInput
+                        placeholder="Ưu tiên maintainability..."
+                        {...register('role3_value_vi')}
+                      />
+                      <TextInput
+                        placeholder="Prioritize maintainability..."
+                        {...register('role3_value_en')}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

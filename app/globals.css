@@ -2515,8 +2515,9 @@ html[lang='vi'] .section-title {
 
 @media (min-width: 1080px) {
   .admin-shell {
-    display: grid;
-    grid-template-columns: 16.5rem minmax(0, 1fr);
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
   }
 }
 
@@ -2530,12 +2531,21 @@ html[lang='vi'] .section-title {
 
 @media (min-width: 1080px) {
   .admin-sidebar {
-    position: sticky;
-    top: 0;
-    min-height: 100vh;
+    width: 16.5rem;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
     align-content: start;
     border-right: 1px solid #e3e8ee;
     border-bottom: none;
+  }
+}
+
+@media (min-width: 1080px) {
+  .admin-main {
+    flex: 1;
+    height: 100vh;
+    overflow-y: auto;
   }
 }
 

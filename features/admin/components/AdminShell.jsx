@@ -16,6 +16,7 @@ import {
   Settings,
   User,
   BarChart3,
+  Share2,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -39,6 +40,16 @@ export default function AdminShell({ children, sectionLabel, title, description,
       to: '/admin/settings',
       icon: Settings,
       label: t.admin.settings,
+    },
+    {
+      to: '/admin/social-links',
+      icon: Share2,
+      label: 'Social Links',
+    },
+    {
+      to: '/admin/tech-marquee',
+      icon: Layers,
+      label: 'Tech Marquee',
     },
     {
       to: '/admin/hero',

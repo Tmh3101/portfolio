@@ -2,16 +2,44 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Facebook, Github, LoaderCircle, Mail, Phone, Send } from 'lucide-react';
+import {
+  ArrowUpRight,
+  Facebook,
+  Github,
+  LoaderCircle,
+  Mail,
+  Phone,
+  Send,
+  Linkedin,
+  Twitter,
+  Instagram,
+  Youtube,
+  Globe,
+} from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useToast } from '../context/ToastContext';
 import { siteConfig } from '../data/siteConfig';
 import { apiUrl } from '../lib/api';
 
-const Contact = () => {
+const IconMap = {
+  Github,
+  Mail,
+  Linkedin,
+  Facebook,
+  Twitter,
+  Instagram,
+  Youtube,
+  Globe,
+  Phone,
+};
+
+const Contact = ({ socialLinks, settings }) => {
   const { t, lang } = useLanguage();
   const { showToast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const email = settings?.email || siteConfig.email;
+  const phone = settings?.phone || siteConfig.phone;
 
   const inputClassName =
     'contact-input w-full rounded-[22px] border border-border/90 bg-background/84 px-5 py-4 text-foreground placeholder:text-muted-foreground/75 backdrop-blur-xl transition-colors focus:border-primary/60 focus:bg-background/96 dark:bg-card/88 dark:focus:bg-card';
@@ -20,21 +48,28 @@ const Contact = () => {
     {
       icon: Mail,
       label: 'Email',
-      value: siteConfig.email,
-      href: siteConfig.emailHref,
+      value: email,
+      href: `mailto:${email}`,
     },
     {
       icon: Phone,
       label: t.contact.labelPhone,
-      value: siteConfig.phone,
-      href: siteConfig.phoneHref,
+      value: phone,
+      href: `tel:${phone?.replace(/\s+/g, '')}`,
     },
   ];
 
-  const socialLinks = [
-    { icon: Github, href: siteConfig.github, label: 'GitHub' },
-    { icon: Facebook, href: siteConfig.facebook, label: 'Facebook' },
-  ];
+  const displaySocialLinks =
+    socialLinks && socialLinks.length > 0
+      ? socialLinks.map((link) => ({
+          icon: IconMap[link.icon] || Globe,
+          href: link.url,
+          label: link.name,
+        }))
+      : [
+          { icon: Github, href: settings?.github_url || siteConfig.github, label: 'GitHub' },
+          { icon: Facebook, href: siteConfig.facebook, label: 'Facebook' },
+        ];
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -132,7 +167,7 @@ const Contact = () => {
             <div className="mt-8">
               <p className="section-kicker">{t.contact.socialTitle}</p>
               <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                {socialLinks.map((social) => {
+                {displaySocialLinks.map((social) => {
                   const Icon = social.icon;
 
                   return (
