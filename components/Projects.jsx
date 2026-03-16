@@ -8,9 +8,27 @@ import { useLanguage } from '../context/LanguageContext';
 import { projectData } from '../data/projectData';
 import { siteConfig } from '../data/siteConfig';
 
-const Projects = () => {
+const Projects = ({ data }) => {
   const { t, lang } = useLanguage();
-  const projects = projectData[lang] || projectData.en;
+
+  const projects = useMemo(() => {
+    if (data && data.length > 0) {
+      return data.map((p) => ({
+        title: lang === 'en' && p.title_en ? p.title_en : p.title_vi,
+        summary:
+          lang === 'en' && p.short_description_en ? p.short_description_en : p.short_description_vi,
+        impact: lang === 'en' && p.description_en ? p.description_en : p.description_vi,
+        image: p.thumbnail_url || '/assets/optimized/project1.webp',
+        tech: p.tags || [],
+        repoUrl: p.repo_url || '#',
+        liveUrl: p.live_url,
+        status: p.featured ? 'Featured' : 'Stable',
+        featured: p.featured,
+      }));
+    }
+    return projectData[lang] || projectData.en;
+  }, [data, lang]);
+
   const [showAll, setShowAll] = useState(false);
   const visibleProjects = useMemo(
     () => (showAll ? projects : projects.slice(0, 4)),
@@ -100,7 +118,7 @@ const Projects = () => {
                     <div className="overflow-hidden rounded-[20px] border border-white/8 bg-[#08131b]">
                       <div className="flex items-center justify-between border-b border-white/8 px-3 py-2 text-[10px] font-black uppercase tracking-[0.22em] text-white/68">
                         <span>0{index + 1}</span>
-                        <span>{index === 0 ? t.projects.featuredLabel : project.status}</span>
+                        <span>{project.featured ? t.projects.featuredLabel : project.status}</span>
                       </div>
                       <Image
                         src={project.image}

@@ -2,13 +2,32 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Boxes, Layers3, Sparkles } from 'lucide-react';
+import { Boxes, Layers3, Sparkles, Code2, Database, Search } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
-const icons = [Layers3, Boxes, Sparkles];
+const iconMap = {
+  Layers3: Layers3,
+  Boxes: Boxes,
+  Sparkles: Sparkles,
+  code: Code2,
+  database: Database,
+  search: Search,
+};
 
-const Approach = () => {
-  const { t } = useLanguage();
+const Approach = ({ data }) => {
+  const { t, lang } = useLanguage();
+
+  const approachItems =
+    data && data.length > 0
+      ? data.map((item, idx) => ({
+          title: lang === 'en' && item.title_en ? item.title_en : item.title_vi,
+          copy: lang === 'en' && item.description_en ? item.description_en : item.description_vi,
+          icon: iconMap[item.icon] || [Layers3, Boxes, Sparkles][idx % 3],
+        }))
+      : t.approach.items.map((item, idx) => ({
+          ...item,
+          icon: [Layers3, Boxes, Sparkles][idx % 3],
+        }));
 
   return (
     <section id="focus" className="px-6 pb-10 md:px-10 lg:px-20 xl:px-24">
@@ -37,8 +56,8 @@ const Approach = () => {
           </div>
 
           <div className="grid gap-4 md:grid-cols-3 xl:grid-cols-1">
-            {t.approach.items.map((item, index) => {
-              const Icon = icons[index] || Sparkles;
+            {approachItems.map((item, index) => {
+              const Icon = item.icon;
 
               return (
                 <motion.article

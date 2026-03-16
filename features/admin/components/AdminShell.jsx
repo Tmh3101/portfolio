@@ -3,13 +3,19 @@
 import React from 'react';
 import {
   Activity,
+  Briefcase,
+  Code2,
   FileText,
   Globe2,
+  Home,
   Languages,
   LayoutDashboard,
+  Layers,
   Lock,
   Mail,
+  Settings,
   User,
+  BarChart3,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -28,6 +34,41 @@ export default function AdminShell({ children, sectionLabel, title, description,
       end: true,
       icon: LayoutDashboard,
       label: t.admin.overview,
+    },
+    {
+      to: '/admin/settings',
+      icon: Settings,
+      label: t.admin.settings,
+    },
+    {
+      to: '/admin/hero',
+      icon: Home,
+      label: t.admin.hero,
+    },
+    {
+      to: '/admin/projects',
+      icon: Layers,
+      label: t.admin.projects,
+    },
+    {
+      to: '/admin/experiences',
+      icon: Briefcase,
+      label: t.admin.experiences,
+    },
+    {
+      to: '/admin/approaches',
+      icon: Layers,
+      label: 'Approaches',
+    },
+    {
+      to: '/admin/skills',
+      icon: Code2,
+      label: t.admin.skills,
+    },
+    {
+      to: '/admin/stats',
+      icon: BarChart3,
+      label: t.admin.stats,
     },
     {
       to: '/admin/profile',

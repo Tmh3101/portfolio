@@ -1,0 +1,17 @@
+import { createBrowserClient } from '@supabase/ssr';
+import { Database } from '../database.types';
+import { env } from '../config/env.js';
+
+const supabaseUrl = env.supabaseUrl;
+const supabaseAnonKey = env.supabaseAnonKey;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  // In the browser we can't safely log env values, but we can throw an explicit error for developers.
+  throw new Error(
+    'Missing Supabase env vars. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.'
+  );
+}
+
+export function getSupabaseBrowserClient() {
+  return createBrowserClient<Database>(supabaseUrl, supabaseAnonKey);
+}

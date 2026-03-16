@@ -2,7 +2,23 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Activity, CircleAlert, Clock3, Database, Mail, MapPinned, RefreshCcw } from 'lucide-react';
+import {
+  Activity,
+  CircleAlert,
+  Clock3,
+  Database,
+  Mail,
+  MapPinned,
+  RefreshCcw,
+  Settings,
+  Home,
+  Layers,
+  Briefcase,
+  Code2,
+  BarChart3,
+  Lightbulb,
+} from 'lucide-react';
+import Link from 'next/link';
 import { useAdminAuth } from '../context/AdminAuthContext.jsx';
 import { useAdminDashboard } from '../hooks/useAdminDashboard.js';
 import { useLanguage } from '../../../context/LanguageContext.jsx';
@@ -17,14 +33,27 @@ export default function AdminDashboardPage() {
     fetchCurrentUser,
     authorizedFetch,
     showToast,
-    messages: {
-      loadError: t.toasts.adminLoadError,
-      fallbackError: t.admin.error,
-    },
+    loadErrorMessage: t.toasts.adminLoadError,
+    fallbackErrorMessage: t.admin.error,
   });
 
   const latestContact = dashboard.contacts.items[0] || null;
   const latestVisit = dashboard.visits.items[0] || null;
+
+  const cmsModules = [
+    { label: t.admin.settings, icon: Settings, to: '/admin/settings', color: 'text-gray-600' },
+    { label: t.admin.hero, icon: Home, to: '/admin/hero', color: 'text-blue-600' },
+    { label: t.admin.projects, icon: Layers, to: '/admin/projects', color: 'text-indigo-600' },
+    {
+      label: t.admin.experiences,
+      icon: Briefcase,
+      to: '/admin/experiences',
+      color: 'text-emerald-600',
+    },
+    { label: 'Approaches', icon: Lightbulb, to: '/admin/approaches', color: 'text-amber-600' },
+    { label: t.admin.skills, icon: Code2, to: '/admin/skills', color: 'text-violet-600' },
+    { label: t.admin.stats, icon: BarChart3, to: '/admin/stats', color: 'text-rose-600' },
+  ];
 
   return (
     <div className="admin-dashboard">
@@ -59,6 +88,27 @@ export default function AdminDashboardPage() {
           </button>
         </div>
       </motion.section>
+
+      {/* CMS Quick Links */}
+      <section className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
+        {cmsModules.map((module) => {
+          const Icon = module.icon;
+          return (
+            <Link
+              key={module.to}
+              href={module.to}
+              className="admin-card p-4 flex flex-col items-center justify-center gap-3 hover:border-blue-200 hover:bg-blue-50/30 transition-all group"
+            >
+              <div
+                className={`p-2 rounded-lg bg-white border border-gray-100 shadow-sm group-hover:scale-110 transition-transform ${module.color}`}
+              >
+                <Icon size={20} />
+              </div>
+              <span className="text-xs font-bold text-gray-700 text-center">{module.label}</span>
+            </Link>
+          );
+        })}
+      </section>
 
       <div className="admin-stat-grid">
         <article className="admin-stat-card">
