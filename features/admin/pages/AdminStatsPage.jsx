@@ -6,7 +6,7 @@ import { Plus, RefreshCcw, Save, X, BarChart3 } from 'lucide-react';
 import { getSupabaseBrowserClient } from '../../../lib/supabase/client';
 import { useLanguage } from '../../../context/LanguageContext.jsx';
 import { useToast } from '../../../context/ToastContext.jsx';
-import { DataTable, TextInput } from '../../../components/admin';
+import { DataTable, TextInput, AITranslateButton } from '../../../components/admin';
 
 export default function AdminStatsPage() {
   const { t } = useLanguage();
@@ -22,15 +22,22 @@ export default function AdminStatsPage() {
     register,
     handleSubmit,
     reset,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      label: '',
+      label_vi: '',
+      label_en: '',
       value: '',
-      suffix: '',
+      suffix_vi: '',
+      suffix_en: '',
       sort_order: 0,
     },
   });
+
+  const watchedLabelVi = watch('label_vi');
+  const watchedSuffixVi = watch('suffix_vi');
 
   const fetchStats = useCallback(async () => {
     setLoading(true);
@@ -60,9 +67,11 @@ export default function AdminStatsPage() {
       reset(stat);
     } else {
       reset({
-        label: '',
+        label_vi: '',
+        label_en: '',
         value: '',
-        suffix: '',
+        suffix_vi: '',
+        suffix_en: '',
         sort_order: stats.length,
       });
     }
@@ -125,7 +134,7 @@ export default function AdminStatsPage() {
 
   const columns = [
     {
-      key: 'label',
+      key: 'label_vi',
       label: 'Stat Label',
       render: (val) => <span className="admin-table__primary">{val}</span>,
     },
@@ -135,7 +144,7 @@ export default function AdminStatsPage() {
       render: (val, item) => (
         <span className="font-mono font-bold text-blue-600">
           {val}
-          {item.suffix}
+          {item.suffix_vi}
         </span>
       ),
     },
@@ -188,12 +197,31 @@ export default function AdminStatsPage() {
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
-              <TextInput
-                label="Label"
-                placeholder="Projects Completed"
-                {...register('label', { required: 'Label is required' })}
-                error={errors.label?.message}
-              />
+              <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Label
+                  </h4>
+                  <AITranslateButton
+                    sourceText={watchedLabelVi}
+                    onTranslate={(val) => setValue('label_en', val, { shouldValidate: true })}
+                  />
+                </div>
+                <div className="space-y-4">
+                  <TextInput
+                    label="Label (VN)"
+                    placeholder="Dự án hoàn thành"
+                    {...register('label_vi', { required: 'Vietnamese label is required' })}
+                    error={errors.label_vi?.message}
+                  />
+                  <TextInput
+                    label="Label (EN)"
+                    placeholder="Projects Completed"
+                    {...register('label_en')}
+                    error={errors.label_en?.message}
+                  />
+                </div>
+              </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <TextInput
@@ -204,10 +232,24 @@ export default function AdminStatsPage() {
                   {...register('value', { required: 'Value is required' })}
                   error={errors.value?.message}
                 />
-                <TextInput label="Suffix" placeholder="+" {...register('suffix')} />
+                <TextInput label="Sort Order" type="number" {...register('sort_order')} />
               </div>
 
-              <TextInput label="Sort Order" type="number" {...register('sort_order')} />
+              <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Suffix
+                  </h4>
+                  <AITranslateButton
+                    sourceText={watchedSuffixVi}
+                    onTranslate={(val) => setValue('suffix_en', val, { shouldValidate: true })}
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <TextInput label="Suffix (VN)" placeholder="+" {...register('suffix_vi')} />
+                  <TextInput label="Suffix (EN)" placeholder="+" {...register('suffix_en')} />
+                </div>
+              </div>
 
               <div className="flex justify-end gap-3 pt-6 border-t border-gray-100">
                 <button

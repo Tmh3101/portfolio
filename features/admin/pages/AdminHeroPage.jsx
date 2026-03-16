@@ -6,7 +6,7 @@ import { Save, RefreshCcw } from 'lucide-react';
 import { getSupabaseBrowserClient } from '../../../lib/supabase/client';
 import { useLanguage } from '../../../context/LanguageContext.jsx';
 import { useToast } from '../../../context/ToastContext.jsx';
-import { TextInput, TextArea, ImageUploader } from '../../../components/admin';
+import { TextInput, TextArea, ImageUploader, AITranslateButton } from '../../../components/admin';
 
 export default function AdminHeroPage() {
   const { t } = useLanguage();
@@ -24,20 +24,32 @@ export default function AdminHeroPage() {
     formState: { errors, isDirty },
   } = useForm({
     defaultValues: {
-      greeting: '',
+      greeting_vi: '',
+      greeting_en: '',
       name: '',
-      headline: '',
-      subheadline: '',
-      roles: '',
+      headline_vi: '',
+      headline_en: '',
+      subheadline_vi: '',
+      subheadline_en: '',
+      roles_vi: '',
+      roles_en: '',
       avatar_url: '',
-      cta_primary_label: '',
+      cta_primary_label_vi: '',
+      cta_primary_label_en: '',
       cta_primary_href: '',
-      cta_secondary_label: '',
+      cta_secondary_label_vi: '',
+      cta_secondary_label_en: '',
       cta_secondary_href: '',
     },
   });
 
   const avatarUrl = watch('avatar_url');
+  const watchedGreetingVi = watch('greeting_vi');
+  const watchedHeadlineVi = watch('headline_vi');
+  const watchedSubheadlineVi = watch('subheadline_vi');
+  const watchedRolesVi = watch('roles_vi');
+  const watchedCtaPrimaryLabelVi = watch('cta_primary_label_vi');
+  const watchedCtaSecondaryLabelVi = watch('cta_secondary_label_vi');
 
   const fetchHero = useCallback(async () => {
     setLoading(true);
@@ -51,7 +63,8 @@ export default function AdminHeroPage() {
       if (data) {
         reset({
           ...data,
-          roles: data.roles ? data.roles.join(', ') : '',
+          roles_vi: data.roles_vi ? data.roles_vi.join(', ') : '',
+          roles_en: data.roles_en ? data.roles_en.join(', ') : '',
         });
       } else {
         const { error: insertError } = await supabase.from('hero_section').insert([{ id: 1 }]);
@@ -76,8 +89,14 @@ export default function AdminHeroPage() {
       const payload = {
         ...data,
         id: 1,
-        roles: data.roles
-          ? data.roles
+        roles_vi: data.roles_vi
+          ? data.roles_vi
+              .split(',')
+              .map((r) => r.trim())
+              .filter(Boolean)
+          : [],
+        roles_en: data.roles_en
+          ? data.roles_en
               .split(',')
               .map((r) => r.trim())
               .filter(Boolean)
@@ -130,12 +149,29 @@ export default function AdminHeroPage() {
                 Copy & Content
               </h3>
 
-              <TextInput
-                label="Greeting"
-                placeholder="Hi, I am..."
-                {...register('greeting')}
-                error={errors.greeting?.message}
-              />
+              <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Greeting
+                  </h4>
+                  <AITranslateButton
+                    sourceText={watchedGreetingVi}
+                    onTranslate={(val) => setValue('greeting_en', val, { shouldDirty: true })}
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <TextInput
+                    label="Greeting (VN)"
+                    placeholder="Xin chào..."
+                    {...register('greeting_vi')}
+                  />
+                  <TextInput
+                    label="Greeting (EN)"
+                    placeholder="Hi, I am..."
+                    {...register('greeting_en')}
+                  />
+                </div>
+              </div>
 
               <TextInput
                 label="Name"
@@ -144,26 +180,77 @@ export default function AdminHeroPage() {
                 error={errors.name?.message}
               />
 
-              <TextInput
-                label="Headline"
-                placeholder="Main title / Role"
-                {...register('headline')}
-                error={errors.headline?.message}
-              />
+              <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Headline
+                  </h4>
+                  <AITranslateButton
+                    sourceText={watchedHeadlineVi}
+                    onTranslate={(val) => setValue('headline_en', val, { shouldDirty: true })}
+                  />
+                </div>
+                <div className="space-y-4">
+                  <TextInput
+                    label="Headline (VN)"
+                    placeholder="Frontend Developer"
+                    {...register('headline_vi')}
+                  />
+                  <TextInput
+                    label="Headline (EN)"
+                    placeholder="Frontend Developer"
+                    {...register('headline_en')}
+                  />
+                </div>
+              </div>
 
-              <TextArea
-                label="Subheadline / Bio"
-                placeholder="Short introductory text"
-                {...register('subheadline')}
-                error={errors.subheadline?.message}
-              />
+              <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Subheadline / Bio
+                  </h4>
+                  <AITranslateButton
+                    sourceText={watchedSubheadlineVi}
+                    onTranslate={(val) => setValue('subheadline_en', val, { shouldDirty: true })}
+                  />
+                </div>
+                <div className="space-y-4">
+                  <TextArea
+                    label="Bio (VN)"
+                    placeholder="Mô tả ngắn"
+                    {...register('subheadline_vi')}
+                  />
+                  <TextArea
+                    label="Bio (EN)"
+                    placeholder="Short introductory text"
+                    {...register('subheadline_en')}
+                  />
+                </div>
+              </div>
 
-              <TextInput
-                label="Rotating Roles (comma separated)"
-                placeholder="Backend Developer, API Architect, DevOps"
-                {...register('roles')}
-                error={errors.roles?.message}
-              />
+              <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Roles
+                  </h4>
+                  <AITranslateButton
+                    sourceText={watchedRolesVi}
+                    onTranslate={(val) => setValue('roles_en', val, { shouldDirty: true })}
+                  />
+                </div>
+                <div className="space-y-4">
+                  <TextInput
+                    label="Roles (VN)"
+                    placeholder="Backend, Frontend"
+                    {...register('roles_vi')}
+                  />
+                  <TextInput
+                    label="Roles (EN)"
+                    placeholder="Backend Developer"
+                    {...register('roles_en')}
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="space-y-6">
@@ -178,34 +265,70 @@ export default function AdminHeroPage() {
                 folder="hero"
               />
 
-              <div className="grid grid-cols-2 gap-4">
-                <TextInput
-                  label="Primary Button Label"
-                  placeholder="Contact Me"
-                  {...register('cta_primary_label')}
-                  error={errors.cta_primary_label?.message}
-                />
-                <TextInput
-                  label="Primary Button Href"
-                  placeholder="#contact"
-                  {...register('cta_primary_href')}
-                  error={errors.cta_primary_href?.message}
-                />
+              <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Primary CTA
+                  </h4>
+                  <AITranslateButton
+                    sourceText={watchedCtaPrimaryLabelVi}
+                    onTranslate={(val) =>
+                      setValue('cta_primary_label_en', val, { shouldDirty: true })
+                    }
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <TextInput
+                    label="Label (VN)"
+                    placeholder="Liên hệ"
+                    {...register('cta_primary_label_vi')}
+                  />
+                  <TextInput
+                    label="Label (EN)"
+                    placeholder="Contact Me"
+                    {...register('cta_primary_label_en')}
+                  />
+                </div>
+                <div className="mt-4">
+                  <TextInput
+                    label="Href"
+                    placeholder="#contact"
+                    {...register('cta_primary_href')}
+                  />
+                </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <TextInput
-                  label="Secondary Button Label"
-                  placeholder="View Projects"
-                  {...register('cta_secondary_label')}
-                  error={errors.cta_secondary_label?.message}
-                />
-                <TextInput
-                  label="Secondary Button Href"
-                  placeholder="/projects"
-                  {...register('cta_secondary_href')}
-                  error={errors.cta_secondary_href?.message}
-                />
+              <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Secondary CTA
+                  </h4>
+                  <AITranslateButton
+                    sourceText={watchedCtaSecondaryLabelVi}
+                    onTranslate={(val) =>
+                      setValue('cta_secondary_label_en', val, { shouldDirty: true })
+                    }
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <TextInput
+                    label="Label (VN)"
+                    placeholder="Dự án"
+                    {...register('cta_secondary_label_vi')}
+                  />
+                  <TextInput
+                    label="Label (EN)"
+                    placeholder="View Projects"
+                    {...register('cta_secondary_label_en')}
+                  />
+                </div>
+                <div className="mt-4">
+                  <TextInput
+                    label="Href"
+                    placeholder="/projects"
+                    {...register('cta_secondary_href')}
+                  />
+                </div>
               </div>
             </div>
           </div>

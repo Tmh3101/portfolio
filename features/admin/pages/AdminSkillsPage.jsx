@@ -6,7 +6,7 @@ import { Plus, RefreshCcw, Save, X, Code2 } from 'lucide-react';
 import { getSupabaseBrowserClient } from '../../../lib/supabase/client';
 import { useLanguage } from '../../../context/LanguageContext.jsx';
 import { useToast } from '../../../context/ToastContext.jsx';
-import { DataTable, TextInput, ImageUploader } from '../../../components/admin';
+import { DataTable, TextInput, ImageUploader, AITranslateButton } from '../../../components/admin';
 
 export default function AdminSkillsPage() {
   const { t } = useLanguage();
@@ -23,16 +23,25 @@ export default function AdminSkillsPage() {
     handleSubmit,
     reset,
     control,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: '',
-      category: '',
-      level: '',
+      name_vi: '',
+      name_en: '',
+      category_vi: '',
+      category_en: '',
+      level_vi: '',
+      level_en: '',
       icon_url: '',
       sort_order: 0,
     },
   });
+
+  const watchedNameVi = watch('name_vi');
+  const watchedCategoryVi = watch('category_vi');
+  const watchedLevelVi = watch('level_vi');
 
   const fetchSkills = useCallback(async () => {
     setLoading(true);
@@ -40,7 +49,7 @@ export default function AdminSkillsPage() {
       const { data, error } = await supabase
         .from('skills')
         .select('*')
-        .order('category', { ascending: true })
+        .order('category_vi', { ascending: true })
         .order('sort_order', { ascending: true });
 
       if (error) throw error;
@@ -63,9 +72,12 @@ export default function AdminSkillsPage() {
       reset(skill);
     } else {
       reset({
-        name: '',
-        category: '',
-        level: '',
+        name_vi: '',
+        name_en: '',
+        category_vi: '',
+        category_en: '',
+        level_vi: '',
+        level_en: '',
         icon_url: '',
         sort_order: skills.length,
       });
@@ -141,12 +153,12 @@ export default function AdminSkillsPage() {
       ),
     },
     {
-      key: 'name',
+      key: 'name_vi',
       label: 'Skill Name',
       render: (val) => <span className="admin-table__primary">{val}</span>,
     },
     {
-      key: 'category',
+      key: 'category_vi',
       label: 'Category',
       render: (val) => (
         <span className="text-xs font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-1 rounded">
@@ -155,7 +167,7 @@ export default function AdminSkillsPage() {
       ),
     },
     {
-      key: 'level',
+      key: 'level_vi',
       label: 'Level',
       render: (val) => <span className="text-sm text-gray-600">{val}</span>,
     },
@@ -208,28 +220,96 @@ export default function AdminSkillsPage() {
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
-              <div className="flex gap-6">
+              <div className="flex flex-col md:flex-row gap-8">
                 <div className="flex-1 space-y-6">
-                  <TextInput
-                    label="Skill Name"
-                    placeholder="Python / React / Docker"
-                    {...register('name', { required: 'Name is required' })}
-                    error={errors.name?.message}
-                  />
+                  <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                        Skill Name
+                      </h4>
+                      <AITranslateButton
+                        sourceText={watchedNameVi}
+                        onTranslate={(val) => setValue('name_en', val, { shouldValidate: true })}
+                      />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <TextInput
+                        label="Name (VN)"
+                        placeholder="Python"
+                        {...register('name_vi', { required: 'Vietnamese name is required' })}
+                        error={errors.name_vi?.message}
+                      />
+                      <TextInput
+                        label="Name (EN)"
+                        placeholder="Python"
+                        {...register('name_en')}
+                        error={errors.name_en?.message}
+                      />
+                    </div>
+                  </div>
 
-                  <TextInput
-                    label="Category"
-                    placeholder="Languages / Frameworks / Tools"
-                    {...register('category')}
-                  />
+                  <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                        Category
+                      </h4>
+                      <AITranslateButton
+                        sourceText={watchedCategoryVi}
+                        onTranslate={(val) =>
+                          setValue('category_en', val, { shouldValidate: true })
+                        }
+                      />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <TextInput
+                        label="Category (VN)"
+                        placeholder="Ngôn ngữ"
+                        {...register('category_vi')}
+                        error={errors.category_vi?.message}
+                      />
+                      <TextInput
+                        label="Category (EN)"
+                        placeholder="Languages"
+                        {...register('category_en')}
+                        error={errors.category_en?.message}
+                      />
+                    </div>
+                  </div>
 
-                  <div className="grid grid-cols-2 gap-4">
-                    <TextInput label="Level" placeholder="Intermediate" {...register('level')} />
-                    <TextInput label="Sort Order" type="number" {...register('sort_order')} />
+                  <div className="flex gap-6">
+                    <div className="flex-1 space-y-6">
+                      <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                        <div className="flex items-center justify-between mb-2">
+                          <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                            Level
+                          </h4>
+                          <AITranslateButton
+                            sourceText={watchedLevelVi}
+                            onTranslate={(val) =>
+                              setValue('level_en', val, { shouldValidate: true })
+                            }
+                          />
+                        </div>
+                        <div className="grid grid-cols-1 gap-4">
+                          <TextInput
+                            label="Level (VN)"
+                            placeholder="Trung cấp"
+                            {...register('level_vi')}
+                          />
+                          <TextInput
+                            label="Level (EN)"
+                            placeholder="Intermediate"
+                            {...register('level_en')}
+                          />
+                        </div>
+                      </div>
+
+                      <TextInput label="Sort Order" type="number" {...register('sort_order')} />
+                    </div>
                   </div>
                 </div>
 
-                <div className="w-32 pt-1">
+                <div className="w-full md:w-48 pt-1">
                   <Controller
                     name="icon_url"
                     control={control}

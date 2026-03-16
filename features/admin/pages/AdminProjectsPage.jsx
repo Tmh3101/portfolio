@@ -24,6 +24,7 @@ import {
   ImageUploader,
   MarkdownEditor,
   Switch,
+  AITranslateButton,
 } from '../../../components/admin';
 
 export default function AdminProjectsPage() {
@@ -41,13 +42,18 @@ export default function AdminProjectsPage() {
     handleSubmit,
     reset,
     control,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      title: '',
+      title_vi: '',
+      title_en: '',
       slug: '',
-      short_description: '',
-      description: '',
+      short_description_vi: '',
+      short_description_en: '',
+      description_vi: '',
+      description_en: '',
       thumbnail_url: '',
       repo_url: '',
       live_url: '',
@@ -56,6 +62,11 @@ export default function AdminProjectsPage() {
       sort_order: 0,
     },
   });
+
+  // Watch Vietnamese fields for AI translation
+  const watchedTitleVi = watch('title_vi');
+  const watchedShortDescVi = watch('short_description_vi');
+  const watchedDescVi = watch('description_vi');
 
   const fetchProjects = useCallback(async () => {
     setLoading(true);
@@ -89,10 +100,13 @@ export default function AdminProjectsPage() {
       });
     } else {
       reset({
-        title: '',
+        title_vi: '',
+        title_en: '',
         slug: '',
-        short_description: '',
-        description: '',
+        short_description_vi: '',
+        short_description_en: '',
+        description_vi: '',
+        description_en: '',
         thumbnail_url: '',
         repo_url: '',
         live_url: '',
@@ -181,7 +195,7 @@ export default function AdminProjectsPage() {
       ),
     },
     {
-      key: 'title',
+      key: 'title_vi',
       label: 'Project Title',
       render: (val, item) => (
         <div>
@@ -254,27 +268,66 @@ export default function AdminProjectsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Left Column: Basic Info */}
                 <div className="space-y-6">
-                  <div className="grid grid-cols-2 gap-4">
-                    <TextInput
-                      label="Project Title"
-                      placeholder="My Awesome App"
-                      {...register('title', { required: 'Title is required' })}
-                      error={errors.title?.message}
-                    />
-                    <TextInput
-                      label="Slug (URL ID)"
-                      placeholder="my-awesome-app"
-                      {...register('slug', { required: 'Slug is required' })}
-                      error={errors.slug?.message}
-                    />
+                  <div className="grid grid-cols-1 gap-6 p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="text-sm font-bold text-gray-700 uppercase tracking-wider">
+                        Project Title
+                      </h4>
+                      <AITranslateButton
+                        sourceText={watchedTitleVi}
+                        onTranslate={(val) => setValue('title_en', val, { shouldValidate: true })}
+                      />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <TextInput
+                        label="Title (VN)"
+                        placeholder="Tên dự án"
+                        {...register('title_vi', { required: 'Vietnamese title is required' })}
+                        error={errors.title_vi?.message}
+                      />
+                      <TextInput
+                        label="Title (EN)"
+                        placeholder="Project Title"
+                        {...register('title_en')}
+                        error={errors.title_en?.message}
+                      />
+                    </div>
                   </div>
 
-                  <TextArea
-                    label="Short Description"
-                    placeholder="Brief intro for the project card"
-                    {...register('short_description')}
-                    error={errors.short_description?.message}
+                  <TextInput
+                    label="Slug (URL ID)"
+                    placeholder="my-awesome-app"
+                    {...register('slug', { required: 'Slug is required' })}
+                    error={errors.slug?.message}
                   />
+
+                  <div className="grid grid-cols-1 gap-4 p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="text-sm font-bold text-gray-700 uppercase tracking-wider">
+                        Short Description
+                      </h4>
+                      <AITranslateButton
+                        sourceText={watchedShortDescVi}
+                        onTranslate={(val) =>
+                          setValue('short_description_en', val, { shouldValidate: true })
+                        }
+                      />
+                    </div>
+                    <div className="space-y-4">
+                      <TextArea
+                        label="Short Description (VN)"
+                        placeholder="Mô tả ngắn"
+                        {...register('short_description_vi')}
+                        error={errors.short_description_vi?.message}
+                      />
+                      <TextArea
+                        label="Short Description (EN)"
+                        placeholder="Short Description"
+                        {...register('short_description_en')}
+                        error={errors.short_description_en?.message}
+                      />
+                    </div>
+                  </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <TextInput
@@ -316,7 +369,7 @@ export default function AdminProjectsPage() {
                   </div>
                 </div>
 
-                {/* Right Column: Visuals */}
+                {/* Right Column: Visuals & Full Description */}
                 <div className="space-y-6">
                   <Controller
                     name="thumbnail_url"
@@ -331,23 +384,47 @@ export default function AdminProjectsPage() {
                       />
                     )}
                   />
-                </div>
-              </div>
 
-              {/* Full Width Editor */}
-              <div className="space-y-2">
-                <Controller
-                  name="description"
-                  control={control}
-                  render={({ field }) => (
-                    <MarkdownEditor
-                      label="Full Description"
-                      value={field.value}
-                      onChange={field.onChange}
-                      error={errors.description?.message}
-                    />
-                  )}
-                />
+                  <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                      <h4 className="text-sm font-bold text-gray-700 uppercase tracking-wider">
+                        Full Description
+                      </h4>
+                      <AITranslateButton
+                        sourceText={watchedDescVi}
+                        onTranslate={(val) =>
+                          setValue('description_en', val, { shouldValidate: true })
+                        }
+                      />
+                    </div>
+                    <div className="space-y-6">
+                      <Controller
+                        name="description_vi"
+                        control={control}
+                        render={({ field }) => (
+                          <MarkdownEditor
+                            label="Full Description (VN)"
+                            value={field.value}
+                            onChange={field.onChange}
+                            error={errors.description_vi?.message}
+                          />
+                        )}
+                      />
+                      <Controller
+                        name="description_en"
+                        control={control}
+                        render={({ field }) => (
+                          <MarkdownEditor
+                            label="Full Description (EN)"
+                            value={field.value}
+                            onChange={field.onChange}
+                            error={errors.description_en?.message}
+                          />
+                        )}
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div className="flex justify-end gap-3 pt-6 border-t border-gray-100">

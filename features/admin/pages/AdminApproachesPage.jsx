@@ -6,7 +6,7 @@ import { Plus, RefreshCcw, Save, X, Lightbulb } from 'lucide-react';
 import { getSupabaseBrowserClient } from '../../../lib/supabase/client';
 import { useLanguage } from '../../../context/LanguageContext.jsx';
 import { useToast } from '../../../context/ToastContext.jsx';
-import { DataTable, TextInput, TextArea } from '../../../components/admin';
+import { DataTable, TextInput, TextArea, AITranslateButton } from '../../../components/admin';
 
 export default function AdminApproachesPage() {
   const { t } = useLanguage();
@@ -22,16 +22,25 @@ export default function AdminApproachesPage() {
     register,
     handleSubmit,
     reset,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      title: '',
-      subtitle: '',
-      description: '',
+      title_vi: '',
+      title_en: '',
+      subtitle_vi: '',
+      subtitle_en: '',
+      description_vi: '',
+      description_en: '',
       icon: '',
       sort_order: 0,
     },
   });
+
+  const watchedTitleVi = watch('title_vi');
+  const watchedSubtitleVi = watch('subtitle_vi');
+  const watchedDescVi = watch('description_vi');
 
   const fetchApproaches = useCallback(async () => {
     setLoading(true);
@@ -61,9 +70,12 @@ export default function AdminApproachesPage() {
       reset(appr);
     } else {
       reset({
-        title: '',
-        subtitle: '',
-        description: '',
+        title_vi: '',
+        title_en: '',
+        subtitle_vi: '',
+        subtitle_en: '',
+        description_vi: '',
+        description_en: '',
         icon: '',
         sort_order: approaches.length,
       });
@@ -126,12 +138,12 @@ export default function AdminApproachesPage() {
 
   const columns = [
     {
-      key: 'title',
+      key: 'title_vi',
       label: 'Title',
       render: (val, item) => (
         <div>
           <span className="admin-table__primary">{val}</span>
-          <span className="text-xs text-gray-500">{item.subtitle}</span>
+          <span className="text-xs text-gray-500">{item.subtitle_vi}</span>
         </div>
       ),
     },
@@ -193,25 +205,85 @@ export default function AdminApproachesPage() {
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
-              <TextInput
-                label="Title"
-                placeholder="API-First Design"
-                {...register('title', { required: 'Title is required' })}
-                error={errors.title?.message}
-              />
+              <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Title
+                  </h4>
+                  <AITranslateButton
+                    sourceText={watchedTitleVi}
+                    onTranslate={(val) => setValue('title_en', val, { shouldValidate: true })}
+                  />
+                </div>
+                <div className="space-y-4">
+                  <TextInput
+                    label="Title (VN)"
+                    placeholder="API-First Design"
+                    {...register('title_vi', { required: 'Vietnamese title is required' })}
+                    error={errors.title_vi?.message}
+                  />
+                  <TextInput
+                    label="Title (EN)"
+                    placeholder="API-First Design"
+                    {...register('title_en')}
+                    error={errors.title_en?.message}
+                  />
+                </div>
+              </div>
 
-              <TextInput
-                label="Subtitle"
-                placeholder="Designing for scale and reliability"
-                {...register('subtitle')}
-              />
+              <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Subtitle
+                  </h4>
+                  <AITranslateButton
+                    sourceText={watchedSubtitleVi}
+                    onTranslate={(val) => setValue('subtitle_en', val, { shouldValidate: true })}
+                  />
+                </div>
+                <div className="space-y-4">
+                  <TextInput
+                    label="Subtitle (VN)"
+                    placeholder="Thiết kế hướng API"
+                    {...register('subtitle_vi')}
+                    error={errors.subtitle_vi?.message}
+                  />
+                  <TextInput
+                    label="Subtitle (EN)"
+                    placeholder="API-First Design"
+                    {...register('subtitle_en')}
+                    error={errors.subtitle_en?.message}
+                  />
+                </div>
+              </div>
 
-              <TextArea
-                label="Description"
-                placeholder="How do you approach this part of your work?"
-                rows={4}
-                {...register('description')}
-              />
+              <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Description
+                  </h4>
+                  <AITranslateButton
+                    sourceText={watchedDescVi}
+                    onTranslate={(val) => setValue('description_en', val, { shouldValidate: true })}
+                  />
+                </div>
+                <div className="space-y-4">
+                  <TextArea
+                    label="Description (VN)"
+                    placeholder="Mô tả cách tiếp cận"
+                    rows={3}
+                    {...register('description_vi')}
+                    error={errors.description_vi?.message}
+                  />
+                  <TextArea
+                    label="Description (EN)"
+                    placeholder="How do you approach this part of your work?"
+                    rows={3}
+                    {...register('description_en')}
+                    error={errors.description_en?.message}
+                  />
+                </div>
+              </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <TextInput

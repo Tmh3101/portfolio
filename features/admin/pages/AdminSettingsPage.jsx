@@ -6,7 +6,7 @@ import { Save, RefreshCcw } from 'lucide-react';
 import { getSupabaseBrowserClient } from '../../../lib/supabase/client';
 import { useLanguage } from '../../../context/LanguageContext.jsx';
 import { useToast } from '../../../context/ToastContext.jsx';
-import { TextInput, TextArea, ImageUploader } from '../../../components/admin';
+import { TextInput, TextArea, ImageUploader, AITranslateButton } from '../../../components/admin';
 
 export default function AdminSettingsPage() {
   const { t } = useLanguage();
@@ -24,9 +24,12 @@ export default function AdminSettingsPage() {
     formState: { errors, isDirty },
   } = useForm({
     defaultValues: {
-      site_title: '',
-      site_description: '',
-      seo_keywords: '',
+      site_title_vi: '',
+      site_title_en: '',
+      site_description_vi: '',
+      site_description_en: '',
+      seo_keywords_vi: '',
+      seo_keywords_en: '',
       og_image_url: '',
       twitter_handle: '',
       github_url: '',
@@ -36,6 +39,9 @@ export default function AdminSettingsPage() {
   });
 
   const ogImageUrl = watch('og_image_url');
+  const watchedSiteTitleVi = watch('site_title_vi');
+  const watchedSiteDescVi = watch('site_description_vi');
+  const watchedKeywordsVi = watch('seo_keywords_vi');
 
   const fetchSettings = useCallback(async () => {
     setLoading(true);
@@ -49,7 +55,8 @@ export default function AdminSettingsPage() {
       if (data) {
         reset({
           ...data,
-          seo_keywords: data.seo_keywords ? data.seo_keywords.join(', ') : '',
+          seo_keywords_vi: data.seo_keywords_vi ? data.seo_keywords_vi.join(', ') : '',
+          seo_keywords_en: data.seo_keywords_en ? data.seo_keywords_en.join(', ') : '',
         });
       } else {
         // If not exists, try to create default row
@@ -75,8 +82,14 @@ export default function AdminSettingsPage() {
       const payload = {
         ...data,
         id: 1,
-        seo_keywords: data.seo_keywords
-          ? data.seo_keywords
+        seo_keywords_vi: data.seo_keywords_vi
+          ? data.seo_keywords_vi
+              .split(',')
+              .map((k) => k.trim())
+              .filter(Boolean)
+          : [],
+        seo_keywords_en: data.seo_keywords_en
+          ? data.seo_keywords_en
               .split(',')
               .map((k) => k.trim())
               .filter(Boolean)
@@ -131,26 +144,87 @@ export default function AdminSettingsPage() {
                 SEO & Meta
               </h3>
 
-              <TextInput
-                label="Site Title"
-                placeholder="Portfolio Name"
-                {...register('site_title', { required: 'Site title is required' })}
-                error={errors.site_title?.message}
-              />
+              <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Site Title
+                  </h4>
+                  <AITranslateButton
+                    sourceText={watchedSiteTitleVi}
+                    onTranslate={(val) => setValue('site_title_en', val, { shouldDirty: true })}
+                  />
+                </div>
+                <div className="space-y-4">
+                  <TextInput
+                    label="Title (VN)"
+                    placeholder="Portfolio Name"
+                    {...register('site_title_vi', {
+                      required: 'Vietnamese site title is required',
+                    })}
+                    error={errors.site_title_vi?.message}
+                  />
+                  <TextInput
+                    label="Title (EN)"
+                    placeholder="Portfolio Name"
+                    {...register('site_title_en')}
+                    error={errors.site_title_en?.message}
+                  />
+                </div>
+              </div>
 
-              <TextArea
-                label="Site Description"
-                placeholder="Brief description for SEO"
-                {...register('site_description')}
-                error={errors.site_description?.message}
-              />
+              <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Site Description
+                  </h4>
+                  <AITranslateButton
+                    sourceText={watchedSiteDescVi}
+                    onTranslate={(val) =>
+                      setValue('site_description_en', val, { shouldDirty: true })
+                    }
+                  />
+                </div>
+                <div className="space-y-4">
+                  <TextArea
+                    label="Description (VN)"
+                    placeholder="Brief description for SEO"
+                    {...register('site_description_vi')}
+                    error={errors.site_description_vi?.message}
+                  />
+                  <TextArea
+                    label="Description (EN)"
+                    placeholder="Brief description for SEO"
+                    {...register('site_description_en')}
+                    error={errors.site_description_en?.message}
+                  />
+                </div>
+              </div>
 
-              <TextInput
-                label="SEO Keywords (comma separated)"
-                placeholder="react, backend, engineering"
-                {...register('seo_keywords')}
-                error={errors.seo_keywords?.message}
-              />
+              <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    SEO Keywords
+                  </h4>
+                  <AITranslateButton
+                    sourceText={watchedKeywordsVi}
+                    onTranslate={(val) => setValue('seo_keywords_en', val, { shouldDirty: true })}
+                  />
+                </div>
+                <div className="space-y-4">
+                  <TextInput
+                    label="Keywords (VN)"
+                    placeholder="react, backend, engineering"
+                    {...register('seo_keywords_vi')}
+                    error={errors.seo_keywords_vi?.message}
+                  />
+                  <TextInput
+                    label="Keywords (EN)"
+                    placeholder="react, backend, engineering"
+                    {...register('seo_keywords_en')}
+                    error={errors.seo_keywords_en?.message}
+                  />
+                </div>
+              </div>
 
               <ImageUploader
                 label="OG Image (Open Graph)"

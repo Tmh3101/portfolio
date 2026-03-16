@@ -6,7 +6,14 @@ import { Plus, RefreshCcw, Save, X, Briefcase, Calendar } from 'lucide-react';
 import { getSupabaseBrowserClient } from '../../../lib/supabase/client';
 import { useLanguage } from '../../../context/LanguageContext.jsx';
 import { useToast } from '../../../context/ToastContext.jsx';
-import { DataTable, TextInput, TextArea, MarkdownEditor, Switch } from '../../../components/admin';
+import {
+  DataTable,
+  TextInput,
+  TextArea,
+  MarkdownEditor,
+  Switch,
+  AITranslateButton,
+} from '../../../components/admin';
 
 export default function AdminExperiencesPage() {
   const { t } = useLanguage();
@@ -24,23 +31,32 @@ export default function AdminExperiencesPage() {
     reset,
     control,
     watch,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
       company: '',
-      role: '',
-      location: '',
+      role_vi: '',
+      role_en: '',
+      location_vi: '',
+      location_en: '',
       start_date: '',
       end_date: '',
       is_current: false,
-      description: '',
-      highlights: '',
+      description_vi: '',
+      description_en: '',
+      highlights_vi: '',
+      highlights_en: '',
       technologies: '',
       sort_order: 0,
     },
   });
 
   const isCurrent = watch('is_current');
+  const watchedRoleVi = watch('role_vi');
+  const watchedLocationVi = watch('location_vi');
+  const watchedDescVi = watch('description_vi');
+  const watchedHighlightsVi = watch('highlights_vi');
 
   const fetchExperiences = useCallback(async () => {
     setLoading(true);
@@ -70,19 +86,24 @@ export default function AdminExperiencesPage() {
     if (exp) {
       reset({
         ...exp,
-        highlights: exp.highlights ? exp.highlights.join('\n') : '',
+        highlights_vi: exp.highlights_vi ? exp.highlights_vi.join('\n') : '',
+        highlights_en: exp.highlights_en ? exp.highlights_en.join('\n') : '',
         technologies: exp.technologies ? exp.technologies.join(', ') : '',
       });
     } else {
       reset({
         company: '',
-        role: '',
-        location: '',
+        role_vi: '',
+        role_en: '',
+        location_vi: '',
+        location_en: '',
         start_date: '',
         end_date: '',
         is_current: false,
-        description: '',
-        highlights: '',
+        description_vi: '',
+        description_en: '',
+        highlights_vi: '',
+        highlights_en: '',
         technologies: '',
         sort_order: experiences.length,
       });
@@ -116,8 +137,14 @@ export default function AdminExperiencesPage() {
     try {
       const payload = {
         ...data,
-        highlights: data.highlights
-          ? data.highlights
+        highlights_vi: data.highlights_vi
+          ? data.highlights_vi
+              .split('\n')
+              .map((h) => h.trim())
+              .filter(Boolean)
+          : [],
+        highlights_en: data.highlights_en
+          ? data.highlights_en
               .split('\n')
               .map((h) => h.trim())
               .filter(Boolean)
@@ -164,12 +191,12 @@ export default function AdminExperiencesPage() {
       render: (val, item) => (
         <div>
           <span className="admin-table__primary">{val}</span>
-          <span className="text-xs text-gray-500">{item.location}</span>
+          <span className="text-xs text-gray-500">{item.location_vi}</span>
         </div>
       ),
     },
     {
-      key: 'role',
+      key: 'role_vi',
       label: 'Role',
       render: (val) => <span className="font-bold text-gray-700">{val}</span>,
     },
@@ -239,26 +266,66 @@ export default function AdminExperiencesPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Left Column: Basic Info */}
                 <div className="space-y-6">
-                  <div className="grid grid-cols-2 gap-4">
-                    <TextInput
-                      label="Company Name"
-                      placeholder="Tech Solutions Inc."
-                      {...register('company', { required: 'Company is required' })}
-                      error={errors.company?.message}
-                    />
-                    <TextInput
-                      label="Job Title"
-                      placeholder="Senior Backend Engineer"
-                      {...register('role', { required: 'Role is required' })}
-                      error={errors.role?.message}
-                    />
+                  <TextInput
+                    label="Company Name"
+                    placeholder="Tech Solutions Inc."
+                    {...register('company', { required: 'Company is required' })}
+                    error={errors.company?.message}
+                  />
+
+                  <div className="grid grid-cols-1 gap-4 p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="text-sm font-bold text-gray-700 uppercase tracking-wider">
+                        Job Title
+                      </h4>
+                      <AITranslateButton
+                        sourceText={watchedRoleVi}
+                        onTranslate={(val) => setValue('role_en', val, { shouldValidate: true })}
+                      />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <TextInput
+                        label="Title (VN)"
+                        placeholder="Kỹ sư Backend"
+                        {...register('role_vi', { required: 'Vietnamese role is required' })}
+                        error={errors.role_vi?.message}
+                      />
+                      <TextInput
+                        label="Title (EN)"
+                        placeholder="Backend Engineer"
+                        {...register('role_en')}
+                        error={errors.role_en?.message}
+                      />
+                    </div>
                   </div>
 
-                  <TextInput
-                    label="Location"
-                    placeholder="Remote / Ho Chi Minh City"
-                    {...register('location')}
-                  />
+                  <div className="grid grid-cols-1 gap-4 p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="text-sm font-bold text-gray-700 uppercase tracking-wider">
+                        Location
+                      </h4>
+                      <AITranslateButton
+                        sourceText={watchedLocationVi}
+                        onTranslate={(val) =>
+                          setValue('location_en', val, { shouldValidate: true })
+                        }
+                      />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <TextInput
+                        label="Location (VN)"
+                        placeholder="Hồ Chí Minh"
+                        {...register('location_vi')}
+                        error={errors.location_vi?.message}
+                      />
+                      <TextInput
+                        label="Location (EN)"
+                        placeholder="Ho Chi Minh City"
+                        {...register('location_en')}
+                        error={errors.location_en?.message}
+                      />
+                    </div>
+                  </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <TextInput
@@ -292,32 +359,79 @@ export default function AdminExperiencesPage() {
                   />
                 </div>
 
-                {/* Right Column: Highlights */}
+                {/* Right Column: Highlights & Description */}
                 <div className="space-y-6">
-                  <TextArea
-                    label="Bullet Highlights (One per line)"
-                    placeholder="- Optimized database queries by 40%&#10;- Led a team of 3 developers"
-                    rows={8}
-                    {...register('highlights')}
-                  />
+                  <div className="grid grid-cols-1 gap-4 p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="text-sm font-bold text-gray-700 uppercase tracking-wider">
+                        Highlights
+                      </h4>
+                      <AITranslateButton
+                        sourceText={watchedHighlightsVi}
+                        onTranslate={(val) =>
+                          setValue('highlights_en', val, { shouldValidate: true })
+                        }
+                      />
+                    </div>
+                    <div className="space-y-4">
+                      <TextArea
+                        label="Highlights (VN)"
+                        placeholder="- Tối ưu hóa database..."
+                        rows={6}
+                        {...register('highlights_vi')}
+                        error={errors.highlights_vi?.message}
+                      />
+                      <TextArea
+                        label="Highlights (EN)"
+                        placeholder="- Optimized database..."
+                        rows={6}
+                        {...register('highlights_en')}
+                        error={errors.highlights_en?.message}
+                      />
+                    </div>
+                  </div>
+
                   <TextInput label="Sort Order" type="number" {...register('sort_order')} />
                 </div>
               </div>
 
               {/* Full Width Description Editor */}
-              <div className="space-y-2">
-                <Controller
-                  name="description"
-                  control={control}
-                  render={({ field }) => (
-                    <MarkdownEditor
-                      label="Detailed Description"
-                      value={field.value}
-                      onChange={field.onChange}
-                      error={errors.description?.message}
-                    />
-                  )}
-                />
+              <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                <div className="flex items-center justify-between mb-4">
+                  <h4 className="text-sm font-bold text-gray-700 uppercase tracking-wider">
+                    Detailed Description
+                  </h4>
+                  <AITranslateButton
+                    sourceText={watchedDescVi}
+                    onTranslate={(val) => setValue('description_en', val, { shouldValidate: true })}
+                  />
+                </div>
+                <div className="space-y-6">
+                  <Controller
+                    name="description_vi"
+                    control={control}
+                    render={({ field }) => (
+                      <MarkdownEditor
+                        label="Description (VN)"
+                        value={field.value}
+                        onChange={field.onChange}
+                        error={errors.description_vi?.message}
+                      />
+                    )}
+                  />
+                  <Controller
+                    name="description_en"
+                    control={control}
+                    render={({ field }) => (
+                      <MarkdownEditor
+                        label="Description (EN)"
+                        value={field.value}
+                        onChange={field.onChange}
+                        error={errors.description_en?.message}
+                      />
+                    )}
+                  />
+                </div>
               </div>
 
               <div className="flex justify-end gap-3 pt-6 border-t border-gray-100">
