@@ -1,4 +1,5 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { env } from '../../../../lib/config/env.js';
 import { requireRole, requireUser } from '../../../../lib/auth/server.js';
 import { json, errorResponse } from '../../../../lib/http/response.js';
 import { createHttpError } from '../../../../lib/utils/http-error.js';
@@ -25,13 +26,13 @@ export async function POST(request) {
     }
 
     // 3. Initialize AI Client
-    const apiKey = process.env.GOOGLE_GEMINI_API_KEY;
+    const apiKey = env.googleGeminiApiKey;
     if (!apiKey) {
       throw createHttpError(500, 'AI Service configuration missing (API Key).');
     }
 
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = genAI.getGenerativeModel({ model: env.googleGeminiModel });
 
     // 4. Prompt Engineering
     const systemPrompt = `You are an expert IT technical translator. 
