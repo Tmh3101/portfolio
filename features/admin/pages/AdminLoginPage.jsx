@@ -14,21 +14,23 @@ export default function AdminLoginPage() {
   const searchParams = useSearchParams();
   const { t, lang, toggleLang } = useLanguage();
   const { showToast } = useToast();
-  const { isAuthenticated, isReady, signIn } = useAdminAuth();
+  // Destructure isAuthenticated, isReady, and signIn from useAdminAuth
+  const { isAuthenticated, isReady, signIn: signInWithSupabase } = useAdminAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
   const redirectParam = searchParams.get('from') || '/admin';
+  // Ensure the redirect path is valid and points to an admin area if necessary
   const redirectTo = redirectParam.startsWith('/admin') ? redirectParam : '/admin';
 
+  // Redirect to admin dashboard if already authenticated and ready
   useEffect(() => {
-    console.log('isAuthenticated:', isAuthenticated);
-    if (isAuthenticated) {
-      console.log('Redirecting to /admin');
-      router.replace('/admin');
+    if (isReady && isAuthenticated) {
+      console.log('User is already authenticated, redirecting to:', redirectTo);
+      router.replace(redirectTo);
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, isReady, router, redirectTo]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -36,18 +38,19 @@ export default function AdminLoginPage() {
 
     try {
       console.log('Attempting to sign in with:', { email, password });
-      await signIn({ email, password });
+      // Use the signIn function provided by Supabase Auth context
+      await signInWithSupabase({ email, password });
       showToast(t.toasts.loginSuccess, 'success');
-      console.log('Redirecting to:', redirectTo);
-      await router.replace(redirectTo);
+      // Redirection will be handled by the onAuthStateChange listener in AdminAuthContext
     } catch (error) {
       console.error('Login error:', error);
-      showToast(error.message || t.toasts.loginError, 'error');
+      showToast(error.message || t.auth.loginError, 'error'); // Use translated error message
     } finally {
       setSubmitting(false);
     }
   };
 
+  // Render null if not ready or already authenticated to prevent brief flashes of the login form
   if (!isReady || isAuthenticated) {
     return null;
   }

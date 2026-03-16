@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { RefreshCcw, Save } from 'lucide-react';
 import { useAdminAuth } from '../context/AdminAuthContext.jsx';
 import { useLanguage } from '../../../context/LanguageContext.jsx';
@@ -25,6 +25,10 @@ export default function AdminProfilePage() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+
+  // Guard to avoid duplicate profile loads in React Strict Mode (dev),
+  // where effects may run twice on initial mount.
+  const hasLoadedRef = useRef(false);
 
   useEffect(() => {
     const nextProfile = normalizeProfile(user);
@@ -62,7 +66,11 @@ export default function AdminProfilePage() {
       }
     };
 
-    loadProfile();
+    // Only load once per mount, even if Strict Mode runs this effect twice.
+    if (!hasLoadedRef.current) {
+      hasLoadedRef.current = true;
+      loadProfile();
+    }
 
     return () => {
       active = false;

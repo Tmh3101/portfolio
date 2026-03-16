@@ -17,7 +17,6 @@ import {
   Code2,
   BarChart3,
   Lightbulb,
-  ArrowRight,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useAdminAuth } from '../context/AdminAuthContext.jsx';
@@ -34,10 +33,8 @@ export default function AdminDashboardPage() {
     fetchCurrentUser,
     authorizedFetch,
     showToast,
-    messages: {
-      loadError: t.toasts.adminLoadError,
-      fallbackError: t.admin.error,
-    },
+    loadErrorMessage: t.toasts.adminLoadError,
+    fallbackErrorMessage: t.admin.error,
   });
 
   const latestContact = dashboard.contacts.items[0] || null;

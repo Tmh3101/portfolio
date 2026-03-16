@@ -13,6 +13,7 @@ export default function AdminLayout({ children }) {
   const router = useRouter();
   const { t } = useLanguage();
   const { showToast } = useToast();
+  // Use the signOut function from the Supabase Auth context
   const { signOut } = useAdminAuth();
 
   const pageMeta = useMemo(() => {
@@ -146,8 +147,9 @@ export default function AdminLayout({ children }) {
     t.admin.statsPageDescription,
   ]);
 
+  // Refactored handleSignOut to use the Supabase signOut from AdminAuthContext
   const handleSignOut = async () => {
-    await signOut();
+    await signOut(); // Call the Supabase signOut function
     showToast(t.toasts.logoutSuccess, 'success');
     router.replace('/login');
   };
