@@ -18,16 +18,13 @@ export function getSupabaseServerClient() {
   return createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
     cookies: {
       async get(name: string) {
-        const store = await cookieStore;
-        return store.get(name)?.value;
+        return cookieStore.get(name)?.value;
       },
       async set(name: string, value: string, options: any) {
-        const store = await cookieStore;
-        store.set(name, value, options);
+        cookieStore.set(name, value, options);
       },
       async remove(name: string, options: any) {
-        const store = await cookieStore;
-        store.set(name, '', { ...options, maxAge: 0 });
+        cookieStore.set(name, '', { ...options, maxAge: 0 });
       },
     },
   });
