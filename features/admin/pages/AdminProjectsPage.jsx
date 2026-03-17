@@ -22,7 +22,6 @@ import {
   TextInput,
   TextArea,
   ImageUploader,
-  MarkdownEditor,
   Switch,
   AITranslateButton,
 } from '../../../components/admin';
@@ -49,7 +48,6 @@ export default function AdminProjectsPage() {
     defaultValues: {
       title_vi: '',
       title_en: '',
-      slug: '',
       short_description_vi: '',
       short_description_en: '',
       description_vi: '',
@@ -109,7 +107,6 @@ export default function AdminProjectsPage() {
       reset({
         title_vi: '',
         title_en: '',
-        slug: '',
         short_description_vi: '',
         short_description_en: '',
         description_vi: '',
@@ -152,8 +149,22 @@ export default function AdminProjectsPage() {
   const onSubmit = async (data) => {
     setSubmitting(true);
     try {
+      // Auto-generate slug from title if not editing
+      const slug = editingProject
+        ? editingProject.slug
+        : data.title_vi
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[đĐ]/g, 'd')
+            .replace(/([^0-9a-z-\s])/g, '')
+            .replace(/(\s+)/g, '-')
+            .replace(/-+/g, '-')
+            .replace(/^-+|-+$/g, '');
+
       const payload = {
         ...data,
+        slug,
         technologies: data.technologies
           ? data.technologies
               .split(',')
@@ -238,7 +249,6 @@ export default function AdminProjectsPage() {
             {val}
             {item.featured && <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />}
           </span>
-          <span className="text-xs text-gray-500 font-mono">{item.slug}</span>
         </div>
       ),
     },
@@ -328,13 +338,6 @@ export default function AdminProjectsPage() {
                       />
                     </div>
                   </div>
-
-                  <TextInput
-                    label="Slug (URL ID)"
-                    placeholder="my-awesome-app"
-                    {...register('slug', { required: 'Slug is required' })}
-                    error={errors.slug?.message}
-                  />
 
                   <div className="grid grid-cols-1 gap-4 p-4 bg-gray-50/50 rounded-xl border border-gray-100">
                     <div className="flex items-center justify-between mb-2">
@@ -468,29 +471,17 @@ export default function AdminProjectsPage() {
                       />
                     </div>
                     <div className="space-y-6">
-                      <Controller
-                        name="description_vi"
-                        control={control}
-                        render={({ field }) => (
-                          <MarkdownEditor
-                            label="Full Description (VN)"
-                            value={field.value}
-                            onChange={field.onChange}
-                            error={errors.description_vi?.message}
-                          />
-                        )}
+                      <TextArea
+                        label="Full Description (VN)"
+                        rows={6}
+                        {...register('description_vi')}
+                        error={errors.description_vi?.message}
                       />
-                      <Controller
-                        name="description_en"
-                        control={control}
-                        render={({ field }) => (
-                          <MarkdownEditor
-                            label="Full Description (EN)"
-                            value={field.value}
-                            onChange={field.onChange}
-                            error={errors.description_en?.message}
-                          />
-                        )}
+                      <TextArea
+                        label="Full Description (EN)"
+                        rows={6}
+                        {...register('description_en')}
+                        error={errors.description_en?.message}
                       />
                     </div>
                   </div>

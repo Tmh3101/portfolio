@@ -133,10 +133,14 @@ export default function PortfolioPage({ cmsData }) {
             <Hero data={cmsData.hero} settings={cmsData.settings} socialLinks={cmsData.socialLinks} />
             <TechMarquee data={cmsData.techMarquee} />
             <Stats data={cmsData.stats} />
-            <Approach data={cmsData.approaches} />
-            <Skills data={cmsData.skills} />
+            <Approach data={cmsData.approaches} sectionData={cmsData.approachSection} />
+            <Skills
+              data={cmsData.skills}
+              sectionData={cmsData.skillSection}
+              categoriesData={cmsData.skillCategories}
+            />
             <Projects data={cmsData.projects} />
-            <Experience data={cmsData.experiences} />
+            <Experience data={cmsData.experiences} sectionData={cmsData.experienceSection} />
             <Contact socialLinks={cmsData.socialLinks} settings={cmsData.settings} />
           </main>
           <Footer settings={cmsData.settings} />
