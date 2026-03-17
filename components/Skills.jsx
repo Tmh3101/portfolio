@@ -2,11 +2,45 @@
 
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { AppWindow, Boxes, Database, ServerCog } from 'lucide-react';
+import { AppWindow, Boxes, Database, ServerCog, Package, Layout } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
-const Skills = ({ data }) => {
+const iconMap = {
+  ServerCog,
+  Database,
+  Boxes,
+  AppWindow,
+  Package,
+  Layout,
+  server: ServerCog,
+  database: Database,
+  package: Package,
+  layout: Layout,
+  boxes: Boxes,
+  window: AppWindow,
+};
+
+const Skills = ({ data, sectionData, categoriesData }) => {
   const { t, lang } = useLanguage();
+
+  const section = {
+    eyebrow:
+      lang === 'en' && sectionData?.eyebrow_en
+        ? sectionData.eyebrow_en
+        : sectionData?.eyebrow_vi || t.skills.eyebrow,
+    title1:
+      lang === 'en' && sectionData?.title1_en
+        ? sectionData.title1_en
+        : sectionData?.title1_vi || t.skills.title1,
+    title2:
+      lang === 'en' && sectionData?.title2_en
+        ? sectionData.title2_en
+        : sectionData?.title2_vi || t.skills.title2,
+    description:
+      lang === 'en' && sectionData?.description_en
+        ? sectionData.description_en
+        : sectionData?.description_vi || t.skills.description,
+  };
 
   const handleSkillPointerMove = (event) => {
     if (event.pointerType === 'touch') {
@@ -28,8 +62,30 @@ const Skills = ({ data }) => {
   };
 
   const categories = useMemo(() => {
+    if (categoriesData && categoriesData.length > 0) {
+      return categoriesData.map((cat) => {
+        // Find skills that belong to this category
+        const catSkills = data
+          ? data
+              .filter((s) => s.category_id === cat.id)
+              .map((s) => ({
+                name: s.name,
+                color: s.color,
+              }))
+          : [];
+
+        return {
+          title: lang === 'en' && cat.name_en ? cat.name_en : cat.name_vi,
+          icon: iconMap[cat.icon] || ServerCog,
+          description:
+            lang === 'en' && cat.description_en ? cat.description_en : cat.description_vi,
+          skills: catSkills,
+        };
+      });
+    }
+
     if (data && data.length > 0) {
-      // Group skills by category from CMS
+      // Group skills by category from CMS (legacy fallback)
       const grouped = data.reduce((acc, skill) => {
         const cat =
           lang === 'en' && skill.category_en ? skill.category_en : skill.category_vi || 'General';
@@ -41,7 +97,7 @@ const Skills = ({ data }) => {
         return acc;
       }, {});
 
-      const iconMap = {
+      const legacyIconMap = {
         Backend: ServerCog,
         Data: Database,
         Delivery: Boxes,
@@ -72,7 +128,7 @@ const Skills = ({ data }) => {
 
       return Object.keys(grouped).map((catName) => ({
         title: catName,
-        icon: iconMap[catName] || ServerCog,
+        icon: legacyIconMap[catName] || ServerCog,
         description:
           descMap[catName] ||
           (lang === 'vi' ? `Kỹ năng về ${catName}` : `${catName} related skills`),
@@ -139,22 +195,22 @@ const Skills = ({ data }) => {
         ],
       },
     ];
-  }, [data, lang]);
+  }, [data, lang, categoriesData]);
 
   return (
     <section id="skills" className="section-padding">
       <div className="container mx-auto">
         <div className="mb-12 max-w-3xl">
-          <p className="section-kicker mb-4">{t.skills.eyebrow}</p>
+          <p className="section-kicker mb-4">{section.eyebrow}</p>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="section-title"
           >
-            {t.skills.title1} <span className="text-gradient">{t.skills.title2}</span>
+            {section.title1} <span className="text-gradient">{section.title2}</span>
           </motion.h2>
-          <p className="mt-5 text-lg leading-8 text-muted-foreground">{t.skills.description}</p>
+          <p className="mt-5 text-lg leading-8 text-muted-foreground">{section.description}</p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">

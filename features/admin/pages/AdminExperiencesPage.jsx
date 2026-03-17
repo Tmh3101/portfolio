@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { Plus, RefreshCcw, Save, X, Briefcase, Calendar } from 'lucide-react';
+import { Plus, RefreshCcw, Save, X, Calendar, Star } from 'lucide-react';
 import { getSupabaseBrowserClient } from '../../../lib/supabase/client';
 import { useLanguage } from '../../../context/LanguageContext.jsx';
 import { useToast } from '../../../context/ToastContext.jsx';
@@ -10,7 +10,6 @@ import {
   DataTable,
   TextInput,
   TextArea,
-  MarkdownEditor,
   Switch,
   AITranslateButton,
 } from '../../../components/admin';
@@ -18,13 +17,22 @@ import {
 export default function AdminExperiencesPage() {
   const { t } = useLanguage();
   const { showToast } = useToast();
+
+  // Experiences State
   const [experiences, setExperiences] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingExperience, setEditingExperience] = useState(null);
   const [submitting, setSubmitting] = useState(false);
+
+  // Section State
+  const [sectionLoading, setSectionLoading] = useState(true);
+  const [savingSection, setSavingSection] = useState(false);
+  const [isSectionOpen, setIsSectionOpen] = useState(false);
+
   const supabase = getSupabaseBrowserClient();
 
+  // 1. Form for individual Experiences
   const {
     register,
     handleSubmit,
@@ -36,6 +44,7 @@ export default function AdminExperiencesPage() {
   } = useForm({
     defaultValues: {
       company: '',
+      type: 'work',
       role_vi: '',
       role_en: '',
       location_vi: '',
@@ -58,6 +67,47 @@ export default function AdminExperiencesPage() {
   const watchedDescVi = watch('description_vi');
   const watchedHighlightsVi = watch('highlights_vi');
 
+  // 2. Form for Global Section Metadata
+  const {
+    register: registerSection,
+    handleSubmit: handleSubmitSection,
+    reset: resetSection,
+    watch: watchSection,
+    setValue: setValueSection,
+  } = useForm({
+    defaultValues: {
+      eyebrow_vi: '',
+      eyebrow_en: '',
+      title1_vi: '',
+      title1_en: '',
+      title2_vi: '',
+      title2_en: '',
+      description_vi: '',
+      description_en: '',
+      current_role_label_vi: '',
+      current_role_label_en: '',
+      earlier_roles_label_vi: '',
+      earlier_roles_label_en: '',
+      earlier_roles_copy_vi: '',
+      earlier_roles_copy_en: '',
+      education_label_vi: '',
+      education_label_en: '',
+      highlights_label_vi: '',
+      highlights_label_en: '',
+    },
+  });
+
+  const wSectEyebrowVi = watchSection('eyebrow_vi');
+  const wSectTitle1Vi = watchSection('title1_vi');
+  const wSectTitle2Vi = watchSection('title2_vi');
+  const wSectDescVi = watchSection('description_vi');
+  const wSectCurLabelVi = watchSection('current_role_label_vi');
+  const wSectEarlierLabelVi = watchSection('earlier_roles_label_vi');
+  const wSectEarlierCopyVi = watchSection('earlier_roles_copy_vi');
+  const wSectEduLabelVi = watchSection('education_label_vi');
+  const wSectHighLabelVi = watchSection('highlights_label_vi');
+
+  // FETCHERS
   const fetchExperiences = useCallback(async () => {
     setLoading(true);
     try {
@@ -77,10 +127,50 @@ export default function AdminExperiencesPage() {
     }
   }, [supabase, showToast, t.admin.error]);
 
+  const fetchSection = useCallback(async () => {
+    setSectionLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from('experience_section')
+        .select('*')
+        .eq('id', 1)
+        .maybeSingle();
+
+      if (error && error.code !== '42P01') throw error;
+      if (data) resetSection(data);
+    } catch (error) {
+      console.error('Error fetching experience section:', error);
+    } finally {
+      setSectionLoading(false);
+    }
+  }, [supabase, resetSection]);
+
   useEffect(() => {
     fetchExperiences();
-  }, [fetchExperiences]);
+    fetchSection();
+  }, [fetchExperiences, fetchSection]);
 
+  // HANDLERS: SECTION
+  const onSectionSubmit = async (data) => {
+    setSavingSection(true);
+    try {
+      const { error } = await supabase.from('experience_section').upsert({ id: 1, ...data });
+      if (error) throw error;
+      showToast(t.admin.updateSuccess, 'success');
+      fetch('/api/admin/revalidate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: '/' }),
+      }).catch((err) => console.error(err));
+    } catch (error) {
+      console.error('Error saving section:', error.message || error);
+      showToast(t.admin.error, 'error');
+    } finally {
+      setSavingSection(false);
+    }
+  };
+
+  // HANDLERS: INDIVIDUAL EXPERIENCES
   const handleOpenModal = (exp = null) => {
     setEditingExperience(exp);
     if (exp) {
@@ -93,6 +183,7 @@ export default function AdminExperiencesPage() {
     } else {
       reset({
         company: '',
+        type: 'work',
         role_vi: '',
         role_en: '',
         location_vi: '',
@@ -117,8 +208,7 @@ export default function AdminExperiencesPage() {
   };
 
   const handleDelete = async (exp) => {
-    if (!window.confirm(t.admin.confirmDelete || 'Are you sure you want to delete this record?'))
-      return;
+    if (!window.confirm(t.admin.confirmDelete || 'Are you sure?')) return;
 
     try {
       const { error } = await supabase.from('experiences').delete().eq('id', exp.id);
@@ -173,7 +263,7 @@ export default function AdminExperiencesPage() {
 
       if (error) throw error;
 
-      // Trigger on-demand revalidation
+      // Trigger revalidation
       fetch('/api/admin/revalidate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -191,13 +281,21 @@ export default function AdminExperiencesPage() {
     }
   };
 
+  // COLUMNS
   const columns = [
     {
       key: 'company',
-      label: 'Company',
+      label: 'Company / Org',
       render: (val, item) => (
         <div>
-          <span className="admin-table__primary">{val}</span>
+          <div className="flex items-center gap-2">
+            <span className="admin-table__primary">{val}</span>
+            <span
+              className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wider ${item.type === 'education' ? 'bg-blue-50 text-blue-600 border border-blue-100' : 'bg-green-50 text-green-600 border border-green-100'}`}
+            >
+              {item.type}
+            </span>
+          </div>
           <span className="text-xs text-gray-500">{item.location_vi}</span>
         </div>
       ),
@@ -226,6 +324,218 @@ export default function AdminExperiencesPage() {
 
   return (
     <div className="admin-dashboard">
+      {/* 1. Global Section Settings */}
+      <section className="admin-card mb-6">
+        <div
+          className="admin-card__header cursor-pointer"
+          onClick={() => setIsSectionOpen(!isSectionOpen)}
+        >
+          <div className="flex items-center gap-2">
+            <h2 className="admin-card__title">Experience Section Headings & Labels</h2>
+            <span
+              className={`text-xs px-2 py-0.5 rounded-full ${isSectionOpen ? 'bg-primary/10 text-primary' : 'bg-gray-100 text-gray-500'}`}
+            >
+              {isSectionOpen ? 'Editing' : 'Click to edit'}
+            </span>
+          </div>
+          <Plus
+            className={`w-5 h-5 transition-transform duration-200 ${isSectionOpen ? 'rotate-45' : ''}`}
+          />
+        </div>
+
+        {isSectionOpen && (
+          <form onSubmit={handleSubmitSection(onSectionSubmit)} className="p-6 space-y-8">
+            {sectionLoading ? (
+              <div className="flex justify-center py-8">
+                <RefreshCcw className="animate-spin text-primary/40" />
+              </div>
+            ) : (
+              <>
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                  <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                      <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                        Eyebrow
+                      </h4>
+                      <AITranslateButton
+                        sourceText={wSectEyebrowVi}
+                        onTranslate={(val) =>
+                          setValueSection('eyebrow_en', val, { shouldValidate: true })
+                        }
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <TextInput label="VN" {...registerSection('eyebrow_vi')} />
+                      <TextInput label="EN" {...registerSection('eyebrow_en')} />
+                    </div>
+                  </div>
+                  <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                      <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                        Title Part 1
+                      </h4>
+                      <AITranslateButton
+                        sourceText={wSectTitle1Vi}
+                        onTranslate={(val) =>
+                          setValueSection('title1_en', val, { shouldValidate: true })
+                        }
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <TextInput label="VN" {...registerSection('title1_vi')} />
+                      <TextInput label="EN" {...registerSection('title1_en')} />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                  <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                      <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                        Title Part 2 (Gradient)
+                      </h4>
+                      <AITranslateButton
+                        sourceText={wSectTitle2Vi}
+                        onTranslate={(val) =>
+                          setValueSection('title2_en', val, { shouldValidate: true })
+                        }
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <TextInput label="VN" {...registerSection('title2_vi')} />
+                      <TextInput label="EN" {...registerSection('title2_en')} />
+                    </div>
+                  </div>
+                  <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                      <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                        Description
+                      </h4>
+                      <AITranslateButton
+                        sourceText={wSectDescVi}
+                        onTranslate={(val) =>
+                          setValueSection('description_en', val, { shouldValidate: true })
+                        }
+                      />
+                    </div>
+                    <div className="grid grid-cols-1 gap-4">
+                      <TextArea label="VN" rows={2} {...registerSection('description_vi')} />
+                      <TextArea label="EN" rows={2} {...registerSection('description_en')} />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                  <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                      <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                        Current Role Label
+                      </h4>
+                      <AITranslateButton
+                        sourceText={wSectCurLabelVi}
+                        onTranslate={(val) =>
+                          setValueSection('current_role_label_en', val, { shouldValidate: true })
+                        }
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <TextInput label="VN" {...registerSection('current_role_label_vi')} />
+                      <TextInput label="EN" {...registerSection('current_role_label_en')} />
+                    </div>
+                  </div>
+                  <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                      <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                        Highlights Label
+                      </h4>
+                      <AITranslateButton
+                        sourceText={wSectHighLabelVi}
+                        onTranslate={(val) =>
+                          setValueSection('highlights_label_en', val, { shouldValidate: true })
+                        }
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <TextInput label="VN" {...registerSection('highlights_label_vi')} />
+                      <TextInput label="EN" {...registerSection('highlights_label_en')} />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                  <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                      <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                        Earlier Roles Label
+                      </h4>
+                      <AITranslateButton
+                        sourceText={wSectEarlierLabelVi}
+                        onTranslate={(val) =>
+                          setValueSection('earlier_roles_label_en', val, { shouldValidate: true })
+                        }
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <TextInput label="VN" {...registerSection('earlier_roles_label_vi')} />
+                      <TextInput label="EN" {...registerSection('earlier_roles_label_en')} />
+                    </div>
+                  </div>
+                  <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                      <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                        Earlier Roles Copy
+                      </h4>
+                      <AITranslateButton
+                        sourceText={wSectEarlierCopyVi}
+                        onTranslate={(val) =>
+                          setValueSection('earlier_roles_copy_en', val, { shouldValidate: true })
+                        }
+                      />
+                    </div>
+                    <div className="grid grid-cols-1 gap-4">
+                      <TextArea label="VN" rows={2} {...registerSection('earlier_roles_copy_vi')} />
+                      <TextArea label="EN" rows={2} {...registerSection('earlier_roles_copy_en')} />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                  <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                      <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                        Education Label
+                      </h4>
+                      <AITranslateButton
+                        sourceText={wSectEduLabelVi}
+                        onTranslate={(val) =>
+                          setValueSection('education_label_en', val, { shouldValidate: true })
+                        }
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <TextInput label="VN" {...registerSection('education_label_vi')} />
+                      <TextInput label="EN" {...registerSection('education_label_en')} />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex justify-end pt-4 border-t border-gray-100">
+                  <button
+                    type="submit"
+                    disabled={savingSection}
+                    className="admin-primary-button min-w-[140px]"
+                  >
+                    <Save size={16} />
+                    <span>{savingSection ? t.admin.saving : t.admin.save}</span>
+                  </button>
+                </div>
+              </>
+            )}
+          </form>
+        )}
+      </section>
+
+      {/* 2. Experiences Table */}
       <section className="admin-card">
         <div className="admin-card__header">
           <h2 className="admin-card__title">{t.admin.experiencesPageTitle}</h2>
@@ -271,38 +581,45 @@ export default function AdminExperiencesPage() {
 
             <form onSubmit={handleSubmit(onSubmit)} className="overflow-y-auto p-6 space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Left Column: Basic Info */}
                 <div className="space-y-6">
-                  <TextInput
-                    label="Company Name"
-                    placeholder="Tech Solutions Inc."
-                    {...register('company', { required: 'Company is required' })}
-                    error={errors.company?.message}
-                  />
+                  <div className="grid grid-cols-2 gap-4">
+                    <TextInput
+                      label="Company / School Name"
+                      placeholder="Tech Solutions Inc."
+                      {...register('company', { required: 'Company is required' })}
+                      error={errors.company?.message}
+                    />
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[11px] font-black uppercase tracking-wider text-gray-500">
+                        Type
+                      </label>
+                      <select
+                        {...register('type')}
+                        className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                      >
+                        <option value="work">Work Experience</option>
+                        <option value="education">Education</option>
+                      </select>
+                    </div>
+                  </div>
 
                   <div className="grid grid-cols-1 gap-4 p-4 bg-gray-50/50 rounded-xl border border-gray-100">
                     <div className="flex items-center justify-between mb-2">
                       <h4 className="text-sm font-bold text-gray-700 uppercase tracking-wider">
-                        Job Title
+                        Job / Study Title
                       </h4>
                       <AITranslateButton
                         sourceText={watchedRoleVi}
                         onTranslate={(val) => setValue('role_en', val, { shouldValidate: true })}
                       />
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-4">
                       <TextInput
                         label="Title (VN)"
-                        placeholder="Kỹ sư Backend"
-                        {...register('role_vi', { required: 'Vietnamese role is required' })}
+                        {...register('role_vi', { required: true })}
                         error={errors.role_vi?.message}
                       />
-                      <TextInput
-                        label="Title (EN)"
-                        placeholder="Backend Engineer"
-                        {...register('role_en')}
-                        error={errors.role_en?.message}
-                      />
+                      <TextInput label="Title (EN)" {...register('role_en')} />
                     </div>
                   </div>
 
@@ -318,19 +635,9 @@ export default function AdminExperiencesPage() {
                         }
                       />
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <TextInput
-                        label="Location (VN)"
-                        placeholder="Hồ Chí Minh"
-                        {...register('location_vi')}
-                        error={errors.location_vi?.message}
-                      />
-                      <TextInput
-                        label="Location (EN)"
-                        placeholder="Ho Chi Minh City"
-                        {...register('location_en')}
-                        error={errors.location_en?.message}
-                      />
+                    <div className="grid grid-cols-2 gap-4">
+                      <TextInput label="Location (VN)" {...register('location_vi')} />
+                      <TextInput label="Location (EN)" {...register('location_en')} />
                     </div>
                   </div>
 
@@ -338,7 +645,7 @@ export default function AdminExperiencesPage() {
                     <TextInput
                       label="Start Date"
                       type="date"
-                      {...register('start_date', { required: 'Start date is required' })}
+                      {...register('start_date', { required: true })}
                       error={errors.start_date?.message}
                     />
                     {!isCurrent && (
@@ -351,22 +658,20 @@ export default function AdminExperiencesPage() {
                     control={control}
                     render={({ field }) => (
                       <Switch
-                        label="I am currently working here"
+                        label="Currently active here"
                         description="Sets end date to 'Present'"
                         checked={field.value}
                         onChange={(e) => field.onChange(e.target.checked)}
                       />
                     )}
                   />
-
                   <TextInput
-                    label="Technologies (comma separated)"
+                    label="Technologies"
                     placeholder="Python, FastAPI, AWS"
                     {...register('technologies')}
                   />
                 </div>
 
-                {/* Right Column: Highlights & Description */}
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 gap-4 p-4 bg-gray-50/50 rounded-xl border border-gray-100">
                     <div className="flex items-center justify-between mb-2">
@@ -380,29 +685,13 @@ export default function AdminExperiencesPage() {
                         }
                       />
                     </div>
-                    <div className="space-y-4">
-                      <TextArea
-                        label="Highlights (VN)"
-                        placeholder="- Tối ưu hóa database..."
-                        rows={6}
-                        {...register('highlights_vi')}
-                        error={errors.highlights_vi?.message}
-                      />
-                      <TextArea
-                        label="Highlights (EN)"
-                        placeholder="- Optimized database..."
-                        rows={6}
-                        {...register('highlights_en')}
-                        error={errors.highlights_en?.message}
-                      />
-                    </div>
+                    <TextArea label="Highlights (VN)" rows={6} {...register('highlights_vi')} />
+                    <TextArea label="Highlights (EN)" rows={6} {...register('highlights_en')} />
                   </div>
-
                   <TextInput label="Sort Order" type="number" {...register('sort_order')} />
                 </div>
               </div>
 
-              {/* Full Width Description Editor */}
               <div className="p-4 bg-gray-50/50 rounded-xl border border-gray-100">
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="text-sm font-bold text-gray-700 uppercase tracking-wider">
@@ -414,30 +703,8 @@ export default function AdminExperiencesPage() {
                   />
                 </div>
                 <div className="space-y-6">
-                  <Controller
-                    name="description_vi"
-                    control={control}
-                    render={({ field }) => (
-                      <MarkdownEditor
-                        label="Description (VN)"
-                        value={field.value}
-                        onChange={field.onChange}
-                        error={errors.description_vi?.message}
-                      />
-                    )}
-                  />
-                  <Controller
-                    name="description_en"
-                    control={control}
-                    render={({ field }) => (
-                      <MarkdownEditor
-                        label="Description (EN)"
-                        value={field.value}
-                        onChange={field.onChange}
-                        error={errors.description_en?.message}
-                      />
-                    )}
-                  />
+                  <TextArea label="Description (VN)" rows={6} {...register('description_vi')} />
+                  <TextArea label="Description (EN)" rows={6} {...register('description_en')} />
                 </div>
               </div>
 
@@ -445,9 +712,9 @@ export default function AdminExperiencesPage() {
                 <button
                   type="button"
                   onClick={handleCloseModal}
-                  className="px-6 py-2 border border-gray-200 rounded-xl text-sm font-bold text-gray-600 hover:bg-gray-50 transition-colors"
+                  className="px-6 py-2 border border-gray-200 rounded-xl text-sm font-bold text-gray-600"
                 >
-                  {t.admin.cancel}
+                  Cancel
                 </button>
                 <button
                   type="submit"

@@ -14,13 +14,41 @@ const iconMap = {
   search: Search,
 };
 
-const Approach = ({ data }) => {
+const Approach = ({ data, sectionData }) => {
   const { t, lang } = useLanguage();
+
+  const section = {
+    eyebrow:
+      lang === 'en' && sectionData?.eyebrow_en
+        ? sectionData.eyebrow_en
+        : sectionData?.eyebrow_vi || t.approach.eyebrow,
+    title1:
+      lang === 'en' && sectionData?.title1_en
+        ? sectionData.title1_en
+        : sectionData?.title1_vi || t.approach.title1,
+    title2:
+      lang === 'en' && sectionData?.title2_en
+        ? sectionData.title2_en
+        : sectionData?.title2_vi || t.approach.title2,
+    description:
+      lang === 'en' && sectionData?.description_en
+        ? sectionData.description_en
+        : sectionData?.description_vi || t.approach.description,
+    noteLabel:
+      lang === 'en' && sectionData?.note_label_en
+        ? sectionData.note_label_en
+        : sectionData?.note_label_vi || t.approach.noteLabel,
+    note:
+      lang === 'en' && sectionData?.note_en
+        ? sectionData.note_en
+        : sectionData?.note_vi || t.approach.note,
+  };
 
   const approachItems =
     data && data.length > 0
       ? data.map((item, idx) => ({
           title: lang === 'en' && item.title_en ? item.title_en : item.title_vi,
+          subtitle: lang === 'en' && item.subtitle_en ? item.subtitle_en : item.subtitle_vi,
           copy: lang === 'en' && item.description_en ? item.description_en : item.description_vi,
           icon: iconMap[item.icon] || [Layers3, Boxes, Sparkles][idx % 3],
         }))
@@ -35,22 +63,20 @@ const Approach = ({ data }) => {
         <div className="grid gap-6 xl:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)]">
           <div className="content-plane-strong rounded-[32px] p-8 md:p-10 lg:p-12">
             <div className="max-w-2xl">
-              <p className="section-kicker mb-4">{t.approach.eyebrow}</p>
+              <p className="section-kicker mb-4">{section.eyebrow}</p>
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 className="section-title max-w-xl"
               >
-                {t.approach.title1} <span className="text-gradient">{t.approach.title2}</span>
+                {section.title1} <span className="text-gradient">{section.title2}</span>
               </motion.h2>
-              <p className="mt-5 text-lg leading-8 text-muted-foreground">
-                {t.approach.description}
-              </p>
+              <p className="mt-5 text-lg leading-8 text-muted-foreground">{section.description}</p>
 
               <div className="content-plane mt-10 rounded-[24px] p-6 md:p-7">
-                <p className="section-kicker">{t.approach.noteLabel}</p>
-                <p className="mt-4 text-base leading-8 text-muted-foreground">{t.approach.note}</p>
+                <p className="section-kicker">{section.noteLabel}</p>
+                <p className="mt-4 text-base leading-8 text-muted-foreground">{section.note}</p>
               </div>
             </div>
           </div>
@@ -61,7 +87,7 @@ const Approach = ({ data }) => {
 
               return (
                 <motion.article
-                  key={item.title}
+                  key={`${item.title}-${index}`}
                   initial={{ opacity: 0, y: 18 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
@@ -78,6 +104,11 @@ const Approach = ({ data }) => {
                   </div>
 
                   <h3 className="mt-8 text-3xl font-black tracking-[-0.05em]">{item.title}</h3>
+                  {item.subtitle && (
+                    <p className="mt-2 text-xs font-bold uppercase tracking-widest text-primary/70">
+                      {item.subtitle}
+                    </p>
+                  )}
                   <p className="mt-4 max-w-[34rem] text-sm leading-7 text-muted-foreground md:text-base">
                     {item.copy}
                   </p>
