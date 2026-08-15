@@ -2298,3 +2298,47 @@ html[lang='vi'] .section-title {
     min-width: 48rem;
   }
 }
+
+/* Print styles */
+@media print {
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .cv-print-btn {
+    display: none !important;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  .cv-document,
+  .cv-document * {
+    visibility: visible;
+  }
+
+  .cv-document {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 1.5rem !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+  }
+
+  .cv-document * {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+}
