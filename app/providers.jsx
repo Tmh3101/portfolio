@@ -5,7 +5,6 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 import { LanguageProvider } from '../context/LanguageContext.jsx';
 import { ToastProvider } from '../context/ToastContext.jsx';
 import { AdminAuthProvider } from '../features/admin/context/AdminAuthContext.jsx';
-import DevToolsTrap from '../components/DevToolsTrap.jsx';
 
 export default function Providers({ children }) {
   return (
@@ -13,7 +12,6 @@ export default function Providers({ children }) {
       <ToastProvider>
         <AdminAuthProvider>
           {children}
-          <DevToolsTrap />
           <Analytics />
           <SpeedInsights />
         </AdminAuthProvider>
