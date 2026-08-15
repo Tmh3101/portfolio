@@ -25,7 +25,7 @@ export default function Resume({ experiences, skills }) {
           }
           return {
             date: dateStr,
-            title: item.role || item.title || item.position || 'Backend Engineer',
+            title: item.role || item.title || item.position || 'AI Backend Engineer',
             scope:
               item.description ||
               item.scope ||
@@ -36,19 +36,40 @@ export default function Resume({ experiences, skills }) {
         })
       : [
           {
-            date: '2023 — now',
-            title: 'Backend Engineer',
-            scope: 'Distributed systems, high-throughput API design, and asynchronous task pipelines',
+            date: '01/2026 — Present',
+            title: 'AI Backend Engineer · TITOPS VIETNAM CO., LTD.',
+            scope:
+              'Vielora - AI Chatbot SaaS Platform: RAG pipeline (Gemini + pgvector), multi-tenant architecture, async queues (Redis/BullMQ), payment integration.',
           },
           {
-            date: '2021 — 2023',
-            title: 'Backend Developer',
-            scope: 'Python / FastAPI microservices, PostgreSQL query optimization, and CI/CD pipelines',
+            date: '11/2025 — 12/2026',
+            title: 'Backend Engineer Intern · TITOPS (Client: HVA Group)',
+            scope:
+              'Slice SocialFi - Web3 Social Network: cross-chain token bridge (BNB/LensChain), async transaction queues, Docker/AWS EC2 deployment.',
           },
           {
-            date: '2020 — 2021',
-            title: 'Backend Intern',
-            scope: 'API endpoint development, internal tooling, and test automation',
+            date: '09/2025 — 11/2025',
+            title: 'Full-stack Developer · TITOPS VIETNAM CO., LTD.',
+            scope:
+              'Giftcards - Corporate Gift Solution: DNPAY payment integration, order flow optimization.',
+          },
+          {
+            date: '01/2026 — 04/2026',
+            title: 'AI Engineer · Graduation Thesis',
+            scope:
+              'SybilSignal - Graph-based Sybil Detection: GNN (GATv2) + Web dashboard, 4-class risk categorization, score 9.8/10.',
+          },
+          {
+            date: '02/2025 — 12/2025',
+            title: 'Full-stack Developer & AI Engineer · Xpervia',
+            scope:
+              'Learning Management System & AI Chatbot: RAG (LangChain), hybrid recommendation, RBAC LMS (Django + DRF, Next.js).',
+          },
+          {
+            date: '08/2024 — 09/2024',
+            title: 'Backend Engineer · Identity Service',
+            scope:
+              'Auth RESTful API: JWT + OAuth2, RBAC, password hashing, refresh token rotation.',
           },
         ];
 
@@ -62,7 +83,7 @@ export default function Resume({ experiences, skills }) {
   }
   if (!skillLine) {
     skillLine =
-      'Python · FastAPI · Go · PostgreSQL · Redis · Docker · Kubernetes · AWS · GraphQL · Linux';
+      'Python · Java · TypeScript · JavaScript · Next.js · React · Node.js · NestJS · Django · Spring Boot 3 · PostgreSQL · MySQL · MongoDB · Redis · Supabase · Docker · AWS · BullMQ · LangChain · Hugging Face · RAG Pipelines';
   }
 
   return (

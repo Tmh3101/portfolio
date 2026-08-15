@@ -38,7 +38,7 @@ export default async function CVPage() {
           }
           return {
             date: dateStr,
-            title: item.role || item.title || item.position || 'Backend Engineer',
+            title: item.role || item.title || item.position || 'AI Backend Engineer',
             company: item.company || '',
             scope:
               item.description ||
@@ -50,22 +50,46 @@ export default async function CVPage() {
         })
       : [
           {
-            date: '2023 — now',
+            date: '01/2026 — Present',
+            title: 'AI Backend Engineer',
+            company: 'TITOPS VIETNAM CO., LTD.',
+            scope:
+              'Vielora - AI Chatbot SaaS Platform: RAG pipeline (Gemini + pgvector), multi-tenant architecture, async queues (Redis/BullMQ), payment integration.',
+          },
+          {
+            date: '11/2025 — 12/2026',
+            title: 'Backend Engineer Intern',
+            company: 'TITOPS (Client: HVA Group)',
+            scope:
+              'Slice SocialFi - Web3 Social Network: cross-chain token bridge (BNB/LensChain), async transaction queues, Docker/AWS EC2 deployment.',
+          },
+          {
+            date: '09/2025 — 11/2025',
+            title: 'Full-stack Developer',
+            company: 'TITOPS VIETNAM CO., LTD.',
+            scope:
+              'Giftcards - Corporate Gift Solution: DNPAY payment integration, order flow optimization.',
+          },
+          {
+            date: '01/2026 — 04/2026',
+            title: 'AI Engineer',
+            company: 'Graduation Thesis',
+            scope:
+              'SybilSignal - Graph-based Sybil Detection: GNN (GATv2) + Web dashboard, 4-class risk categorization, score 9.8/10.',
+          },
+          {
+            date: '02/2025 — 12/2025',
+            title: 'Full-stack Developer & AI Engineer',
+            company: 'Xpervia',
+            scope:
+              'Learning Management System & AI Chatbot: RAG (LangChain), hybrid recommendation, RBAC LMS (Django + DRF, Next.js).',
+          },
+          {
+            date: '08/2024 — 09/2024',
             title: 'Backend Engineer',
-            company: '',
-            scope: 'Distributed systems, high-throughput API design, and asynchronous task pipelines',
-          },
-          {
-            date: '2021 — 2023',
-            title: 'Backend Developer',
-            company: '',
-            scope: 'Python / FastAPI microservices, PostgreSQL query optimization, and CI/CD pipelines',
-          },
-          {
-            date: '2020 — 2021',
-            title: 'Backend Intern',
-            company: '',
-            scope: 'API endpoint development, internal tooling, and test automation',
+            company: 'Identity Service',
+            scope:
+              'Auth RESTful API: JWT + OAuth2, RBAC, password hashing, refresh token rotation.',
           },
         ];
 
@@ -79,7 +103,7 @@ export default async function CVPage() {
   }
   if (!skillLine) {
     skillLine =
-      'Python · FastAPI · Go · PostgreSQL · Redis · Docker · Kubernetes · AWS · GraphQL · Linux';
+      'Python · Java · TypeScript · JavaScript · Next.js · React · Node.js · NestJS · Django · Spring Boot 3 · PostgreSQL · MySQL · MongoDB · Redis · Supabase · Docker · AWS · BullMQ · LangChain · Hugging Face · RAG Pipelines';
   }
 
   return (
@@ -122,6 +146,19 @@ export default async function CVPage() {
             >
               {siteConfig.github.replace(/^https?:\/\//, '')}
             </a>
+            {siteConfig.linkedin && (
+              <>
+                <span>·</span>
+                <a
+                  href={siteConfig.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-foreground transition-colors"
+                >
+                  {siteConfig.linkedin.replace(/^https?:\/\//, '')}
+                </a>
+              </>
+            )}
           </div>
         </header>
 
@@ -170,6 +207,24 @@ export default async function CVPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Education Section */}
+        <section>
+          <h2 className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-3">
+            Education
+          </h2>
+          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+            <div>
+              <h3 className="font-display font-medium text-foreground text-sm sm:text-base">
+                Engineer in Computer Science · Can Tho University
+              </h3>
+              <p className="text-xs sm:text-sm text-muted-foreground">GPA: 3.64 / 4.00</p>
+            </div>
+            <span className="font-mono text-xs text-muted-foreground whitespace-nowrap">
+              2022 — 2026
+            </span>
           </div>
         </section>
 
