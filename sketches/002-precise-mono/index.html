@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Precise Mono — Sketch</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<style>@import url('../themes/tokens.css');</style>
+</head>
+<body>
+<button class="toggle" onclick="document.documentElement.toggleAttribute('data-theme')">Toggle theme</button>
+
+<!-- NAV: precise, bordered shell -->
+<header class="container" style="display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid var(--border)">
+  <strong style="font-family:var(--font-display);font-size:0.95rem">TMH</strong>
+  <nav class="muted mono" style="display:flex;gap:24px">
+    <a href="#work">work</a><a href="#exp">experience</a><a href="#contact">contact</a>
+  </nav>
+</header>
+
+<!-- HERO: two-column, label/value precision -->
+<section class="container" style="display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:end">
+  <div>
+    <h1 style="font-size:clamp(2.2rem,5vw,3.4rem);font-weight:700;line-height:1.05">
+      Backend developer<br/>building dependable systems.
+    </h1>
+    <div style="display:flex;gap:12px;margin-top:28px">
+      <a class="btn-primary" href="#work">View work →</a>
+      <a class="btn-secondary" href="#contact">Contact</a>
+    </div>
+  </div>
+  <dl style="font-family:var(--font-mono);font-size:0.8125rem;display:grid;gap:12px">
+    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:8px">
+      <dt class="muted">role</dt><dd>Backend Dev</dd>
+    </div>
+    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:8px">
+      <dt class="muted">stack</dt><dd>Python · Go</dd>
+    </div>
+    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:8px">
+      <dt class="muted">focus</dt><dd>APIs · Data</dd>
+    </div>
+    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:8px">
+      <dt class="muted">based</dt><dd>Ho Chi Minh</dd>
+    </div>
+  </dl>
+</section>
+
+<hr class="divider" />
+
+<!-- WORK: strict 2-col grid, hairline separated -->
+<section id="work" class="container">
+  <p class="eyebrow" style="margin-bottom:20px">Selected work</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--border)">
+    <article style="padding:24px;border-right:1px solid var(--border)">
+      <p class="mono muted">01 / 2024</p>
+      <h3 style="font-size:1.2rem;margin-top:8px">Payment orchestration</h3>
+      <p class="muted" style="margin-top:8px;font-size:0.92rem">Idempotent REST APIs, 2M+ daily txns, strict consistency.</p>
+    </article>
+    <article style="padding:24px">
+      <p class="mono muted">02 / 2023</p>
+      <h3 style="font-size:1.2rem;margin-top:8px">Analytics pipeline</h3>
+      <p class="muted" style="margin-top:8px;font-size:0.92rem">Event ingestion cutting report latency from hours to minutes.</p>
+    </article>
+    <article style="padding:24px;border-right:1px solid var(--border);border-top:1px solid var(--border)">
+      <p class="mono muted">03 / 2023</p>
+      <h3 style="font-size:1.2rem;margin-top:8px">Auth service</h3>
+      <p class="muted" style="margin-top:8px;font-size:0.92rem">Token-based session layer with refresh rotation.</p>
+    </article>
+    <article style="padding:24px;border-top:1px solid var(--border)">
+      <p class="mono muted">04 / 2022</p>
+      <h3 style="font-size:1.2rem;margin-top:8px">CLI tooling</h3>
+      <p class="muted" style="margin-top:8px;font-size:0.92rem">Internal deploy helpers reducing release friction.</p>
+    </article>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- EXPERIENCE: structured rows -->
+<section id="exp" class="container">
+  <p class="eyebrow" style="margin-bottom:20px">Experience</p>
+  <div style="display:grid;gap:0">
+    <div style="display:grid;grid-template-columns:140px 1fr;gap:24px;padding:20px 0;border-top:1px solid var(--border)">
+      <span class="mono muted">2023—now</span>
+      <div><h3 style="font-size:1.1rem">Backend Engineer · Product Co.</h3><p class="muted" style="margin-top:6px;font-size:0.92rem">Own API reliability and data flows for core product.</p></div>
+    </div>
+    <div style="display:grid;grid-template-columns:140px 1fr;gap:24px;padding:20px 0;border-top:1px solid var(--border)">
+      <span class="mono muted">2021—2023</span>
+      <div><h3 style="font-size:1.1rem">Backend Intern → Jr. Dev</h3><p class="muted" style="margin-top:6px;font-size:0.92rem">Built internal services and delivery tooling.</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<footer id="contact" class="container" style="display:flex;justify-content:space-between;align-items:center;padding:32px 24px;flex-wrap:wrap;gap:16px">
+  <span class="muted mono">hieutm.site@gmail.com</span>
+  <nav class="muted mono" style="display:flex;gap:20px"><a href="#">GitHub</a><a href="#">LinkedIn</a></nav>
+</footer>
+</body>
+</html>

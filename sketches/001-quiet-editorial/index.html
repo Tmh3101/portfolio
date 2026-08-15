@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Quiet Editorial — Sketch</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<style>@import url('../themes/tokens.css');</style>
+</head>
+<body>
+<button class="toggle" onclick="document.documentElement.toggleAttribute('data-theme')">Toggle theme</button>
+
+<!-- NAV -->
+<header class="container" style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px">
+  <strong style="font-family:var(--font-display);font-size:1rem">Trần Minh Hiểu</strong>
+  <nav class="muted mono" style="display:flex;gap:20px">
+    <a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a>
+  </nav>
+</header>
+<hr class="divider" />
+
+<!-- HERO: single column, large type, lots of air -->
+<section class="container">
+  <p class="eyebrow" style="margin-bottom:16px">Backend Developer</p>
+  <h1 style="font-size:clamp(2.4rem,6vw,4rem);line-height:1.05;max-width:14ch;font-weight:700">
+    I build reliable APIs and data systems.
+  </h1>
+  <p class="muted" style="max-width:52ch;margin-top:24px;font-size:1.05rem">
+    Backend-focused engineer working on API design, system reliability, and
+    maintainable services. Currently shipping product backend at real-world scale.
+  </p>
+  <div style="display:flex;gap:12px;margin-top:32px">
+    <a class="btn-primary" href="#work">View work →</a>
+    <a class="btn-secondary" href="#contact">Get in touch</a>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- WORK: editorial rows, not cards -->
+<section id="work" class="container">
+  <p class="eyebrow" style="margin-bottom:24px">Selected work</p>
+  <div style="display:flex;flex-direction:column">
+    <article style="padding:24px 0;border-top:1px solid var(--border)">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap">
+        <h3 style="font-size:1.3rem">Payment orchestration service</h3>
+        <span class="muted mono">2024</span>
+      </div>
+      <p class="muted" style="max-width:60ch;margin-top:8px">
+        Designed idempotent REST APIs and retry flows handling 2M+ daily transactions with strict consistency.
+      </p>
+      <p class="mono muted" style="margin-top:10px">Python · FastAPI · PostgreSQL</p>
+    </article>
+    <article style="padding:24px 0;border-top:1px solid var(--border)">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap">
+        <h3 style="font-size:1.3rem">Internal analytics pipeline</h3>
+        <span class="muted mono">2023</span>
+      </div>
+      <p class="muted" style="max-width:60ch;margin-top:8px">
+        Built event ingestion and aggregation jobs reducing report latency from hours to minutes.
+      </p>
+      <p class="mono muted" style="margin-top:10px">Go · Kafka · ClickHouse</p>
+    </article>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ABOUT: restrained stat list, no count-up -->
+<section id="about" class="container">
+  <p class="eyebrow" style="margin-bottom:24px">At a glance</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px">
+    <div>
+      <p style="font-family:var(--font-display);font-size:2rem;font-weight:700">3+</p>
+      <p class="muted" style="font-size:0.9rem">Years building backend</p>
+    </div>
+    <div>
+      <p style="font-family:var(--font-display);font-size:2rem;font-weight:700">APIs</p>
+      <p class="muted" style="font-size:0.9rem">Design & reliability</p>
+    </div>
+    <div>
+      <p style="font-family:var(--font-display);font-size:2rem;font-weight:700">Python</p>
+      <p class="muted" style="font-size:0.9rem">Primary stack</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<footer id="contact" class="container" style="display:flex;justify-content:space-between;align-items:center;padding:32px 24px;flex-wrap:wrap;gap:16px">
+  <span class="muted mono">hieutm.site@gmail.com</span>
+  <nav class="muted mono" style="display:flex;gap:20px">
+    <a href="#">GitHub</a><a href="#">LinkedIn</a>
+  </nav>
+</footer>
+</body>
+</html>

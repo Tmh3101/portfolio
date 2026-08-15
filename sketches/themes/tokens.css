@@ -1,0 +1,67 @@
+/* Quiet Technical — shared tokens for sketches (light + dark). */
+:root {
+  --bg: #ffffff;
+  --surface: #fafafa;
+  --ink: #18181b;
+  --muted: #71717a;
+  --border: #e4e4e7;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --ink: #fafafa;
+  --muted: #a1a1aa;
+  --border: #27272a;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.03em; }
+.eyebrow {
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted);
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--ink); color: var(--bg);
+  padding: 10px 18px; border-radius: var(--radius-md);
+  font-size: 0.9rem; font-weight: 500; cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+.btn-primary:hover { opacity: 0.85; }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--ink);
+  border: 1px solid var(--border); padding: 10px 18px;
+  border-radius: var(--radius-md); font-size: 0.9rem; font-weight: 500; cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+.btn-secondary:hover { border-color: var(--ink); }
+.divider { height: 1px; background: var(--border); border: 0; }
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+section { padding: var(--space-2xl) 0; }
+.muted { color: var(--muted); }
+.mono { font-family: var(--font-mono); font-size: 0.8125rem; }
+.toggle {
+  position: fixed; top: 16px; right: 16px; z-index: 50;
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--ink); border-radius: 999px; padding: 8px 14px;
+  font-size: 0.8rem; cursor: pointer;
+}

@@ -1,0 +1,63 @@
+/* Quiet Technical — exported from DESIGN.md via @google/design.md
+   Tailwind v4 @theme block. Import this in globals.css (after @import 'tailwindcss').
+   These tokens are the light-mode source of truth; dark mode overrides below. */
+
+@theme {
+  --color-primary: #18181b;
+  --color-secondary: #71717a;
+  --color-tertiary: #0a0a0a;
+  --color-neutral: #ffffff;
+  --color-border: #e4e4e7;
+
+  --font-h1: "Space Grotesk";
+  --font-h2: "Space Grotesk";
+  --font-h3: "Space Grotesk";
+  --font-body: "Inter";
+  --font-caption: "Inter";
+  --font-mono: "JetBrains Mono";
+
+  --text-h1: 3rem;
+  --text-h2: 2rem;
+  --text-h3: 1.25rem;
+  --text-body: 1rem;
+  --text-caption: 0.75rem;
+  --text-mono: 0.8125rem;
+
+  --tracking-h1: -0.04em;
+  --tracking-h2: -0.03em;
+  --tracking-h3: -0.02em;
+  --tracking-body: 0em;
+  --tracking-caption: 0.08em;
+  --tracking-mono: 0em;
+
+  --font-weight-h1: 700;
+  --font-weight-h2: 600;
+  --font-weight-h3: 600;
+  --font-weight-body: 400;
+  --font-weight-caption: 500;
+  --font-weight-mono: 400;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 40px;
+  --spacing-2xl: 64px;
+}
+
+/* Dark mode — same system inverted, no new hue. */
+[data-theme='dark'] {
+  --color-primary: #fafafa;
+  --color-secondary: #a1a1aa;
+  --color-tertiary: #0a0a0a;
+  --color-neutral: #0a0a0a;
+  --color-border: #27272a;
+
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  --card: #141414;
+  --muted: #a1a1aa;
+}

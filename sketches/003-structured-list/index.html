@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Structured List — Sketch</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<style>@import url('../themes/tokens.css');</style>
+</head>
+<body>
+<button class="toggle" onclick="document.documentElement.toggleAttribute('data-theme')">Toggle theme</button>
+
+<header class="container" style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px">
+  <strong style="font-family:var(--font-display)">Trần Minh Hiểu</strong>
+  <nav class="muted mono" style="display:flex;gap:20px"><a href="#work">work</a><a href="#exp">exp</a><a href="#contact">contact</a></nav>
+</header>
+<hr class="divider" />
+
+<!-- HERO: compact, statement only -->
+<section class="container">
+  <h1 style="font-size:clamp(2rem,5vw,3rem);font-weight:700;max-width:18ch;line-height:1.08">
+    Backend developer. APIs, data, reliability.
+  </h1>
+  <div style="display:flex;gap:12px;margin-top:24px">
+    <a class="btn-primary" href="#work">Work →</a><a class="btn-secondary" href="#contact">Contact</a>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- WORK: dense list, one line per item -->
+<section id="work" class="container">
+  <p class="eyebrow" style="margin-bottom:16px">Work</p>
+  <div style="font-family:var(--font-mono);font-size:0.9rem">
+    <div style="display:grid;grid-template-columns:80px 1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--border);align-items:baseline">
+      <span class="muted">2024</span><span>Payment orchestration service</span><span class="muted">Python · FastAPI</span>
+    </div>
+    <div style="display:grid;grid-template-columns:80px 1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--border);align-items:baseline">
+      <span class="muted">2023</span><span>Analytics ingestion pipeline</span><span class="muted">Go · Kafka</span>
+    </div>
+    <div style="display:grid;grid-template-columns:80px 1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--border);align-items:baseline">
+      <span class="muted">2023</span><span>Auth & session layer</span><span class="muted">Python · Redis</span>
+    </div>
+    <div style="display:grid;grid-template-columns:80px 1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--border);align-items:baseline">
+      <span class="muted">2022</span><span>Internal deploy CLI</span><span class="muted">Node · Bash</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- EXPERIENCE: same list rhythm -->
+<section id="exp" class="container">
+  <p class="eyebrow" style="margin-bottom:16px">Experience</p>
+  <div style="font-family:var(--font-mono);font-size:0.9rem">
+    <div style="display:grid;grid-template-columns:120px 1fr;gap:16px;padding:14px 0;border-top:1px solid var(--border);align-items:baseline">
+      <span class="muted">2023—now</span><span>Backend Engineer — Product Co.</span>
+    </div>
+    <div style="display:grid;grid-template-columns:120px 1fr;gap:16px;padding:14px 0;border-top:1px solid var(--border);align-items:baseline">
+      <span class="muted">2021—2023</span><span>Backend Dev — Early-stage startup</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- SKILLS: inline tag row, no cards -->
+<section class="container">
+  <p class="eyebrow" style="margin-bottom:16px">Skills</p>
+  <p class="mono" style="line-height:2">
+    Python · FastAPI · Go · PostgreSQL · Redis · Kafka · ClickHouse · Docker · CI/CD · System design
+  </p>
+</section>
+
+<hr class="divider" />
+
+<footer id="contact" class="container" style="display:flex;justify-content:space-between;align-items:center;padding:32px 24px;flex-wrap:wrap;gap:16px">
+  <span class="muted mono">hieutm.site@gmail.com</span>
+  <nav class="muted mono" style="display:flex;gap:20px"><a href="#">GitHub</a><a href="#">LinkedIn</a></nav>
+</footer>
+</body>
+</html>
