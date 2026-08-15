@@ -42,7 +42,7 @@ const Contact = ({ socialLinks, settings }) => {
   const phone = settings?.phone || siteConfig.phone;
 
   const inputClassName =
-    'contact-input w-full rounded-[22px] border border-border/90 bg-background/84 px-5 py-4 text-foreground placeholder:text-muted-foreground/75 backdrop-blur-xl transition-colors focus:border-primary/60 focus:bg-background/96 dark:bg-card/88 dark:focus:bg-card';
+    'w-full rounded-md border border-border bg-card px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:border-foreground focus:outline-none';
 
   const contactInfo = [
     {
@@ -111,65 +111,76 @@ const Contact = ({ socialLinks, settings }) => {
   };
 
   return (
-    <section id="contact" className="section-padding relative overflow-hidden">
-      <div className="container mx-auto max-w-6xl">
-        <div className="mb-14 max-w-3xl">
-          <p className="section-kicker mb-4">{t.contact.eyebrow}</p>
+    <section id="contact" className="px-6 py-20 md:px-10 lg:px-20 xl:px-24 border-t border-border">
+      <div className="container mx-auto">
+        <div className="mb-12 max-w-3xl">
+          <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-3">
+            {t.contact.eyebrow}
+          </p>
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="section-title"
+            transition={{ duration: 0.2 }}
+            className="font-display text-3xl md:text-4xl font-bold tracking-tight text-foreground"
           >
-            {t.contact.title1} <span className="text-gradient">{t.contact.title2}</span>
+            {t.contact.title1} {t.contact.title2}
           </motion.h2>
-          <p className="mt-5 text-lg leading-8 text-muted-foreground">{t.contact.description}</p>
+          <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+            {t.contact.description}
+          </p>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
+        <div className="grid gap-12 lg:grid-cols-12 items-start">
+          {/* Left: Info & Socials */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="contact-info-panel content-plane-strong rounded-[32px] p-8 md:p-10"
+            transition={{ duration: 0.2 }}
+            className="lg:col-span-5 flex flex-col gap-6"
           >
-            <p className="section-kicker">{t.contact.infoTitle}</p>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-muted-foreground">
-              {lang === 'vi'
-                ? 'Nếu hợp gu làm việc, bạn có thể gửi email trực tiếp hoặc để lại một lời nhắn ngắn. Tôi ưu tiên các cuộc trò chuyện rõ ràng, thực tế và có định hướng.'
-                : 'If the fit feels right, send an email directly or leave a short note. I prefer conversations that are clear, practical, and intentional.'}
-            </p>
+            <div>
+              <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-2">
+                {t.contact.infoTitle}
+              </p>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                {lang === 'vi'
+                  ? 'Nếu hợp gu làm việc, bạn có thể gửi email trực tiếp hoặc để lại một lời nhắn ngắn. Tôi ưu tiên các cuộc trò chuyện rõ ràng, thực tế và có định hướng.'
+                  : 'If the fit feels right, send an email directly or leave a short note. I prefer conversations that are clear, practical, and intentional.'}
+              </p>
+            </div>
 
-            <div className="mt-8 grid gap-4">
+            <div className="divide-y divide-border border-y border-border">
               {contactInfo.map((item) => {
                 const Icon = item.icon;
-
                 return (
                   <a
                     key={item.label}
                     href={item.href}
-                    className="contact-link-card content-plane rounded-[24px] p-5 transition-colors hover:bg-background/94 dark:hover:bg-card"
+                    className="py-3 flex items-center justify-between group transition-colors"
                   >
-                    <div className="flex items-start gap-4">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-[16px] bg-primary/12">
-                        <Icon size={20} className="text-primary" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-muted-foreground">{item.label}</p>
-                        <p className="mt-2 text-lg font-bold tracking-[-0.02em]">{item.value}</p>
-                      </div>
+                    <div className="flex items-center gap-3">
+                      <Icon size={16} className="text-muted-foreground group-hover:text-foreground" />
+                      <span className="font-mono text-xs uppercase text-muted-foreground">
+                        {item.label}
+                      </span>
                     </div>
+                    <span className="font-mono text-xs text-foreground font-medium">
+                      {item.value}
+                    </span>
                   </a>
                 );
               })}
             </div>
 
-            <div className="mt-8">
-              <p className="section-kicker">{t.contact.socialTitle}</p>
-              <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-3">
+                {t.contact.socialTitle}
+              </p>
+              <div className="flex flex-wrap gap-2">
                 {displaySocialLinks.map((social) => {
                   const Icon = social.icon;
-
                   return (
                     <a
                       key={social.label}
@@ -177,15 +188,11 @@ const Contact = ({ socialLinks, settings }) => {
                       target="_blank"
                       rel="noreferrer"
                       aria-label={social.label}
-                      className="contact-social-card group content-plane rounded-[24px] px-4 py-5 text-center text-foreground transition-all duration-300 hover:-translate-y-1 hover:bg-background/94 dark:hover:bg-card"
+                      className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-3 py-1.5 font-mono text-xs text-foreground transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-900"
                     >
-                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-[18px] bg-primary/12 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
-                        <Icon size={20} />
-                      </div>
-                      <p className="mt-4 text-sm font-bold">{social.label}</p>
-                      <div className="mt-2 flex justify-center text-muted-foreground transition-colors duration-300 group-hover:text-primary">
-                        <ArrowUpRight size={15} />
-                      </div>
+                      <Icon size={13} />
+                      <span>{social.label}</span>
+                      <ArrowUpRight size={11} className="text-muted-foreground" />
                     </a>
                   );
                 })}
@@ -193,97 +200,86 @@ const Contact = ({ socialLinks, settings }) => {
             </div>
           </motion.div>
 
+          {/* Right: Form */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="contact-form-panel content-plane-strong rounded-[32px] overflow-hidden p-8 md:p-10"
+            transition={{ duration: 0.2, delay: 0.05 }}
+            className="lg:col-span-7 rounded-md border border-border bg-card p-6 md:p-8"
           >
-            <span aria-hidden="true" className="contact-form-panel__glow" />
-            <span aria-hidden="true" className="contact-form-panel__grid ambient-grid" />
-            <span aria-hidden="true" className="contact-form-panel__sheen" />
-
-            <div className="relative z-[1]">
-              <p className="section-kicker">{t.contact.formTitle}</p>
-              <h3 className="mt-4 text-3xl font-black tracking-[-0.05em] md:text-4xl">
+            <div className="pb-4 mb-6 border-b border-border">
+              <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                {t.contact.formTitle}
+              </p>
+              <h3 className="font-display text-xl font-bold tracking-tight text-foreground mt-1">
                 {t.contact.formHeading}
               </h3>
-              <p className="mt-4 max-w-2xl text-base leading-8 text-muted-foreground">
+              <p className="text-xs text-muted-foreground mt-1">
                 {t.contact.formDescription}
               </p>
+            </div>
 
-              <form onSubmit={handleSubmit} className="mt-8 grid gap-5">
-                <div className="grid gap-5 md:grid-cols-2">
-                  <label className="contact-field grid gap-2">
-                    <span className="contact-field__label text-sm font-semibold text-muted-foreground">
-                      {t.contact.labelName}
-                    </span>
-                    <div className="contact-field__control">
-                      <input
-                        required
-                        name="name"
-                        type="text"
-                        className={inputClassName}
-                        placeholder="Tran Minh Hieu"
-                      />
-                      <span aria-hidden="true" className="contact-field__line" />
-                    </div>
-                  </label>
-                  <label className="contact-field grid gap-2">
-                    <span className="contact-field__label text-sm font-semibold text-muted-foreground">
-                      {t.contact.labelEmail}
-                    </span>
-                    <div className="contact-field__control">
-                      <input
-                        required
-                        name="email"
-                        type="email"
-                        className={inputClassName}
-                        placeholder="name@email.com"
-                      />
-                      <span aria-hidden="true" className="contact-field__line" />
-                    </div>
-                  </label>
-                </div>
-
-                <label className="contact-field grid gap-2">
-                  <span className="contact-field__label text-sm font-semibold text-muted-foreground">
-                    {t.contact.labelMessage}
+            <form onSubmit={handleSubmit} className="grid gap-4">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <label className="grid gap-1.5">
+                  <span className="font-mono text-xs text-muted-foreground">
+                    {t.contact.labelName} *
                   </span>
-                  <div className="contact-field__control">
-                    <textarea
-                      required
-                      name="message"
-                      rows="6"
-                      className={inputClassName}
-                      placeholder={t.contact.placeholderMessage}
-                    />
-                    <span aria-hidden="true" className="contact-field__line" />
-                  </div>
+                  <input
+                    required
+                    name="name"
+                    type="text"
+                    className={inputClassName}
+                    placeholder="Tran Minh Hieu"
+                  />
                 </label>
 
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="button-primary contact-submit w-full py-4 text-base disabled:translate-y-0 disabled:opacity-75 disabled:shadow-none"
-                >
-                  <span aria-hidden="true" className="contact-submit__charge" />
-                  <span className="contact-submit__content">
-                    {isSubmitting ? (
-                      <>
-                        <LoaderCircle size={18} className="animate-spin" />
-                        {t.contact.sending}
-                      </>
-                    ) : (
-                      <>
-                        {t.contact.btnSend}
-                        <Send size={18} />
-                      </>
-                    )}
+                <label className="grid gap-1.5">
+                  <span className="font-mono text-xs text-muted-foreground">
+                    {t.contact.labelEmail} *
                   </span>
-                </button>
-              </form>
-            </div>
+                  <input
+                    required
+                    name="email"
+                    type="email"
+                    className={inputClassName}
+                    placeholder="name@email.com"
+                  />
+                </label>
+              </div>
+
+              <label className="grid gap-1.5">
+                <span className="font-mono text-xs text-muted-foreground">
+                  {t.contact.labelMessage} *
+                </span>
+                <textarea
+                  required
+                  name="message"
+                  rows="5"
+                  className={inputClassName}
+                  placeholder={t.contact.placeholderMessage}
+                />
+              </label>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="mt-2 inline-flex items-center justify-center gap-2 rounded-md bg-foreground px-5 py-2.5 font-mono text-xs uppercase tracking-wider font-semibold text-background transition-opacity hover:opacity-90 disabled:opacity-50"
+              >
+                {isSubmitting ? (
+                  <>
+                    <LoaderCircle size={14} className="animate-spin" />
+                    <span>{t.contact.sending}</span>
+                  </>
+                ) : (
+                  <>
+                    <span>{t.contact.btnSend}</span>
+                    <Send size={14} />
+                  </>
+                )}
+              </button>
+            </form>
           </motion.div>
         </div>
       </div>

@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -46,7 +45,6 @@ const Hero = ({ data, settings, socialLinks }) => {
   const title2 = headline ? headline.split(' ').slice(1).join(' ') : t.hero.title2;
   const title3 = getLoc('subtitle') || t.hero.title3;
   const description = getLoc('subheadline') || t.hero.description;
-  const avatarUrl = data?.avatar_url || '/assets/profile.jpg';
 
   const linkedinUrl = settings?.linkedin_url || defaultSiteConfig.profileUrl;
   const contactEmail = settings?.email || defaultSiteConfig.email;
@@ -101,154 +99,134 @@ const Hero = ({ data, settings, socialLinks }) => {
     },
   ];
 
+  const specList = [
+    { label: lang === 'vi' ? 'Vai trò' : 'Role', value: defaultSiteConfig.role },
+    { label: lang === 'vi' ? 'Địa điểm' : 'Based', value: defaultSiteConfig.location },
+    { label: lang === 'vi' ? 'Tổ chức' : 'Company', value: defaultSiteConfig.company },
+    ...detailCards.map((item) => ({
+      label: item.label,
+      value: item.value,
+    })),
+  ];
+
   return (
     <section
       id="hero"
-      className="section-padding relative min-h-screen overflow-hidden pt-28 pb-16 md:pt-36 md:pb-20"
+      className="relative min-h-[calc(100vh-4rem)] flex items-center pt-28 pb-16 px-6 md:px-10 lg:px-20 xl:px-24"
     >
-      <div className="pointer-events-none absolute inset-x-0 top-[7.75rem] h-px bg-gradient-to-r from-transparent via-primary/42 to-transparent md:top-[9.25rem]" />
-      <div className="pointer-events-none absolute left-[6%] top-[10%] -z-10 h-72 w-72 rounded-full bg-primary/12 blur-[150px]" />
-      <div className="pointer-events-none absolute right-[8%] top-[14%] -z-10 h-80 w-80 rounded-full bg-[#b7d0dc]/12 blur-[160px] dark:bg-[#2b6674]/18" />
-
-      <div className="container mx-auto relative">
-        <div className="grid gap-12 xl:min-h-[calc(100vh-12rem)] xl:grid-cols-[minmax(0,1.04fr)_minmax(380px,0.96fr)] xl:items-center xl:gap-12">
+      <div className="container mx-auto">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16 items-start">
+          {/* Left Column: Heading, description, CTA buttons, social links */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="relative z-10 max-w-3xl"
+            transition={{ duration: 0.2 }}
+            className="lg:col-span-7 flex flex-col justify-center"
           >
-            <div className="inline-flex items-center gap-4 text-[11px] font-black uppercase tracking-[0.24em] text-primary">
-              <span className="h-px w-14 bg-primary/55" />
-              {greeting}
-            </div>
+            {greeting && (
+              <div className="inline-flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-muted-foreground mb-6">
+                <span className="inline-block w-2 h-2 rounded-full bg-foreground" />
+                <span>{greeting}</span>
+              </div>
+            )}
 
-            <h1 className="mt-8 max-w-[11ch] font-outfit text-[clamp(3.8rem,8vw,6.4rem)] leading-[0.88] tracking-[-0.07em] text-foreground">
-              <span className="block text-balance">
-                {title1} <span className="text-gradient">{title2}</span>
+            <h1 className="font-display text-[clamp(2.2rem,5vw,3.4rem)] font-bold leading-[1.1] tracking-tight text-foreground">
+              <span>
+                {title1} {title2}
               </span>
-              <span className="mt-4 block max-w-[12ch] text-[0.46em] leading-[1.08] tracking-[-0.04em] text-foreground/94">
-                {title3}
-              </span>
+              {title3 && (
+                <span className="block mt-2 text-[0.55em] font-normal tracking-normal text-muted-foreground">
+                  {title3}
+                </span>
+              )}
             </h1>
 
-            <p className="mt-8 max-w-2xl text-lg leading-8 text-muted-foreground md:text-[1.08rem]">
+            <p className="mt-6 max-w-[52ch] text-base leading-relaxed text-muted-foreground">
               {description}
             </p>
 
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <a href="#contact" className="button-primary">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 rounded-md bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-90"
+              >
                 {getLoc('cta_primary_label') || t.hero.btnContact}
-                <ArrowRight size={18} />
+                <ArrowRight size={16} />
               </a>
               <a
                 href={data?.cta_secondary_href || resumeUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="button-secondary"
+                className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-900"
               >
                 {getLoc('cta_secondary_label') || t.hero.btnResume}
-                <ArrowUpRight size={18} />
+                <ArrowUpRight size={16} />
               </a>
             </div>
 
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 pt-6 border-t border-border">
               {quickLinks.map((item) => {
                 const Icon = item.icon;
-
                 return (
                   <a
                     key={item.label}
                     href={item.href}
                     target={item.external ? '_blank' : undefined}
                     rel={item.external ? 'noreferrer' : undefined}
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-foreground/78 transition-colors duration-300 hover:text-primary"
+                    className="inline-flex items-center gap-2 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
                   >
-                    <Icon size={16} className="text-primary" />
-                    {item.label}
+                    <Icon size={14} />
+                    <span>{item.label}</span>
                   </a>
                 );
               })}
             </div>
-
-            <div className="mt-14 grid gap-4 md:grid-cols-3">
-              {detailCards.map((item, index) => (
-                <motion.article
-                  key={item.label}
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.65, delay: 0.12 + index * 0.08 }}
-                  className="content-plane rounded-[24px] p-5 md:p-6"
-                >
-                  <p className="section-kicker">{item.label}</p>
-                  <p className="mt-4 text-sm leading-7 text-muted-foreground">{item.value}</p>
-                </motion.article>
-              ))}
-            </div>
           </motion.div>
 
+          {/* Right Column: Monospace Spec List */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: 24 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="relative mx-auto w-full max-w-[36rem] xl:justify-self-end"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.2, delay: 0.05 }}
+            className="lg:col-span-5"
           >
-            <div className="pointer-events-none absolute -right-4 top-10 hidden h-48 w-48 rounded-full bg-primary/10 blur-[90px] xl:block" />
-            <div className="pointer-events-none absolute -left-6 bottom-8 hidden h-44 w-44 rounded-full bg-[#d5e3ea]/12 blur-[90px] xl:block dark:bg-[#275565]/14" />
+            <div className="rounded-lg border border-border bg-card p-6 md:p-7">
+              <div className="flex items-center justify-between pb-4 mb-4 border-b border-border">
+                <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                  SPEC // {heroName}
+                </span>
+                <span className="font-mono text-[11px] text-muted-foreground">
+                  v2.0
+                </span>
+              </div>
 
-            <div className="panel-strong hero-hud-shell rounded-[34px] p-3 sm:p-4">
-              <div className="hero-hud-frame">
-                <div className="hero-hud-head">
-                  <div className="hero-hud-meta">
-                    <p className="hero-hud-overline">{defaultSiteConfig.role}</p>
-                    <p className="hero-hud-status">{defaultSiteConfig.location}</p>
-                  </div>
-
-                  <a
-                    href={linkedinUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="button-secondary px-4 py-2 text-xs"
-                    aria-label="Open online profile"
+              <div className="divide-y divide-border font-mono text-xs">
+                {specList.map((item) => (
+                  <div
+                    key={item.label}
+                    className="flex flex-col sm:flex-row sm:items-baseline justify-between py-3 gap-1"
                   >
-                    {t.nav.profile}
-                    <ArrowUpRight size={16} />
-                  </a>
-                </div>
-
-                <div className="hero-hud-screen mt-4 overflow-hidden rounded-[26px] border border-white/8 bg-[#08131b]">
-                  {/* ... HUD decor ... */}
-                  <div className="relative">
-                    <div className="pointer-events-none absolute left-5 top-5 z-10 text-[10px] font-black uppercase tracking-[0.22em] text-white/72">
-                      <div className="hero-hud-chip">
-                        <span className="hero-hud-dot" />
-                        <span>{defaultSiteConfig.company}</span>
-                      </div>
-                    </div>
-
-                    <Image
-                      src={avatarUrl}
-                      alt={`${heroName} backend developer portrait`}
-                      priority
-                      width={800}
-                      height={1000}
-                      className="aspect-[4/5] w-full object-cover object-center"
-                    />
-                    <div aria-hidden="true" className="hero-hud-noise noise-overlay" />
-                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,13,19,0.02)_10%,rgba(5,13,19,0.16)_48%,rgba(5,13,19,0.9)_100%)]" />
-
-                    <div className="absolute inset-x-0 bottom-0 p-6 md:p-7">
-                      <div className="mt-3">
-                        <p className="text-3xl font-black tracking-[-0.05em] text-white md:text-[2.25rem]">
-                          {heroName}
-                        </p>
-                        <p className="mt-2 max-w-[22rem] text-sm leading-6 text-white/78">
-                          {t.hero.profileTagline}
-                        </p>
-                      </div>
-                    </div>
+                    <span className="text-muted-foreground uppercase tracking-wider shrink-0 sm:w-28">
+                      {item.label}
+                    </span>
+                    <span className="text-foreground sm:text-right break-words font-normal">
+                      {item.value}
+                    </span>
                   </div>
-                </div>
+                ))}
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-border flex items-center justify-between font-mono text-[11px] text-muted-foreground">
+                <span>{defaultSiteConfig.brand}</span>
+                <a
+                  href={linkedinUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1 text-foreground hover:underline"
+                >
+                  {t.nav.profile}
+                  <ArrowUpRight size={12} />
+                </a>
               </div>
             </div>
           </motion.div>

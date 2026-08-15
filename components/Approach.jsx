@@ -2,17 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Boxes, Layers3, Sparkles, Code2, Database, Search } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-
-const iconMap = {
-  Layers3: Layers3,
-  Boxes: Boxes,
-  Sparkles: Sparkles,
-  code: Code2,
-  database: Database,
-  search: Search,
-};
 
 const Approach = ({ data, sectionData }) => {
   const { t, lang } = useLanguage();
@@ -46,77 +36,80 @@ const Approach = ({ data, sectionData }) => {
 
   const approachItems =
     data && data.length > 0
-      ? data.map((item, idx) => ({
+      ? data.map((item) => ({
           title: lang === 'en' && item.title_en ? item.title_en : item.title_vi,
           subtitle: lang === 'en' && item.subtitle_en ? item.subtitle_en : item.subtitle_vi,
           copy: lang === 'en' && item.description_en ? item.description_en : item.description_vi,
-          icon: iconMap[item.icon] || [Layers3, Boxes, Sparkles][idx % 3],
         }))
-      : t.approach.items.map((item, idx) => ({
+      : t.approach.items.map((item) => ({
           ...item,
-          icon: [Layers3, Boxes, Sparkles][idx % 3],
         }));
 
   return (
-    <section id="focus" className="px-6 pb-10 md:px-10 lg:px-20 xl:px-24">
+    <section id="focus" className="px-6 py-20 md:px-10 lg:px-20 xl:px-24 border-t border-border">
       <div className="container mx-auto">
-        <div className="grid gap-6 xl:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)]">
-          <div className="content-plane-strong rounded-[32px] p-8 md:p-10 lg:p-12">
-            <div className="max-w-2xl">
-              <p className="section-kicker mb-4">{section.eyebrow}</p>
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="section-title max-w-xl"
-              >
-                {section.title1} <span className="text-gradient">{section.title2}</span>
-              </motion.h2>
-              <p className="mt-5 text-lg leading-8 text-muted-foreground">{section.description}</p>
+        <div className="grid gap-12 lg:grid-cols-12 items-start">
+          {/* Left info column */}
+          <div className="lg:col-span-5">
+            <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-3">
+              {section.eyebrow}
+            </p>
+            <motion.h2
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.2 }}
+              className="font-display text-3xl md:text-4xl font-bold tracking-tight text-foreground"
+            >
+              {section.title1} {section.title2}
+            </motion.h2>
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+              {section.description}
+            </p>
 
-              <div className="content-plane mt-10 rounded-[24px] p-6 md:p-7">
-                <p className="section-kicker">{section.noteLabel}</p>
-                <p className="mt-4 text-base leading-8 text-muted-foreground">{section.note}</p>
+            {section.note && (
+              <div className="mt-8 rounded-md border border-border bg-card p-5">
+                <p className="font-mono text-xs uppercase tracking-wider text-foreground font-semibold">
+                  // {section.noteLabel}
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {section.note}
+                </p>
               </div>
-            </div>
+            )}
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3 xl:grid-cols-1">
-            {approachItems.map((item, index) => {
-              const Icon = item.icon;
+          {/* Right items column */}
+          <div className="lg:col-span-7 divide-y divide-border border-y border-border">
+            {approachItems.map((item, index) => (
+              <motion.article
+                key={`${item.title}-${index}`}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.2, delay: index * 0.04 }}
+                className="py-6 flex flex-col gap-2"
+              >
+                <div className="flex items-baseline justify-between gap-4">
+                  <h3 className="font-display text-xl font-bold tracking-tight text-foreground">
+                    {item.title}
+                  </h3>
+                  <span className="font-mono text-xs text-muted-foreground">
+                    0{index + 1}
+                  </span>
+                </div>
 
-              return (
-                <motion.article
-                  key={`${item.title}-${index}`}
-                  initial={{ opacity: 0, y: 18 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-40px' }}
-                  transition={{ delay: index * 0.06 }}
-                  className="content-plane rounded-[28px] p-6 md:p-7"
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-[18px] bg-primary/12 text-primary">
-                      <Icon size={24} />
-                    </div>
-                    <span className="text-[11px] font-black uppercase tracking-[0.22em] text-primary/82">
-                      0{index + 1}
-                    </span>
-                  </div>
-
-                  <h3 className="mt-8 text-3xl font-black tracking-[-0.05em]">{item.title}</h3>
-                  {item.subtitle && (
-                    <p className="mt-2 text-xs font-bold uppercase tracking-widest text-primary/70">
-                      {item.subtitle}
-                    </p>
-                  )}
-                  <p className="mt-4 max-w-[34rem] text-sm leading-7 text-muted-foreground md:text-base">
-                    {item.copy}
+                {item.subtitle && (
+                  <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                    {item.subtitle}
                   </p>
+                )}
 
-                  <div className="mt-8 h-px w-full bg-gradient-to-r from-primary/34 via-border to-transparent" />
-                </motion.article>
-              );
-            })}
+                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                  {item.copy}
+                </p>
+              </motion.article>
+            ))}
           </div>
         </div>
       </div>

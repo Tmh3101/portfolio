@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { Eye, MoveUpRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { getLocalizedName } from '../data/siteConfig';
-// import { getLocalizedName, siteConfig } from '../data/siteConfig';
 import { apiUrl } from '../lib/api';
 
 const Footer = () => {
@@ -55,26 +54,28 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="px-6 pb-8 pt-4 md:px-10 lg:px-20 xl:px-24">
-      <div className="container mx-auto">
-        <div className="panel rounded-[30px] px-6 py-4 md:px-8 md:py-4">
-          <div className="flex flex-col gap-3 text-sm text-muted-foreground/90 md:flex-row md:items-center md:justify-between">
-            <p>{`${year} ${localizedName}. All rights reserved.`}</p>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 md:justify-end">
-              <p>{footerStatus}</p>
-              <span className="inline-flex items-center gap-2 rounded-full border border-border/90 bg-background/82 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-foreground/86 dark:bg-card/84">
-                <Eye size={14} className="text-primary" />
-                {visitorLabel}: {visitorCount ?? '--'}
-              </span>
-              <a
-                href="#hero"
-                className="inline-flex items-center gap-2 font-semibold text-foreground/78 transition-colors duration-300 hover:text-primary"
-              >
-                {lang === 'vi' ? 'Lên đầu trang' : 'Back to top'}
-                <MoveUpRight size={16} className="text-primary" />
-              </a>
-            </div>
-          </div>
+    <footer className="px-6 py-10 md:px-10 lg:px-20 xl:px-24 border-t border-border mt-16 font-mono text-xs text-muted-foreground">
+      <div className="container mx-auto flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p>{`© ${year} ${localizedName}. All rights reserved.`}</p>
+          <p className="mt-1 text-[11px] text-muted-foreground/80">{footerStatus}</p>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-4 sm:justify-end">
+          <span className="inline-flex items-center gap-1.5 rounded border border-border px-2 py-1 text-[11px]">
+            <Eye size={12} className="text-muted-foreground" />
+            <span>
+              {visitorLabel}: {visitorCount ?? '--'}
+            </span>
+          </span>
+
+          <a
+            href="#hero"
+            className="inline-flex items-center gap-1 text-foreground transition-colors hover:underline"
+          >
+            <span>{lang === 'vi' ? 'Lên đầu trang' : 'Back to top'}</span>
+            <MoveUpRight size={12} />
+          </a>
         </div>
       </div>
     </footer>

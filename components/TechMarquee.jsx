@@ -24,7 +24,7 @@ const IconMap = {
   ServerCog,
   Workflow,
   Globe,
-  ...Icons, // Allow any Lucide icon
+  ...Icons,
 };
 
 const TechMarquee = ({ data }) => {
@@ -52,32 +52,31 @@ const TechMarquee = ({ data }) => {
       : defaultTechRow;
 
   return (
-    <section className="relative -mt-4 px-6 pb-8 md:-mt-6 md:px-10 md:pb-10 lg:px-20 xl:px-24">
+    <section className="relative px-6 py-6 md:px-10 lg:px-20 xl:px-24 border-y border-border">
       <div className="container mx-auto">
-        <div className="stack-marquee-frame rounded-[24px] px-3 py-3.5 md:px-4">
-          <div className="stack-marquee-shell">
-            <div className="stack-marquee-track">
-              {[0, 1].map((copyIndex) => (
-                <div
-                  key={`copy-${copyIndex}`}
-                  className="stack-marquee-sequence"
-                  aria-hidden={copyIndex === 1}
-                >
-                  {techRow.map((tech) => {
-                    const Icon = tech.icon;
+        <div className="stack-marquee-shell">
+          <div className="stack-marquee-track">
+            {[0, 1].map((copyIndex) => (
+              <div
+                key={`copy-${copyIndex}`}
+                className="stack-marquee-sequence"
+                aria-hidden={copyIndex === 1}
+              >
+                {techRow.map((tech) => {
+                  const Icon = tech.icon;
 
-                    return (
-                      <span key={`${copyIndex}-${tech.label}`} className="stack-capsule">
-                        <span className="stack-capsule-icon">
-                          <Icon size={16} />
-                        </span>
-                        {tech.label}
-                      </span>
-                    );
-                  })}
-                </div>
-              ))}
-            </div>
+                  return (
+                    <span
+                      key={`${copyIndex}-${tech.label}`}
+                      className="inline-flex items-center gap-2 rounded-md border border-border bg-card px-3 py-1.5 font-mono text-xs text-foreground whitespace-nowrap"
+                    >
+                      <Icon size={14} className="text-muted-foreground" />
+                      <span>{tech.label}</span>
+                    </span>
+                  );
+                })}
+              </div>
+            ))}
           </div>
         </div>
       </div>
