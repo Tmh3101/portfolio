@@ -12,6 +12,7 @@ import Approach from '../../../components/Approach.jsx';
 import Stats from '../../../components/Stats.jsx';
 import TechMarquee from '../../../components/TechMarquee.jsx';
 import Experience from '../../../components/Experience.jsx';
+import Resume from '../../../components/Resume.jsx';
 import { apiUrl } from '../../../lib/api.js';
 
 export default function PortfolioPage({ cmsData }) {
@@ -103,6 +104,7 @@ export default function PortfolioPage({ cmsData }) {
             />
             <Projects data={cmsData.projects} />
             <Experience data={cmsData.experiences} sectionData={cmsData.experienceSection} />
+            <Resume experiences={cmsData.experiences} skills={cmsData.skills} />
             <Contact socialLinks={cmsData.socialLinks} settings={cmsData.settings} />
           </main>
           <Footer settings={cmsData.settings} />
