@@ -100,7 +100,7 @@ const Hero = ({ data, settings, socialLinks }) => {
 
   const specList = [
     { label: lang === 'vi' ? 'Vai trò' : 'Role', value: defaultSiteConfig.role },
-    ...detailCards.slice(0, 2).map((item) => ({
+    ...detailCards.slice(0, 3).map((item) => ({
       label: item.label,
       value: item.value,
     })),
