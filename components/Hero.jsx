@@ -99,7 +99,6 @@ const Hero = ({ data, settings, socialLinks }) => {
   ];
 
   const specList = [
-    { label: lang === 'vi' ? 'Vai trò' : 'Role', value: defaultSiteConfig.role },
     ...detailCards.slice(0, 3).map((item) => ({
       label: item.label,
       value: item.value,
@@ -193,7 +192,7 @@ const Hero = ({ data, settings, socialLinks }) => {
                   <img
                     src={data.avatar_url}
                     alt={heroName}
-                    className="h-28 w-28 shrink-0 rounded-xl border border-border object-cover grayscale"
+                    className="h-28 w-28 shrink-0 rounded-xl border border-border object-cover grayscale transition-all duration-300 hover:grayscale-0"
                   />
                   <div className="font-mono">
                     <div className="text-base font-semibold text-foreground">{heroName}</div>
