@@ -147,7 +147,9 @@ const Hero = ({ data, settings, socialLinks }) => {
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
-                href="#contact"
+                href={data?.cta_primary_href || resumeUrl}
+                target="_blank"
+                rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-md bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-90"
               >
                 {getLoc('cta_primary_label') || t.hero.btnContact}
