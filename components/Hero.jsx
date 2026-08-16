@@ -49,32 +49,36 @@ const Hero = ({ data, settings, socialLinks }) => {
   const contactEmail = settings?.email || defaultSiteConfig.email;
   const resumeUrl = settings?.resume_url || defaultSiteConfig.resumeUrl;
 
+  const socialOrder = ['Github', 'Linkedin', 'Facebook'];
+  const sortedSocial = [...(socialLinks || [])].sort(
+    (a, b) => socialOrder.indexOf(a.icon) - socialOrder.indexOf(b.icon)
+  );
   const quickLinks =
     socialLinks && socialLinks.length > 0
       ? [
-          {
-            href: `mailto:${contactEmail}`,
-            label: 'Email',
-            icon: Mail,
-          },
-          ...socialLinks.slice(0, 3).map((link) => ({
+          ...sortedSocial.slice(0, 3).map((link) => ({
             href: link.url,
             label: link.name,
             icon: IconMap[link.icon] || Globe,
             external: true,
           })),
-        ]
-      : [
           {
             href: `mailto:${contactEmail}`,
             label: 'Email',
             icon: Mail,
           },
+        ]
+      : [
           {
             href: settings?.github_url || defaultSiteConfig.github,
             label: 'GitHub',
             icon: Github,
             external: true,
+          },
+          {
+            href: `mailto:${contactEmail}`,
+            label: 'Email',
+            icon: Mail,
           },
         ];
 
