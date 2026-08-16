@@ -190,24 +190,24 @@ const Hero = ({ data, settings, socialLinks }) => {
             transition={{ duration: 0.2, delay: 0.05 }}
             className="lg:col-span-5"
           >
-            {data?.avatar_url && (
-              <div className="mb-5 flex items-center gap-4">
-                <img
-                  src={data.avatar_url}
-                  alt={heroName}
-                  className="h-28 w-28 shrink-0 rounded-xl border border-border object-cover grayscale"
-                />
-                <div className="font-mono">
-                  <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
-                    {t.nav.profile}
-                  </div>
-                  <div className="text-sm font-medium text-foreground">{heroName}</div>
-                  <div className="mt-0.5 text-xs text-muted-foreground">{defaultSiteConfig.role}</div>
-                </div>
-              </div>
-            )}
-
             <div className="rounded-lg border border-border bg-card p-6 md:p-7">
+              {data?.avatar_url && (
+                <div className="mb-5 flex items-center gap-4">
+                  <img
+                    src={data.avatar_url}
+                    alt={heroName}
+                    className="h-28 w-28 shrink-0 rounded-xl border border-border object-cover grayscale"
+                  />
+                  <div className="font-mono">
+                    <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                      {t.nav.profile}
+                    </div>
+                    <div className="text-sm font-medium text-foreground">{heroName}</div>
+                    <div className="mt-0.5 text-xs text-muted-foreground">{defaultSiteConfig.role}</div>
+                  </div>
+                </div>
+              )}
+
               <div className="flex items-center justify-between pb-4 mb-4 border-b border-border">
                 <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
                   SPEC // PROFILE
