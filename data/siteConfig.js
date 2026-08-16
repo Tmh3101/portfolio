@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: 'Trần Minh Hiếu',
   nameEn: 'Tran Minh Hieu',
-  brand: 'portfolio',
+  brand: 'Trần Minh Hiếu',
   role: 'AI Backend Engineer',
   email: 'hieutm.site@gmail.com',
   phone: '+84 399750368',
