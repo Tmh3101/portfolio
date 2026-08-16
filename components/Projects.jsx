@@ -23,6 +23,7 @@ const Projects = ({ data }) => {
         features: lang === 'en' && p.features_en ? p.features_en : p.features_vi || [],
         repoUrl: p.repo_url || '#',
         liveUrl: p.live_url,
+        reportUrl: p.report_url,
         status: p.featured ? 'Featured' : 'Stable',
         featured: p.featured,
       }));
@@ -164,6 +165,17 @@ const Projects = ({ data }) => {
                         {t.projects.demoPending}
                       </span>
                     )}
+                    {project.reportUrl ? (
+                      <a
+                        href={project.reportUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-1.5 font-mono text-xs text-foreground transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-900"
+                      >
+                        <ExternalLink size={14} />
+                        {t.projects.viewReport || 'Báo cáo'}
+                      </a>
+                    ) : null}
                   </div>
                 </motion.article>
               ))}
