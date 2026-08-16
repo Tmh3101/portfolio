@@ -157,8 +157,6 @@ const Hero = ({ data, settings, socialLinks }) => {
               </a>
               <a
                 href={data?.cta_secondary_href || resumeUrl}
-                target="_blank"
-                rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-900"
               >
                 {getLoc('cta_secondary_label') || t.hero.btnResume}
