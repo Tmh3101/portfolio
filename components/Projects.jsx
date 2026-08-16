@@ -18,7 +18,7 @@ const Projects = ({ data }) => {
         summary:
           lang === 'en' && p.short_description_en ? p.short_description_en : p.short_description_vi,
         impact: lang === 'en' && p.description_en ? p.description_en : p.description_vi,
-        image: p.thumbnail_url || '/assets/optimized/project1.webp',
+        image: p.thumbnail_url || '/assets/optimized/vielora.webp',
         tech: p.technologies || [],
         features: lang === 'en' && p.features_en ? p.features_en : p.features_vi || [],
         repoUrl: p.repo_url || '#',
