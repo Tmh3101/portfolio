@@ -101,9 +101,7 @@ const Hero = ({ data, settings, socialLinks }) => {
 
   const specList = [
     { label: lang === 'vi' ? 'Vai trò' : 'Role', value: defaultSiteConfig.role },
-    { label: lang === 'vi' ? 'Địa điểm' : 'Based', value: defaultSiteConfig.location },
-    { label: lang === 'vi' ? 'Tổ chức' : 'Company', value: defaultSiteConfig.company },
-    ...detailCards.map((item) => ({
+    ...detailCards.slice(0, 2).map((item) => ({
       label: item.label,
       value: item.value,
     })),
@@ -199,23 +197,11 @@ const Hero = ({ data, settings, socialLinks }) => {
                     className="h-28 w-28 shrink-0 rounded-xl border border-border object-cover grayscale"
                   />
                   <div className="font-mono">
-                    <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
-                      {t.nav.profile}
-                    </div>
-                    <div className="text-sm font-medium text-foreground">{heroName}</div>
+                    <div className="text-base font-semibold text-foreground">{heroName}</div>
                     <div className="mt-0.5 text-xs text-muted-foreground">{defaultSiteConfig.role}</div>
                   </div>
                 </div>
               )}
-
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-border">
-                <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
-                  SPEC // PROFILE
-                </span>
-                <span className="font-mono text-[11px] text-muted-foreground">
-                  v2.0
-                </span>
-              </div>
 
               <div className="divide-y divide-border font-mono text-xs">
                 {specList.map((item) => (
@@ -231,19 +217,6 @@ const Hero = ({ data, settings, socialLinks }) => {
                     </span>
                   </div>
                 ))}
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-border flex items-center justify-between font-mono text-[11px] text-muted-foreground">
-                <span>{defaultSiteConfig.brand}</span>
-                <a
-                  href={linkedinUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1 text-foreground hover:underline"
-                >
-                  {t.nav.profile}
-                  <ArrowUpRight size={12} />
-                </a>
               </div>
             </div>
           </motion.div>
