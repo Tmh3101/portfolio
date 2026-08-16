@@ -21,7 +21,7 @@ const Navbar = ({ theme, toggleTheme }) => {
   }, []);
 
   useEffect(() => {
-    const sectionLinks = ['#focus', '#projects', '#experience', '#skills', '#contact'];
+    const sectionLinks = ['#focus', '#skills', '#projects', '#experience', '#contact'];
     let frameId = 0;
 
     const updateActiveSection = () => {
@@ -66,9 +66,9 @@ const Navbar = ({ theme, toggleTheme }) => {
 
   const navLinks = [
     { name: t.nav.about, href: '#focus' },
+    { name: t.nav.skills, href: '#skills' },
     { name: t.nav.projects, href: '#projects' },
     { name: t.nav.experience, href: '#experience' },
-    { name: t.nav.skills, href: '#skills' },
     { name: t.nav.contact, href: '#contact' },
   ];
 
