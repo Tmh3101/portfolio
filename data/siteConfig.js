@@ -35,6 +35,7 @@ export const siteConfig = {
   ],
   locale: 'en_US',
   ogImagePath: '/og-preview.jpg',
+  resumeUrl: 'https://uhhmsyhsbcvfvilphwdk.supabase.co/storage/v1/object/public/portfolio-assets/cv/CV_TranMinhHieu.pdf',
 };
 
 export const getLocalizedName = (lang = 'en') =>
