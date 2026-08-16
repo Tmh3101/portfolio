@@ -21,7 +21,7 @@ const Projects = ({ data }) => {
         image: p.thumbnail_url || '/assets/optimized/vielora.webp',
         tech: p.technologies || [],
         features: lang === 'en' && p.features_en ? p.features_en : p.features_vi || [],
-        repoUrl: p.repo_url || '#',
+        repoUrl: p.repo_url,
         liveUrl: p.live_url,
         reportUrl: p.report_url,
         status: p.featured ? 'Featured' : 'Stable',
@@ -140,15 +140,17 @@ const Projects = ({ data }) => {
 
                   {/* Actions */}
                   <div className="md:col-span-3 flex flex-row md:flex-col md:items-end justify-start gap-2">
-                    <a
-                      href={project.repoUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-1.5 font-mono text-xs text-foreground transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-900"
-                    >
-                      <Github size={14} />
-                      {t.projects.viewRepo}
-                    </a>
+                    {project.repoUrl ? (
+                      <a
+                        href={project.repoUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-1.5 font-mono text-xs text-foreground transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-900"
+                      >
+                        <Github size={14} />
+                        {t.projects.viewRepo}
+                      </a>
+                    ) : null}
                     {project.liveUrl ? (
                       <a
                         href={project.liveUrl}
