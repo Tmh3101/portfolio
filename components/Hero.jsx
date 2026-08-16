@@ -46,7 +46,6 @@ const Hero = ({ data, settings, socialLinks }) => {
   const title3 = getLoc('subtitle') || t.hero.title3;
   const description = getLoc('subheadline') || t.hero.description;
 
-  const linkedinUrl = settings?.linkedin_url || defaultSiteConfig.profileUrl;
   const contactEmail = settings?.email || defaultSiteConfig.email;
   const resumeUrl = settings?.resume_url || defaultSiteConfig.resumeUrl;
 
