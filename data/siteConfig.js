@@ -1,7 +1,7 @@
 export const siteConfig = {
-  name: 'Trần Minh Hiếu',
+  name: 'Trần Minh Hiểu',
   nameEn: 'Tran Minh Hieu',
-  brand: 'Trần Minh Hiếu',
+  brand: 'Trần Minh Hiểu',
   role: 'AI Backend Engineer',
   email: 'hieutm.site@gmail.com',
   phone: '+84 399750368',
@@ -16,11 +16,11 @@ export const siteConfig = {
     'https://www.facebook.com/Tmh3101/',
     'https://linkedin.com/in/tmh3101',
   ],
-  siteTitle: 'Trần Minh Hiếu | AI Backend Engineer',
+  siteTitle: 'Trần Minh Hiểu | AI Backend Engineer',
   siteDescription:
     'AI Backend Engineer with hands-on experience in building scalable backend architectures, multi-tenant SaaS platforms, and end-to-end AI applications. Proficient in designing advanced RAG pipelines and high-throughput asynchronous processing systems. Computer Science background with strong expertise in API security, data pipeline automation, and Web3 cross-chain integrations.',
   keywords: [
-    'Trần Minh Hiếu',
+    'Trần Minh Hiểu',
     'Tran Minh Hieu',
     'MINHHIEU',
     'AI Backend Engineer',
