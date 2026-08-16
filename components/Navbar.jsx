@@ -103,7 +103,7 @@ const Navbar = ({ theme, toggleTheme }) => {
             className="flex items-center gap-2 font-mono text-sm font-bold tracking-wider text-foreground"
           >
             <span className="inline-block rounded bg-foreground px-1.5 py-0.5 text-xs text-background font-mono">
-              MH
+              TMH
             </span>
             <span>{siteConfig.brand}</span>
           </a>
