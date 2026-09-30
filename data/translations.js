@@ -36,7 +36,7 @@ export const translations = {
       ],
     },
     hero: {
-      badge: 'AI Software Engineer',
+      badge: 'Xin chào, tôi là',
       title1: 'AI',
       title2: 'Software Engineer',
       title3: 'Kỹ nghệ Phần mềm & Tích hợp Giải pháp AI',
@@ -331,7 +331,7 @@ export const translations = {
       ],
     },
     hero: {
-      badge: 'AI Software Engineer',
+      badge: 'Hi, I am',
       title1: 'AI',
       title2: 'Software Engineer',
       title3: 'Software Engineering & Production AI Systems',
