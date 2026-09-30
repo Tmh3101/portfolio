@@ -121,7 +121,7 @@ const Navbar = ({ theme, toggleTheme }) => {
                   className={`px-3 py-1.5 rounded transition-colors uppercase tracking-wider ${
                     isActive
                       ? 'bg-foreground text-background font-medium'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-card'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                   }`}
                 >
                   {link.name}
@@ -136,7 +136,7 @@ const Navbar = ({ theme, toggleTheme }) => {
               href={siteConfig.resumeUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 rounded-md border border-border bg-card px-3 py-1.5 font-mono text-xs text-foreground transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-900"
+              className="inline-flex items-center gap-1 rounded-md border border-border bg-card px-3 py-1.5 font-mono text-xs text-foreground transition-colors hover:bg-muted"
             >
               <span>{t.nav.resume}</span>
               <ArrowUpRight size={13} />
@@ -146,7 +146,7 @@ const Navbar = ({ theme, toggleTheme }) => {
               type="button"
               onClick={handleThemeToggle}
               aria-label="Toggle theme"
-              className="flex h-8 w-8 items-center justify-center rounded-md border border-border bg-card text-foreground transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-900"
+              className="flex h-8 w-8 items-center justify-center rounded-md border border-border bg-card text-foreground transition-colors hover:bg-muted"
             >
               {theme === 'light' ? <Moon size={14} /> : <Sun size={14} />}
             </button>
@@ -155,7 +155,7 @@ const Navbar = ({ theme, toggleTheme }) => {
               type="button"
               onClick={handleLangToggle}
               aria-label="Toggle language"
-              className="rounded-md border border-border bg-card px-2.5 py-1.5 font-mono text-xs font-semibold text-foreground transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-900"
+              className="rounded-md border border-border bg-card px-2.5 py-1.5 font-mono text-xs font-semibold text-foreground transition-colors hover:bg-muted"
             >
               {lang === 'vi' ? 'EN' : 'VI'}
             </button>
@@ -167,7 +167,7 @@ const Navbar = ({ theme, toggleTheme }) => {
               type="button"
               onClick={handleThemeToggle}
               aria-label="Toggle theme"
-              className="flex h-8 w-8 items-center justify-center rounded-md border border-border bg-card text-foreground"
+              className="flex h-8 w-8 items-center justify-center rounded-md border border-border bg-card text-foreground transition-colors hover:bg-muted"
             >
               {theme === 'light' ? <Moon size={14} /> : <Sun size={14} />}
             </button>
@@ -178,7 +178,7 @@ const Navbar = ({ theme, toggleTheme }) => {
               aria-expanded={isOpen}
               aria-controls="mobile-nav"
               aria-label="Toggle navigation"
-              className="flex h-8 w-8 items-center justify-center rounded-md border border-border bg-card text-foreground"
+              className="flex h-8 w-8 items-center justify-center rounded-md border border-border bg-card text-foreground transition-colors hover:bg-muted"
             >
               {isOpen ? <X size={16} /> : <Menu size={16} />}
             </button>
@@ -205,10 +205,10 @@ const Navbar = ({ theme, toggleTheme }) => {
                     href={link.href}
                     onClick={() => handleNavClick(link.href)}
                     aria-current={activeHref === link.href ? 'page' : undefined}
-                    className={`block px-3 py-2 rounded uppercase tracking-wider ${
+                    className={`block px-3 py-2 rounded uppercase tracking-wider transition-colors ${
                       activeHref === link.href
                         ? 'bg-foreground text-background font-medium'
-                        : 'text-muted-foreground hover:text-foreground'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                     }`}
                   >
                     {link.name}
@@ -222,7 +222,7 @@ const Navbar = ({ theme, toggleTheme }) => {
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => setIsOpen(false)}
-                  className="inline-flex items-center gap-1 rounded border border-border px-3 py-1.5 text-foreground"
+                  className="inline-flex items-center gap-1 rounded border border-border px-3 py-1.5 text-foreground hover:bg-muted transition-colors"
                 >
                   <span>{t.nav.resume}</span>
                   <ArrowUpRight size={12} />
@@ -231,7 +231,7 @@ const Navbar = ({ theme, toggleTheme }) => {
                 <button
                   type="button"
                   onClick={handleLangToggle}
-                  className="rounded border border-border px-3 py-1.5 font-mono text-xs font-semibold text-foreground"
+                  className="rounded border border-border px-3 py-1.5 font-mono text-xs font-semibold text-foreground hover:bg-muted transition-colors"
                 >
                   {lang === 'vi' ? 'English' : 'Tiếng Việt'}
                 </button>

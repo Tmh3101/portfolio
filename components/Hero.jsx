@@ -196,7 +196,7 @@ const Hero = ({ data, settings, socialLinks }) => {
                   <img
                     src={data.avatar_url}
                     alt={heroName}
-                    className="h-28 w-28 shrink-0 rounded-xl border border-border object-cover grayscale transition-all duration-300 hover:grayscale-0"
+                    className="h-28 w-28 shrink-0 rounded-xl border border-border object-cover"
                   />
                   <div className="font-mono">
                     <div className="text-base font-semibold text-foreground">{heroName}</div>

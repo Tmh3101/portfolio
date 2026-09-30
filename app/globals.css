@@ -2,6 +2,8 @@
 @import 'tailwindcss';
 @import '../lib/theme.css';
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 @theme {
   --font-display: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;

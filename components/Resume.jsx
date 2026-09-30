@@ -26,7 +26,7 @@ export default function Resume({ experiences, skills }) {
           }
           return {
             date: dateStr,
-            title: item.role || item.title || item.position || 'AI Backend Engineer',
+            title: item.role || item.title || item.position || 'AI Software Engineer',
             scope:
               item.description ||
               item.scope ||
@@ -38,7 +38,7 @@ export default function Resume({ experiences, skills }) {
       : [
           {
             date: '01/2026 — Present',
-            title: 'AI Backend Engineer · TITOPS VIETNAM CO., LTD.',
+            title: 'AI Software Engineer · TITOPS VIETNAM CO., LTD.',
             scope:
               'Vielora - AI Chatbot SaaS Platform: RAG pipeline (Gemini + pgvector), multi-tenant architecture, async queues (Redis/BullMQ), payment integration.',
           },

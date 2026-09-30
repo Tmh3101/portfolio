@@ -58,6 +58,10 @@ const Skills = ({ data, sectionData, categoriesData }) => {
       }, {});
 
       const descMap = {
+        AI:
+          lang === 'vi'
+            ? 'Thiết kế RAG pipeline, tích hợp mô hình ngôn ngữ và hệ thống AI end-to-end.'
+            : 'RAG pipeline design, LLM integration, and end-to-end AI systems.',
         Backend:
           lang === 'vi'
             ? 'API design, service layers, auth và business logic.'
@@ -70,10 +74,6 @@ const Skills = ({ data, sectionData, categoriesData }) => {
           lang === 'vi'
             ? 'Containerization và quy trình triển khai.'
             : 'Containerization and deployment workflows.',
-        Support:
-          lang === 'vi'
-            ? 'Phối hợp frontend và debug end-to-end.'
-            : 'Frontend collaboration and end-to-end debugging.',
       };
 
       return Object.keys(grouped).map((catName) => ({
@@ -87,6 +87,18 @@ const Skills = ({ data, sectionData, categoriesData }) => {
 
     // Fallback to static
     return [
+      {
+        title: 'AI',
+        description:
+          lang === 'vi'
+            ? 'Thiết kế RAG pipeline, tích hợp mô hình ngôn ngữ và hệ thống AI end-to-end.'
+            : 'RAG pipeline design, LLM integration, and end-to-end AI systems.',
+        skills: [
+          { name: 'LangChain' },
+          { name: 'Hugging Face' },
+          { name: 'RAG Pipelines' },
+        ],
+      },
       {
         title: 'Backend',
         description:
@@ -124,19 +136,6 @@ const Skills = ({ data, sectionData, categoriesData }) => {
           { name: 'Nginx' },
           { name: 'CI/CD' },
           { name: 'AWS' },
-        ],
-      },
-      {
-        title: 'Support',
-        description:
-          lang === 'vi'
-            ? 'Đủ để phối hợp với frontend, debug flow end-to-end và hỗ trợ khi cần chạm vào bề mặt sản phẩm.'
-            : 'Enough to collaborate with frontend, debug end-to-end flows, and support product delivery when needed.',
-        skills: [
-          { name: 'React' },
-          { name: 'JavaScript' },
-          { name: 'Debugging' },
-          { name: 'Vite' },
         ],
       },
     ];
