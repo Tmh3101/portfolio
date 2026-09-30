@@ -54,7 +54,7 @@ const TechMarquee = ({ data }) => {
       : defaultTechRow;
 
   return (
-    <section className="relative px-6 py-6 md:px-10 lg:px-20 xl:px-24 border-y border-border">
+    <section className="relative px-6 py-6 md:px-10 lg:px-20 xl:px-24 border-t border-border">
       <div className="container mx-auto">
         <div className="stack-marquee-shell">
           <div className="stack-marquee-track">

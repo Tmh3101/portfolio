@@ -9,7 +9,6 @@ import Projects from '../../../components/Projects';
 import Skills from '../../../components/Skills';
 import Contact from '../../../components/Contact';
 import Approach from '../../../components/Approach.jsx';
-import Stats from '../../../components/Stats.jsx';
 import TechMarquee from '../../../components/TechMarquee.jsx';
 import Experience from '../../../components/Experience.jsx';
 import Resume from '../../../components/Resume.jsx';
@@ -95,7 +94,6 @@ export default function PortfolioPage({ cmsData }) {
           <main className="pb-6">
             <Hero data={cmsData.hero} settings={cmsData.settings} socialLinks={cmsData.socialLinks} />
             <TechMarquee data={cmsData.techMarquee} />
-            <Stats data={cmsData.stats} />
             <Approach data={cmsData.approaches} sectionData={cmsData.approachSection} />
             <Skills
               data={cmsData.skills}
