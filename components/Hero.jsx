@@ -85,7 +85,12 @@ const Hero = ({ data, settings, socialLinks }) => {
   const roles =
     lang === 'en' && data?.roles_en?.length > 0
       ? data.roles_en
-      : data?.roles_vi || [t.hero.focusValue, t.hero.opportunityValue, t.hero.noteValue];
+      : data?.roles_vi || [
+          t.hero.focusValue,
+          t.hero.opportunityValue,
+          t.hero.noteValue,
+          t.hero.experienceValue,
+        ];
 
   const detailCards = [
     {
@@ -100,14 +105,13 @@ const Hero = ({ data, settings, socialLinks }) => {
       label: getLoc('role3_label') || t.hero.noteLabel,
       value: roles[2] || t.hero.noteValue,
     },
-  ];
+    {
+      label: getLoc('role4_label') || t.hero.experienceLabel,
+      value: roles[3] || t.hero.experienceValue,
+    },
+  ].filter((item) => item.label && item.value);
 
-  const specList = [
-    ...detailCards.slice(0, 3).map((item) => ({
-      label: item.label,
-      value: item.value,
-    })),
-  ];
+  const specList = detailCards;
 
   return (
     <section
