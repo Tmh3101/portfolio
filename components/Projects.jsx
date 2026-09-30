@@ -14,21 +14,35 @@ const Projects = ({ data }) => {
   const projects = useMemo(() => {
     if (data && data.length > 0) {
       return data.map((p) => ({
-        title: lang === 'en' && p.title_en ? p.title_en : p.title_vi,
+        title: (lang === 'en' && p.title_en ? p.title_en : p.title_vi) || p.title,
         summary:
-          lang === 'en' && p.short_description_en ? p.short_description_en : p.short_description_vi,
-        impact: lang === 'en' && p.description_en ? p.description_en : p.description_vi,
-        image: p.thumbnail_url || '/assets/optimized/vielora.webp',
-        tech: p.technologies || [],
-        features: lang === 'en' && p.features_en ? p.features_en : p.features_vi || [],
-        repoUrl: p.repo_url,
-        liveUrl: p.live_url,
-        reportUrl: p.report_url,
-        status: p.featured ? 'Featured' : 'Stable',
-        featured: p.featured,
+          (lang === 'en' && p.short_description_en
+            ? p.short_description_en
+            : p.short_description_vi) ||
+          p.summary ||
+          p.tagline,
+        impact:
+          (lang === 'en' && p.description_en ? p.description_en : p.description_vi) ||
+          p.impact ||
+          p.tagline,
+        image: p.thumbnail_url || p.image || '/assets/optimized/vielora.webp',
+        tech: Array.isArray(p.technologies)
+          ? p.technologies
+          : Array.isArray(p.tags)
+            ? p.tags
+            : typeof p.technologies === 'string'
+              ? p.technologies.split(',')
+              : p.tech || [],
+        features: (lang === 'en' && p.features_en ? p.features_en : p.features_vi) || [],
+        repoUrl: p.repo_url || p.githubUrl || p.repoUrl,
+        liveUrl: p.live_url || p.liveUrl,
+        reportUrl: p.report_url || p.reportUrl,
+        status: p.status || (p.featured ? 'Featured' : 'Production'),
+        featured: p.featured !== undefined ? p.featured : false,
       }));
     }
-    return projectData[lang] || projectData.en;
+    const fallbackList = projectData[lang] || projectData.en || projectData;
+    return Array.isArray(fallbackList) ? fallbackList : [];
   }, [data, lang]);
 
   const [showAll, setShowAll] = useState(false);

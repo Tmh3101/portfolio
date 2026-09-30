@@ -23,59 +23,51 @@ const Stats = ({ data }) => {
             {
               count: 3.64,
               suffix: '/4.0',
-              title: 'GPA Kỹ sư CNTT',
-              copy: 'Đại học Cần Thơ — Tốt nghiệp loại Giỏi (Honors)',
+              title: 'GPA Kỹ sư CNTT (Loại Giỏi)',
+              copy: 'Đại học Cần Thơ',
             },
             {
               count: 9.8,
               suffix: '/10',
-              title: 'Khóa luận tốt nghiệp',
-              copy: 'Graph Neural Networks & Web3 Sybil Detection',
+              title: 'Điểm Khóa luận Tốt nghiệp',
+              copy: 'Graph Neural Networks',
             },
             {
-              count: 6,
+              count: 5,
               suffix: '+',
-              title: 'Dự án thực tế',
-              copy: 'SaaS multi-tenant, Web3 Token Bridge, AI & Distributed Systems',
-            },
-            {
-              count: 100,
-              suffix: '%',
-              title: 'Code Integrity',
-              copy: 'Hàng đợi bất đồng bộ, token bridge bảo đảm zero-data-loss',
+              title: 'Dự án Production & R&D',
+              copy: 'SaaS, Distributed, AI',
             },
           ]
         : [
             {
               count: 3.64,
               suffix: '/4.0',
-              title: 'CS Engineering GPA',
-              copy: 'Can Tho University — Honors degree',
+              title: 'Honors CS Degree',
+              copy: 'Can Tho University',
             },
             {
               count: 9.8,
               suffix: '/10',
-              title: 'Graduation Thesis',
-              copy: 'Graph Neural Networks & Web3 Sybil Detection',
+              title: 'Graduation Thesis Score',
+              copy: 'Graph Neural Networks',
             },
             {
-              count: 6,
+              count: 5,
               suffix: '+',
               title: 'Production & R&D Projects',
-              copy: 'Multi-tenant SaaS, Web3 Token Bridge, AI & Distributed Systems',
-            },
-            {
-              count: 100,
-              suffix: '%',
-              title: 'Code Integrity',
-              copy: 'Async task queues, token bridge ensuring zero data loss',
+              copy: 'SaaS, Distributed, AI',
             },
           ];
 
   return (
     <section className="px-6 pb-16 md:px-10 lg:px-20 xl:px-24">
       <div className="container mx-auto">
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div
+          className={`grid gap-4 md:grid-cols-2 ${
+            statsData.length === 3 ? 'lg:grid-cols-3' : 'xl:grid-cols-4'
+          }`}
+        >
           {statsData.map((stat, index) => (
             <motion.div
               key={stat.title}

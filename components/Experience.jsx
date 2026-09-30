@@ -119,7 +119,7 @@ const Experience = ({ data, sectionData }) => {
       },
       {
         company: 'TITOPS VIETNAM CO., LTD.',
-        role: 'Full-stack Developer',
+        role: 'Full-stack Developer Intern',
         period: '09/2025 - 11/2025',
         description:
           lang === 'vi'

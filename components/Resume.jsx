@@ -50,7 +50,7 @@ export default function Resume({ experiences, skills }) {
           },
           {
             date: '09/2025 — 11/2025',
-            title: 'Full-stack Developer · TITOPS VIETNAM CO., LTD.',
+            title: 'Full-stack Developer Intern · TITOPS VIETNAM CO., LTD.',
             scope:
               'Giftcards - Corporate Gift Solution: DNPAY payment integration, order flow optimization.',
           },
