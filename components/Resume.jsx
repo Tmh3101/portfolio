@@ -43,7 +43,7 @@ export default function Resume({ experiences, skills }) {
               'Vielora - AI Chatbot SaaS Platform: RAG pipeline (Gemini + pgvector), multi-tenant architecture, async queues (Redis/BullMQ), payment integration.',
           },
           {
-            date: '11/2025 — 12/2026',
+            date: '11/2025 — 01/2026',
             title: 'Backend Engineer Intern · TITOPS (Client: HVA Group)',
             scope:
               'Slice SocialFi - Web3 Social Network: cross-chain token bridge (BNB/LensChain), async transaction queues, Docker/AWS EC2 deployment.',
@@ -55,20 +55,8 @@ export default function Resume({ experiences, skills }) {
               'Giftcards - Corporate Gift Solution: DNPAY payment integration, order flow optimization.',
           },
           {
-            date: '01/2026 — 04/2026',
-            title: 'AI Engineer · Graduation Thesis',
-            scope:
-              'SybilSignal - Graph-based Sybil Detection: GNN (GATv2) + Web dashboard, 4-class risk categorization, score 9.8/10.',
-          },
-          {
-            date: '02/2025 — 12/2025',
-            title: 'Full-stack Developer & AI Engineer · Xpervia',
-            scope:
-              'Learning Management System & AI Chatbot: RAG (LangChain), hybrid recommendation, RBAC LMS (Django + DRF, Next.js).',
-          },
-          {
             date: '08/2024 — 09/2024',
-            title: 'Backend Engineer · Identity Service',
+            title: 'Backend Engineer · Identity Service (Personal Project)',
             scope:
               'Auth RESTful API: JWT + OAuth2, RBAC, password hashing, refresh token rotation.',
           },
