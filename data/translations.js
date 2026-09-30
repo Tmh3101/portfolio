@@ -39,9 +39,9 @@ export const translations = {
       badge: 'Xin chào, tôi là',
       title1: 'AI',
       title2: 'Software Engineer',
-      title3: 'Kỹ nghệ Phần mềm & Tích hợp Giải pháp AI',
+      title3: 'Software Engineering & Applied AI',
       description:
-        'Xây dựng các hệ thống phần mềm production và kiến trúc dữ liệu tin cậy — tập trung vào Production RAG, hàng đợi phân tán và tích hợp mô hình học máy vào sản phẩm thực tế.',
+        'Kỹ sư Khoa học Máy tính kết hợp nền tảng AI/ML/DL chuyên sâu với tư duy kỹ thuật phần mềm vững chắc — tập trung nghiên cứu và hiện thực hóa các giải pháp AI cùng công nghệ phân tán (Blockchain/Web3) vào giải quyết bài toán thực tế.',
       highlights: ['Clean Architecture', 'Production RAG', 'Async Queues'],
       currentTitle: 'Trọng tâm kỹ nghệ',
       currentValue:
@@ -334,9 +334,9 @@ export const translations = {
       badge: 'Hi, I am',
       title1: 'AI',
       title2: 'Software Engineer',
-      title3: 'Software Engineering & Production AI Systems',
+      title3: 'Software Engineering & Applied AI',
       description:
-        'Building production-grade software architectures and resilient data pipelines — specialized in Production RAG, distributed queues, and integrating machine learning workflows into real-world products.',
+        'Engineer in Computer Science combining a solid foundation in AI/ML/DL with robust software engineering — focused on researching and integrating AI solutions and decentralized technologies (Blockchain/Web3) to solve real-world problems.',
       highlights: ['Clean Architecture', 'Production RAG', 'Async Queues'],
       currentTitle: 'Engineering focus',
       currentValue:
