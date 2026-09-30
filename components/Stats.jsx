@@ -21,54 +21,54 @@ const Stats = ({ data }) => {
       : lang === 'vi'
         ? [
             {
-              count: 1,
+              count: 3.64,
+              suffix: '/4.0',
+              title: 'GPA Kỹ sư CNTT',
+              copy: 'Đại học Cần Thơ — Tốt nghiệp loại Giỏi (Honors)',
+            },
+            {
+              count: 9.8,
+              suffix: '/10',
+              title: 'Khóa luận tốt nghiệp',
+              copy: 'Graph Neural Networks & Web3 Sybil Detection',
+            },
+            {
+              count: 6,
               suffix: '+',
-              title: 'Năm kinh nghiệm',
-              copy: 'Từ giai đoạn intern đến backend product work trong môi trường thực tế.',
+              title: 'Dự án thực tế',
+              copy: 'SaaS multi-tenant, Web3 Token Bridge, AI & Distributed Systems',
             },
             {
-              count: 1,
-              suffix: '+',
-              title: 'Freelance work',
-              copy: 'Các project nhận ngoài công việc chính, tập trung vào backend và workflow thực tế.',
-            },
-            {
-              count: 3,
-              suffix: '',
-              title: 'Ưu tiên chính',
-              copy: 'APIs, data flow và integrations cho các workflow nghiệp vụ.',
-            },
-            {
-              count: 4,
-              suffix: '',
-              title: 'Trụ cột kỹ năng',
-              copy: 'Backend, data, delivery và support cho end-to-end flow.',
+              count: 100,
+              suffix: '%',
+              title: 'Code Integrity',
+              copy: 'Hàng đợi bất đồng bộ, token bridge bảo đảm zero-data-loss',
             },
           ]
         : [
             {
-              count: 1,
+              count: 3.64,
+              suffix: '/4.0',
+              title: 'CS Engineering GPA',
+              copy: 'Can Tho University — Honors degree',
+            },
+            {
+              count: 9.8,
+              suffix: '/10',
+              title: 'Graduation Thesis',
+              copy: 'Graph Neural Networks & Web3 Sybil Detection',
+            },
+            {
+              count: 6,
               suffix: '+',
-              title: 'Years experience',
-              copy: 'From internship work into backend product delivery in real environments.',
+              title: 'Production & R&D Projects',
+              copy: 'Multi-tenant SaaS, Web3 Token Bridge, AI & Distributed Systems',
             },
             {
-              count: 1,
-              suffix: '+',
-              title: 'Freelance work',
-              copy: 'Selected work outside full-time roles, focused on backend delivery and practical workflows.',
-            },
-            {
-              count: 3,
-              suffix: '',
-              title: 'Current priorities',
-              copy: 'APIs, data flow, and integrations for real business workflows.',
-            },
-            {
-              count: 4,
-              suffix: '',
-              title: 'Core pillars',
-              copy: 'Backend, data, delivery, and support across the full product flow.',
+              count: 100,
+              suffix: '%',
+              title: 'Code Integrity',
+              copy: 'Async task queues, token bridge ensuring zero data loss',
             },
           ];
 

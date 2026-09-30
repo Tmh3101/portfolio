@@ -30,17 +30,19 @@ const IconMap = {
 const TechMarquee = ({ data }) => {
   const defaultTechRow = [
     { label: 'Python', icon: Code2 },
+    { label: 'PyTorch', icon: Boxes },
+    { label: 'LangChain', icon: Workflow },
     { label: 'FastAPI', icon: ServerCog },
-    { label: 'Laravel', icon: Layers3 },
+    { label: 'Node.js', icon: Braces },
+    { label: 'NestJS', icon: Boxes },
+    { label: 'Spring Boot', icon: ServerCog },
+    { label: 'Next.js', icon: Braces },
+    { label: 'TypeScript', icon: Code2 },
     { label: 'PostgreSQL', icon: Database },
-    { label: 'MySQL', icon: Database },
+    { label: 'Redis', icon: Database },
     { label: 'Docker', icon: Boxes },
-    { label: 'Nginx', icon: ServerCog },
+    { label: 'BigQuery', icon: Layers3 },
     { label: 'AWS', icon: Boxes },
-    { label: 'CI/CD', icon: Workflow },
-    { label: 'VS Code', icon: AppWindow },
-    { label: 'Postman', icon: Workflow },
-    { label: 'Git', icon: Braces },
   ];
 
   const techRow =

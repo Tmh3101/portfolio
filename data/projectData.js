@@ -1,70 +1,152 @@
 export const projectData = {
-  en: [
-    {
-      title: 'Travela',
-      summary:
-        'A tour-booking product focused on reliable reservation flows, recommendation support, and easier admin operations.',
-      problem:
-        'The booking journey involved multiple steps, while operators needed better visibility into customer data and trip schedules.',
-      solution:
-        'Built a structured booking workflow with Laravel, MySQL, and Python-powered data handling for destination recommendation logic.',
-      impact:
-        'Created a backend foundation that is easier to extend for booking states, reporting, and future payment integrations.',
-      tech: ['Laravel', 'PHP', 'Python', 'MySQL'],
-      repoUrl: 'https://github.com/Tmh3101/travela',
-      liveUrl: null,
-      status: 'Case study',
-      image: '/assets/optimized/project1.webp',
-    },
-    {
-      title: 'Veggie',
-      summary:
-        'An e-commerce platform for clean food retail with delivery integration and inventory-aware order management.',
-      problem:
-        'The store needed smoother order handling, shipping integration, and tighter coordination between catalog and stock data.',
-      solution:
-        'Implemented backend flows around product catalog, checkout, GHN delivery APIs, and inventory updates for day-to-day operations.',
-      impact:
-        'Improved the product structure for scaling commerce features while keeping operational data and shipping states in sync.',
-      tech: ['Laravel', 'PHP', 'MySQL', 'GHN API'],
-      repoUrl: 'https://github.com/Tmh3101/veggie',
-      liveUrl: null,
-      status: 'Private demo',
-      image: '/assets/optimized/project2.webp',
-    },
-  ],
   vi: [
     {
-      title: 'Travela',
-      summary:
-        'Nền tảng đặt tour trực tuyến tập trung vào luồng booking rõ ràng, hỗ trợ gợi ý điểm đến và quản trị vận hành.',
-      problem:
-        'Quy trình đặt tour nhiều bước dễ rơi khách, trong khi phía vận hành cần theo dõi lịch trình và dữ liệu khách hàng tốt hơn.',
-      solution:
-        'Xây dựng workflow booking rõ trạng thái bằng Laravel, MySQL và lớp xử lý dữ liệu bằng Python cho logic gợi ý điểm đến.',
+      title: 'Vielora',
+      summary: 'Nền tảng AI Chatbot SaaS multi-tenant & RAG Pipeline',
       impact:
-        'Tạo nền backend đủ ổn định để mở rộng các tính năng booking, báo cáo vận hành và tích hợp thanh toán về sau.',
-      tech: ['Laravel', 'PHP', 'Python', 'MySQL'],
-      repoUrl: 'https://github.com/Tmh3101/travela',
-      liveUrl: null,
-      status: 'Case study',
-      image: '/assets/optimized/project1.webp',
+        'Kiến trúc multi-tenant workspace, Hybrid Search (pgvector + full-text PostgreSQL), hàng đợi cào dữ liệu bất đồng bộ (Redis/BullMQ), thanh toán tự động payOS & hóa đơn điện tử EasyInvoice.',
+      tech: ['Next.js', 'TypeScript', 'Supabase', 'Redis', 'BullMQ', 'Docker', 'pgvector'],
+      repoUrl: null,
+      liveUrl: 'https://vielora.vn',
+      status: 'Production',
+      featured: true,
+      image: '/assets/optimized/vielora.webp',
     },
     {
-      title: 'Veggie',
-      summary:
-        'Nền tảng e-commerce thực phẩm sạch với tích hợp vận chuyển và quản lý tồn kho bám sát quy trình bán hàng.',
-      problem:
-        'Website cần luồng đặt hàng mượt hơn, đồng bộ trạng thái giao hàng và kiểm soát tồn kho tốt hơn trong vận hành hàng ngày.',
-      solution:
-        'Thiết kế backend cho catalog, checkout, GHN delivery API và cập nhật tồn kho để dữ liệu đơn hàng nhất quán hơn.',
+      title: 'Slice SocialFi',
+      summary: 'Cầu nối Token Cross-chain & Xử lý giao dịch tài chính số',
       impact:
-        'Củng cố nền tảng kỹ thuật để mở rộng các tính năng thương mại điện tử mà vẫn giữ dữ liệu vận hành ổn định.',
-      tech: ['Laravel', 'PHP', 'MySQL', 'GHN API'],
-      repoUrl: 'https://github.com/Tmh3101/veggie',
+        'Cầu nối token xuyên chuỗi (BNB Chain ↔ LensChain) cơ chế Lock/Mint & Burn/Unlock. Hàng đợi task Redis xử lý giao dịch DNPAY Fiat-to-Crypto bảo đảm zero-data-loss. Container hóa microservices trên AWS EC2.',
+      tech: ['Node.js', 'Hono', 'Viem', 'Solidity', 'PostgreSQL', 'Redis', 'AWS EC2', 'Docker'],
+      repoUrl: null,
       liveUrl: null,
-      status: 'Demo riêng tư',
-      image: '/assets/optimized/project2.webp',
+      status: 'Enterprise Client',
+      featured: true,
+      image: '/assets/optimized/slice-socialfi.webp',
+    },
+    {
+      title: 'SybilSignal',
+      summary: 'Phát hiện gian lận Web3 bằng GNN (Khóa luận 9.8/10)',
+      impact:
+        'Kiến trúc Decoupled GATv2 + Random Forest xử lý hàng triệu bản ghi on-chain BigQuery, khắc phục over-smoothing và mất cân bằng nhãn. Dashboard XAI attention weights thời gian thực. Điểm khóa luận 9.8/10.',
+      tech: ['Python', 'PyTorch Geometric', 'FastAPI', 'Modal', 'BigQuery', 'Next.js'],
+      repoUrl: 'https://github.com/Tmh3101/sybilsignal-app',
+      liveUrl: 'https://sybilsignal.vercel.app',
+      reportUrl: 'https://drive.google.com/file/d/1YOmJeSeUQA0xQq--tOlI6aosKq5rHam8/view?usp=sharing',
+      status: 'Thesis 9.8/10',
+      featured: true,
+      image: '/assets/optimized/sybilsignal.webp',
+    },
+    {
+      title: 'Giftcards.vn',
+      summary: 'Giải pháp quà tặng doanh nghiệp & Cổng thanh toán',
+      impact:
+        'Tích hợp cổng thanh toán DNPAY Merchant, thiết kế cơ chế retry payment flow giảm thiểu tỷ lệ rớt đơn hàng, quản lý vòng đời đơn hàng quà tặng doanh nghiệp.',
+      tech: ['NestJS', 'MongoDB', 'Redis', 'ReactJS'],
+      repoUrl: null,
+      liveUrl: null,
+      status: 'Enterprise Client',
+      featured: false,
+      image: '/assets/optimized/giftcards.webp',
+    },
+    {
+      title: 'Xpervia',
+      summary: 'Nền tảng quản lý học tập & AI Chatbot RAG',
+      impact:
+        'LMS với RBAC đầy đủ, thử nghiệm đối sánh Vanilla RAG vs. HyDE RAG, fine-tune Qwen2.5-1.5B và bộ gợi ý khóa học lai (Collaborative + Content-based filtering).',
+      tech: ['Django', 'DRF', 'PostgreSQL', 'Supabase', 'Next.js', 'LangChain', 'Qwen2.5'],
+      repoUrl: 'https://github.com/Tmh3101/xpervia',
+      liveUrl: 'https://xpervia.vercel.app',
+      status: 'Completed',
+      featured: false,
+      image: '/assets/optimized/xpervia.webp',
+    },
+    {
+      title: 'Identity Service',
+      summary: 'Hệ thống định danh & phân quyền bảo mật cao',
+      impact:
+        'Kiến trúc phân tầng chuẩn mực OOP, xác thực JWT + OAuth2, bảo vệ chống brute-force, refresh token rotation và danh sách thu hồi token (Token Revocation List).',
+      tech: ['Java 17', 'Spring Boot 3', 'Spring Security', 'MySQL', 'Redis', 'Docker'],
+      repoUrl: 'https://github.com/Tmh3101/user-service',
+      liveUrl: null,
+      status: 'Open Source',
+      featured: false,
+      image: '/assets/optimized/identity-service.webp',
+    },
+  ],
+  en: [
+    {
+      title: 'Vielora',
+      summary: 'Multi-tenant AI Chatbot SaaS & RAG Pipeline',
+      impact:
+        'Multi-tenant workspace architecture, Hybrid Search (pgvector + PostgreSQL full-text), async crawl queue (Redis/BullMQ), automated payOS checkout & EasyInvoice VAT generation.',
+      tech: ['Next.js', 'TypeScript', 'Supabase', 'Redis', 'BullMQ', 'Docker', 'pgvector'],
+      repoUrl: null,
+      liveUrl: 'https://vielora.vn',
+      status: 'Production',
+      featured: true,
+      image: '/assets/optimized/vielora.webp',
+    },
+    {
+      title: 'Slice SocialFi',
+      summary: 'Cross-chain Token Bridge & Async Transaction Processing',
+      impact:
+        'Cross-chain token bridge (BNB Chain ↔ LensChain) with Lock/Mint & Burn/Unlock mechanisms. Redis task queue handling DNPAY Fiat-to-Crypto transaction flow ensuring zero-data-loss. Docker microservices on AWS EC2.',
+      tech: ['Node.js', 'Hono', 'Viem', 'Solidity', 'PostgreSQL', 'Redis', 'AWS EC2', 'Docker'],
+      repoUrl: null,
+      liveUrl: null,
+      status: 'Enterprise Client',
+      featured: true,
+      image: '/assets/optimized/slice-socialfi.webp',
+    },
+    {
+      title: 'SybilSignal',
+      summary: 'Graph-based Web3 Fraud Detection (Thesis 9.8/10)',
+      impact:
+        'Decoupled GATv2 + Random Forest architecture on millions of BigQuery on-chain records, resolving over-smoothing and label imbalance. Real-time XAI attention weights dashboard. Thesis score 9.8/10.',
+      tech: ['Python', 'PyTorch Geometric', 'FastAPI', 'Modal', 'BigQuery', 'Next.js'],
+      repoUrl: 'https://github.com/Tmh3101/sybilsignal-app',
+      liveUrl: 'https://sybilsignal.vercel.app',
+      reportUrl: 'https://drive.google.com/file/d/1YOmJeSeUQA0xQq--tOlI6aosKq5rHam8/view?usp=sharing',
+      status: 'Thesis 9.8/10',
+      featured: true,
+      image: '/assets/optimized/sybilsignal.webp',
+    },
+    {
+      title: 'Giftcards.vn',
+      summary: 'Corporate Gift Solutions & Payment Gateway',
+      impact:
+        'Integrated DNPAY Merchant payment gateway, designed payment retry mechanism minimizing cart abandonment rate, managed corporate gift order lifecycle.',
+      tech: ['NestJS', 'MongoDB', 'Redis', 'ReactJS'],
+      repoUrl: null,
+      liveUrl: null,
+      status: 'Enterprise Client',
+      featured: false,
+      image: '/assets/optimized/giftcards.webp',
+    },
+    {
+      title: 'Xpervia',
+      summary: 'Learning Management System & AI RAG Chatbot',
+      impact:
+        'Full LMS with RBAC, comparative evaluation of Vanilla RAG vs. HyDE RAG, fine-tuned Qwen2.5-1.5B, and hybrid recommender system (Collaborative + Content-based filtering).',
+      tech: ['Django', 'DRF', 'PostgreSQL', 'Supabase', 'Next.js', 'LangChain', 'Qwen2.5'],
+      repoUrl: 'https://github.com/Tmh3101/xpervia',
+      liveUrl: 'https://xpervia.vercel.app',
+      status: 'Completed',
+      featured: false,
+      image: '/assets/optimized/xpervia.webp',
+    },
+    {
+      title: 'Identity Service',
+      summary: 'High-Security Enterprise Auth Microservice',
+      impact:
+        'Layered OOP architecture, JWT + OAuth2 authentication, brute-force protection, refresh token rotation, and token revocation list preventing unauthorized token reuse.',
+      tech: ['Java 17', 'Spring Boot 3', 'Spring Security', 'MySQL', 'Redis', 'Docker'],
+      repoUrl: 'https://github.com/Tmh3101/user-service',
+      liveUrl: null,
+      status: 'Open Source',
+      featured: false,
+      image: '/assets/optimized/identity-service.webp',
     },
   ],
 };
