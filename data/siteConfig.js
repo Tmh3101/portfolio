@@ -18,7 +18,7 @@ export const siteConfig = {
   ],
   siteTitle: 'Trần Minh Hiểu | AI Software Engineer',
   siteDescription:
-    'AI Software Engineer (70% Engineering - 30% Applied AI) specializing in production-grade software architectures, Production RAG, asynchronous queues, and integrating machine learning workflows into real-world products.',
+    'AI Software Engineer combining a solid foundation in AI/ML/DL with robust software engineering — focused on researching and integrating AI solutions and decentralized technologies (Blockchain/Web3) to solve real-world problems.',
   keywords: [
     'Trần Minh Hiểu',
     'Tran Minh Hieu',
