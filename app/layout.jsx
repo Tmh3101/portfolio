@@ -2,6 +2,7 @@ import './globals.css';
 import { siteConfig } from '../data/siteConfig.js';
 import { getSiteUrl, createStructuredData } from '../lib/seo.js';
 import Providers from './providers.jsx';
+import VieloraChatbot from '../components/VieloraChatbot.jsx';
 
 export const metadata = {
   metadataBase: new URL(getSiteUrl()),
@@ -75,6 +76,7 @@ export default function RootLayout({ children }) {
       </head>
       <body suppressHydrationWarning>
         <Providers>{children}</Providers>
+        <VieloraChatbot />
       </body>
     </html>
   );
