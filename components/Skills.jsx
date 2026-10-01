@@ -6,7 +6,6 @@ import {
   Brain,
   Compass,
   Users,
-  Zap,
   Bot,
   Cpu,
   Terminal,
@@ -39,12 +38,13 @@ const Skills = ({ data, sectionData, categoriesData }) => {
 
   const categoryIcons = {
     AI: Cpu,
+    Software: Terminal,
     Backend: Terminal,
     Data: Database,
     Delivery: Boxes,
   };
 
-  const softSkillIcons = [Brain, Compass, Users, Zap, Bot];
+  const softSkillIcons = [Brain, Compass, Users, Bot];
 
   const categories = useMemo(() => {
     if (categoriesData && categoriesData.length > 0) {
@@ -82,10 +82,14 @@ const Skills = ({ data, sectionData, categoriesData }) => {
           lang === 'vi'
             ? 'Thiết kế RAG pipeline, tích hợp mô hình ngôn ngữ và hệ thống AI end-to-end.'
             : 'RAG pipeline design, LLM integration, and end-to-end AI systems.',
+        Software:
+          lang === 'vi'
+            ? 'Kiến trúc phân tầng, API Type-safe, xác thực bảo mật và logic nghiệp vụ.'
+            : 'Layered architecture, type-safe APIs, auth, and business logic.',
         Backend:
           lang === 'vi'
-            ? 'API design, service layers, auth và business logic.'
-            : 'API design, service layers, auth, and business logic.',
+            ? 'Kiến trúc phân tầng, API Type-safe, xác thực bảo mật và logic nghiệp vụ.'
+            : 'Layered architecture, type-safe APIs, auth, and business logic.',
         Data:
           lang === 'vi'
             ? 'Thiết kế schema, tối ưu truy vấn và dữ liệu.'
@@ -120,11 +124,11 @@ const Skills = ({ data, sectionData, categoriesData }) => {
         ],
       },
       {
-        title: 'Backend',
+        title: 'Software',
         description:
           lang === 'vi'
-            ? 'API design, service layers, auth, business logic và các tích hợp backend.'
-            : 'API design, service layers, auth, business logic, and backend integrations.',
+            ? 'Kiến trúc phân tầng, API Type-safe, xác thực bảo mật và logic nghiệp vụ.'
+            : 'Layered architecture, type-safe APIs, auth, and business logic.',
         skills: [
           { name: 'Python' },
           { name: 'FastAPI' },
@@ -169,14 +173,12 @@ const Skills = ({ data, sectionData, categoriesData }) => {
           'Tư duy logic & giải quyết vấn đề',
           'Chủ động nghiên cứu công nghệ',
           'Làm việc nhóm & phối hợp',
-          'Thích ứng nhanh trong môi trường áp lực cao',
           'Sử dụng AI Agents hiệu quả',
         ]
       : [
           'Logical thinking & problem-solving',
           'Proactive technology research',
           'Teamwork',
-          'Rapid adaptation to high-pressure environments',
           'Proficiency with AI Agents',
         ]);
 
@@ -278,7 +280,7 @@ const Skills = ({ data, sectionData, categoriesData }) => {
               </span>
             </div>
 
-            <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
               {softSkills.map((item, index) => {
                 const IconComponent = item.icon;
                 return (

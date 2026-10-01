@@ -1,6 +1,6 @@
 -- Portfolio DB backup
 -- project: https://uhhmsyhsbcvfvilphwdk.supabase.co
--- generated: 2026-10-01T05:42:00.565Z
+-- generated: 2026-10-01T06:46:04.262Z
 
 
 -- table: site_settings (1 rows)
@@ -60,7 +60,7 @@ INSERT INTO skills (id, name, category_vi, level_vi, icon_url, sort_order, creat
 INSERT INTO skills (id, name, category_vi, level_vi, icon_url, sort_order, created_at, updated_at, category_en, level_en, color, category_id) VALUES (44, 'RAG Pipelines', 'AI', 'Nâng cao', '', 0, '2026-08-16T06:40:24.840365+00:00', '2026-08-16T06:44:31.851611+00:00', 'AI', 'Advanced', '', 6);
 
 -- table: skill_categories (4 rows)
-INSERT INTO skill_categories (id, name_vi, name_en, description_vi, description_en, icon, sort_order, created_at, updated_at) VALUES (1, 'Backend', 'Backend', 'API design, service layers, auth, business logic và các tích hợp backend.', 'API design, service layers, auth, business logic, and backend integrations.', 'server', 1, '2026-03-17T06:15:44.607856+00:00', '2026-09-30T08:35:15.414813+00:00');
+INSERT INTO skill_categories (id, name_vi, name_en, description_vi, description_en, icon, sort_order, created_at, updated_at) VALUES (1, 'Software', 'Software', 'Kiến trúc phân tầng, API Type-safe, xác thực bảo mật và logic nghiệp vụ.', 'Layered architecture, type-safe APIs, auth, and business logic.', 'server', 1, '2026-03-17T06:15:44.607856+00:00', '2026-10-01T06:45:56.451544+00:00');
 INSERT INTO skill_categories (id, name_vi, name_en, description_vi, description_en, icon, sort_order, created_at, updated_at) VALUES (2, 'Data', 'Data', 'Thiết kế schema, tối ưu truy vấn và giữ dữ liệu nhất quán cho sản phẩm.', 'Schema design, query optimization, and data consistency for product workloads.', 'database', 2, '2026-03-17T06:15:44.607856+00:00', '2026-09-30T08:35:15.583365+00:00');
 INSERT INTO skill_categories (id, name_vi, name_en, description_vi, description_en, icon, sort_order, created_at, updated_at) VALUES (3, 'Delivery', 'Delivery', 'Containerization, môi trường triển khai và quy trình release ổn định.', 'Containerization, deployment environments, and reliable release workflows.', 'package', 3, '2026-03-17T06:15:44.607856+00:00', '2026-09-30T08:35:15.777399+00:00');
 INSERT INTO skill_categories (id, name_vi, name_en, description_vi, description_en, icon, sort_order, created_at, updated_at) VALUES (6, 'AI', 'AI', 'Thiết kế RAG pipeline, tích hợp mô hình ngôn ngữ và hệ thống AI end-to-end.', 'RAG pipeline design, LLM integration, and end-to-end AI systems.', 'brain', 0, '2026-08-16T06:44:31.334197+00:00', '2026-09-30T08:35:15.183448+00:00');
