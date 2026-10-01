@@ -193,7 +193,7 @@ const Experience = ({ data, sectionData }) => {
             >
               {/* Date Column */}
               <div className="md:col-span-3 font-mono text-xs text-muted-foreground">
-                <span>{exp.period}</span>
+                <time>{exp.period}</time>
                 {exp.is_current && (
                   <span className="block mt-1 text-[10px] uppercase tracking-wider text-foreground font-semibold">
                     [{section.currentRoleLabel}]
@@ -227,14 +227,14 @@ const Experience = ({ data, sectionData }) => {
                   {exp.description}
                 </p>
                 {exp.highlights && exp.highlights.length > 0 && (
-                  <div className="mt-3 flex flex-col gap-1.5 font-mono text-xs text-muted-foreground">
+                  <ul className="mt-3 flex flex-col gap-1.5 font-mono text-xs text-muted-foreground" role="list">
                     {exp.highlights.map((highlight) => (
-                      <div key={highlight} className="flex items-start gap-2">
-                        <span className="text-foreground shrink-0 select-none">-</span>
+                      <li key={highlight} className="flex items-start gap-2">
+                        <span aria-hidden="true" className="text-foreground shrink-0 select-none">-</span>
                         <span>{highlight}</span>
-                      </div>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 )}
               </div>
             </motion.article>

@@ -248,9 +248,9 @@ const Skills = ({ data, sectionData, categoriesData }) => {
                       <div className="flex items-center justify-between font-mono text-xs text-muted-foreground pb-3 mb-3 border-b border-border">
                         <div className="flex items-center gap-2">
                           <IconComponent size={14} className="text-muted-foreground" />
-                          <span className="uppercase tracking-wider font-semibold text-foreground">
+                          <h3 className="uppercase tracking-wider font-semibold text-foreground text-xs inline m-0">
                             {category.title}
-                          </span>
+                          </h3>
                         </div>
                         <span>0{index + 1}</span>
                       </div>
@@ -260,16 +260,16 @@ const Skills = ({ data, sectionData, categoriesData }) => {
                       </p>
                     </div>
 
-                    <div className="mt-6 pt-4 border-t border-border flex flex-wrap gap-1.5">
+                    <ul className="mt-6 pt-4 border-t border-border flex flex-wrap gap-1.5 list-none p-0 m-0" role="list">
                       {category.skills.map((skill) => (
-                        <span
+                        <li
                           key={skill.name}
                           className="rounded border border-border bg-background px-2.5 py-0.5 font-mono text-[11px] text-foreground hover:border-foreground/40 transition-colors"
                         >
                           {skill.name}
-                        </span>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </motion.article>
                 );
               })}

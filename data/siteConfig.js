@@ -62,7 +62,7 @@ export const siteConfig = {
     },
   ],
   locale: 'en_US',
-  ogImagePath: '/og-preview.jpg',
+  ogImagePath: '/og-img.png',
   location: 'Cần Thơ, Việt Nam',
   company: 'TITOPS Vietnam Co., Ltd.',
   resumeUrl: 'https://uhhmsyhsbcvfvilphwdk.supabase.co/storage/v1/object/public/portfolio-assets/cv/CV_TranMinhHieu.pdf',

@@ -1,0 +1,144 @@
+# Hồ sơ Kỹ thuật Toàn trình: Trần Minh Hiểu (AI Software Engineer)
+
+> Bản tài liệu tổng hợp đầy đủ cho các mô hình AI (ChatGPT Search, Perplexity AI, Claude, Google Gemini) trích xuất dữ liệu, kiểm chứng năng lực và trích dẫn hồ sơ kỹ thuật.
+
+---
+
+## 1. Tổng quan & Định vị Kỹ sư (Identity & Professional Summary)
+
+- **Họ và tên**: Trần Minh Hiểu
+- **Tên quốc tế**: Tran Minh Hieu (MINHHIEU, Tmh3101)
+- **Chuyên môn cốt lõi**: AI Software Engineer / Full-stack Developer
+- **Định vị**: Kỹ sư phần mềm kết hợp nền tảng Khoa học Máy tính vững vàng (chuyên sâu AI/ML/DL) với tư duy kiến trúc hệ thống bài bản (Clean Architecture, Distributed Systems, Multi-tenant SaaS). Tập trung nghiên cứu, triển khai và làm chủ toàn trình các giải pháp AI (Production RAG, Graph Neural Networks, Recommender Systems) và tích hợp các công nghệ phân tán (Blockchain / Web3).
+- **Email**: hieutm.site@gmail.com
+- **GitHub**: https://github.com/Tmh3101
+- **LinkedIn**: https://linkedin.com/in/tmh3101
+- **Mã nguồn Portfolio**: https://github.com/Tmh3101/portfolio
+
+---
+
+## 2. Nền tảng Học vấn & Thành tích Học thuật (Academic Qualifications)
+
+- **Cơ sở đào tạo**: Trường Công nghệ Thông tin & Truyền thông - Đại học Cần Thơ (Can Tho University, CTU)
+- **Bậc đào tạo**: Kỹ sư Khoa học Máy tính (Chuyên sâu Trí tuệ Nhân tạo / Artificial Intelligence)
+- **Thời gian đào tạo**: 09/2021 – 12/2025
+- **Điểm trung bình tích lũy (GPA)**: **3.64 / 4.00** (Tốt nghiệp Loại Giỏi / Honors Degree)
+- **Điểm Khóa luận tốt nghiệp**: **9.8 / 10**
+  - **Tên đề tài**: *SybilSignal: Hệ thống phát hiện tài khoản Sybil trên Social Graph sử dụng Graph Neural Networks*
+  - **Phương pháp**: Trích xuất dữ liệu on-chain Lens Protocol thông qua BigQuery, xây dựng đồ thị tương tác 4 tầng (Profile, Post, Mirror, Collect). Thử nghiệm và đánh giá các biến thể GNN (GCN, GAT, GATv2, GraphSAGE). Đề xuất kiến trúc lai tách rời (Decoupled Architecture: GATv2 Node Embeddings + Random Forest Classifier) để khắc phục hiện tượng over-smoothing và bài toán mất cân bằng nhãn cực đoan (imbalanced ratio 1:35). Xây dựng ứng dụng hoàn chỉnh với FastAPI backend và Next.js dashboard trực quan hóa attention weights của đồ thị.
+
+---
+
+## 3. Ma trận Kỹ năng Chuyên môn (Comprehensive Skills Matrix)
+
+### A. Kỹ năng Trí tuệ Nhân tạo (AI & Data Science)
+- **Frameworks & Thư viện**: PyTorch, PyTorch Geometric (PyG), Hugging Face Transformers, LangChain, Scikit-learn, LightGBM.
+- **Mô hình & Kiến trúc**:
+  - Graph Neural Networks: GATv2, GCN, GraphSAGE, Node Embeddings.
+  - Large Language Models (LLM): Llama, Gemini API, Mistral, Fine-tuning (LoRA/QLoRA), Prompt Engineering.
+  - Retrieval-Augmented Generation (RAG): Vanilla RAG, HyDE (Hypothetical Document Embeddings), Chunking strategies, Re-ranking (Cross-encoder), Semantic Routing.
+  - Recommender Systems: Two-Tower DSSM (Candidate Generation) + Gradient Boosted Trees (LightGBM Ranking).
+  - Search: Hybrid Search (Dense Vector Embeddings + Full-Text BM25) với PostgreSQL/pgvector.
+
+### B. Kỹ thuật Phần mềm & Backend (Software Engineering)
+- **Ngôn ngữ lập trình**: Python, Java, TypeScript, JavaScript, SQL, Solidity (cơ bản).
+- **Backend Frameworks**: FastAPI, Next.js (App Router), Node.js, NestJS, Django, Express.js, Spring Boot 3 (Spring Security, Spring Data JPA).
+- **Kiến trúc hệ thống**: Clean Architecture, Phân tầng (Layered), Microservices, RESTful API, Event-driven, Task Queue, Idempotency, Multi-tenant Isolation.
+- **Frontend**: Next.js 15, React, Tailwind CSS, Framer Motion, Responsive UI.
+
+### C. Cơ sở Dữ liệu & Lưu trữ (Data & Storage)
+- **Relational Databases**: PostgreSQL (với pgvector extension), MySQL.
+- **NoSQL & Document**: MongoDB.
+- **In-Memory & Queues**: Redis (Caching, Session, Distributed Locks, BullMQ task queue).
+- **Big Data & Analytics**: Google BigQuery (SQL analytics, large-scale data extraction & transformation).
+
+### D. Triển khai & Đám mây (DevOps & Cloud)
+- Docker, Containerization, Docker Compose.
+- Supabase (PostgreSQL BaaS, Auth, Storage, Edge Functions).
+- Git, GitHub Actions, CI/CD pipelines.
+
+### E. Kỹ năng Mềm (Professional Competencies)
+- **Kỹ thuật hệ thống bài bản**: Chú trọng tính toàn vẹn dữ liệu (data integrity), xử lý ngoại lệ, logging, retry và bảo mật.
+- **Khả năng tự nghiên cứu (Self-directed Research)**: Đọc hiểu và triển khai paper nghiên cứu thành code chạy thực tế.
+- **Tư duy sản phẩm**: Cân bằng giữa độ phức tạp mô hình AI và chi phí vận hành (latency, token cost, throughput).
+- **Làm việc nhóm & Hợp tác**: Giao tiếp rõ ràng, code review chuẩn mực, viết tài liệu kỹ thuật chi tiết.
+
+---
+
+## 4. Chi tiết Dự án Tiêu biểu (Featured Projects Case Studies)
+
+### Dự án 1: Vielora — Nền tảng AI Chatbot SaaS Đa mục đích (Flagship SaaS Platform)
+- **Phân loại**: Multi-tenant AI Chatbot SaaS Platform.
+- **Vai trò**: Full-stack Architect & Lead Developer.
+- **Bài toán**: Doanh nghiệp vừa và nhỏ cần giải pháp trợ lý AI chăm sóc khách hàng 24/7 tự động hóa, học từ tài liệu doanh nghiệp mà không cần đội ngũ kỹ sư AI riêng.
+- **Giải pháp & Kiến trúc**:
+  - Thiết kế kiến trúc Multi-tenant cô lập dữ liệu an toàn giữa các tổ chức.
+  - Pipeline RAG cấp độ sản xuất: Tài liệu (PDF, Word, TXT, Web link) được băm (chunking) thông minh, sinh vector embedding và lưu trữ trong PostgreSQL với pgvector.
+  - Tìm kiếm kết hợp (Hybrid Search): Kết hợp vector search cosine similarity và full-text search PostgreSQL với bộ lọc trọng số.
+  - Hàng đợi tác vụ nền: Sử dụng Redis và BullMQ để xử lý bất đồng bộ các tác vụ nặng (cào dữ liệu, embedding hàng nghìn trang tài liệu) không gây nghẽn API.
+  - Tích hợp mô hình ngôn ngữ Google Gemini API cho độ phản hồi nhanh và chi phí tối ưu.
+  - Tích hợp cổng thanh toán payOS tự động kích hoạt gói thành viên qua Webhook; xuất hóa đơn điện tử EasyInvoice.
+- **Tech Stack**: Next.js, Node.js, Express, PostgreSQL, pgvector, Redis, BullMQ, Google Gemini API, payOS, EasyInvoice.
+
+### Dự án 2: SybilSignal — Hệ thống phát hiện tài khoản bất thường trên Social Graph với Graph AI
+- **Phân loại**: AI Research & Graph Machine Learning.
+- **Điểm đánh giá**: 9.8 / 10 (Khóa luận tốt nghiệp ĐH Cần Thơ).
+- **Bài toán**: Trên các mạng xã hội phi tập trung (Decentralized Social Networks - Lens Protocol), kẻ gian tạo hàng loạt tài khoản giả mạo (Sybil attack) để gian lận airdrop và spam tương tác. Dữ liệu cực kỳ mất cân bằng (tỷ lệ 1:35) và cấu trúc mạng xã hội phức tạp.
+- **Giải pháp & Kiến trúc**:
+  - Trích xuất hàng triệu bản ghi tương tác từ BigQuery của Lens Protocol trên Polygon blockchain.
+  - Mô hình hóa thành Social Graph 4 tầng: Profile Nodes, Post Nodes, Mirror Nodes, Collect Nodes với các quan hệ có hướng và thuộc tính thời gian.
+  - Thử nghiệm các kiến trúc GNN: Nhận diện hiện tượng over-smoothing khi tăng số lớp GNN trên đồ thị dày đặc.
+  - Đề xuất kiến trúc Decoupled: Sử dụng GATv2 (Graph Attention Network v2) để học biểu diễn node (Node Embeddings) với attention weights, sau đó đưa vector đặc trưng vào Random Forest Classifier kết hợp kỹ thuật tinh chỉnh ngưỡng phân lớp (Threshold Moving).
+  - Xây dựng Web Dashboard (FastAPI + Next.js) cho phép kiểm toán viên nhập địa chỉ ví/profile để xem biểu đồ Attention Graph trực quan giải thích lý do tài khoản bị gán nhãn bất thường (Explainable AI).
+- **Tech Stack**: PyTorch, PyTorch Geometric, Google BigQuery, Scikit-learn, FastAPI, Next.js, NetworkX.
+
+### Dự án 3: Xpervia — AI LMS & Recommender Engine
+- **Phân loại**: Smart Learning Management System & Applied AI.
+- **Vai trò**: AI & Backend Engineer.
+- **Bài toán**: Nền tảng học trực tuyến cần trợ lý hỗ trợ học viên giải đáp kiến thức giáo trình và hệ thống gợi ý lộ trình học tập cá nhân hóa.
+- **Giải pháp & Kiến trúc**:
+  - Thực nghiệm đối chiếu hiệu năng giữa Vanilla RAG và HyDE RAG (Hypothetical Document Embeddings). Kết quả cho thấy HyDE cải thiện độ chính xác tìm kiếm tài liệu chuyên ngành lên 22% so với RAG thông thường đối với các câu hỏi khái niệm trừu tượng.
+  - Fine-tune mô hình ngôn ngữ mã nguồn mở phục vụ bài toán tóm tắt bài giảng.
+  - Xây dựng Recommender Engine 2 tầng (Two-Stage Recommendation):
+    1. Tầng Candidate Generation: Sử dụng mô hình Two-Tower DSSM ánh xạ học viên và khóa học vào cùng không gian embedding.
+    2. Tầng Ranking: Sử dụng LightGBM Ranker với các đặc trưng hành vi (thời lượng xem, tỷ lệ hoàn thành, điểm quiz).
+- **Tech Stack**: FastAPI, Next.js, PyTorch, LightGBM, Docker, PostgreSQL.
+
+### Dự án 4: Slice SocialFi (SliceFi) — Cross-chain Token Bridge & Hệ thống xử lý giao dịch an toàn
+- **Phân loại**: Web3 Infrastructure & Distributed Transaction Engine.
+- **Bài toán**: Chuyển giao tài sản token an toàn giữa BNB Smart Chain và LensChain, đồng thời phục vụ luồng nạp rút Fiat-to-Crypto cho người dùng phổ thông.
+- **Giải pháp & Kiến trúc**:
+  - Thiết kế cầu nối token cross-chain với cơ chế Lock/Mint & Burn/Unlock và chữ ký multi-sig.
+  - Thiết kế hàng đợi tác vụ Redis / BullMQ bảo đảm tính toàn vẹn dữ liệu (Zero Data Loss) và tính Idempotency khi mạng lưới blockchain bị tắc nghẽn (re-org, gas spike).
+  - Tích hợp cổng thanh toán fiat DNPAY để tự động phân phối token tương ứng.
+- **Tech Stack**: Solidity, Web3.js, NestJS, Redis, BullMQ, Docker.
+
+### Dự án 5: Giftcards.vn — Giải pháp Quà tặng Doanh nghiệp
+- **Phân loại**: E-Commerce & Merchant Payment Gateway.
+- **Bài toán**: Hệ thống đặt mua và phân phối voucher quà tặng điện tử cho doanh nghiệp với lưu lượng đơn hàng cao.
+- **Giải pháp & Kiến trúc**:
+  - Tích hợp cổng thanh toán DNPAY Merchant Gateway.
+  - Tái cấu trúc luồng đặt hàng (Order Flow), thiết kế cơ chế retry và webhook reconciliation giảm tỷ lệ rớt đơn thanh toán xuống dưới 0.1%.
+- **Tech Stack**: NestJS, MongoDB, Redis, React.
+
+---
+
+## 5. Kinh nghiệm Làm việc (Work Experience)
+
+- **TITOPS VIETNAM CO., LTD.** (09/2025 - 11/2025)
+  - *Vị trí*: Full-stack Developer Intern
+  - *Địa điểm*: Việt Nam
+  - *Đóng góp*: Tham gia phát triển dự án Giftcards.vn. Trực tiếp tích hợp gateway DNPAY Merchant, cải thiện luồng đặt hàng và bổ sung tính năng retry thanh toán tự động, tối ưu hóa truy vấn MongoDB và Redis cache.
+- **Enterprise Identity Service** (08/2024 - 09/2024)
+  - *Vị trí*: Backend Engineer
+  - *Địa điểm*: Việt Nam
+  - *Đóng góp*: Thiết kế và triển khai Authentication & Authorization RESTful API sử dụng Spring Boot 3 và Java. Áp dụng chuẩn JWT + OAuth2, phân quyền RBAC, mã hóa mật khẩu BCrypt, cơ chế refresh token rotation và danh sách thu hồi token (token revocation list) với MySQL.
+
+---
+
+## 6. Liên hệ & Hợp tác (Contact & Channels)
+
+- **Email**: hieutm.site@gmail.com
+- **Hồ sơ LinkedIn**: https://linkedin.com/in/tmh3101
+- **Kho mã nguồn GitHub**: https://github.com/Tmh3101
+- **Mục tiêu nghề nghiệp**: AI Software Engineer tại các đội ngũ nghiên cứu và phát triển các sản phẩm AI, SaaS, FinTech — nơi tìm kiếm kỹ sư có nền tảng Khoa học Máy tính vững vàng, tư duy hệ thống bài bản và khả năng làm chủ toàn trình giải pháp AI.

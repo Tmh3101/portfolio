@@ -15,17 +15,29 @@ export async function generateMetadata() {
   return {
     metadataBase: new URL(getSiteUrl()),
     title: {
-      default: title,
-      template: `%s | ${title}`,
+      absolute: title,
     },
     description: description,
     keywords: keywords,
+    authors: [{ name: siteConfig.name, url: siteConfig.github }],
+    creator: siteConfig.name,
+    publisher: siteConfig.name,
+    alternates: {
+      canonical: '/',
+      languages: {
+        vi: '/?lang=vi',
+        en: '/?lang=en',
+        'x-default': '/',
+      },
+    },
     openGraph: {
       type: 'website',
+      locale: 'vi_VN',
+      alternateLocale: ['en_US'],
       title: title,
       description: description,
       url: '/',
-      siteName: title,
+      siteName: siteConfig.name,
       images: [
         {
           url: ogImageUrl,
