@@ -18,7 +18,6 @@ const ResumeModal = ({ isOpen, onClose, resumeUrl }) => {
     download: 'Tải PDF',
     openTab: 'Mở tab mới',
     close: 'Đóng',
-    fallback: 'Trình duyệt không hỗ trợ xem trước PDF trực tiếp? Bạn có thể mở tab mới hoặc tải file về.',
   };
 
   // Keyboard shortcut: ESC to close
@@ -149,31 +148,6 @@ const ResumeModal = ({ isOpen, onClose, resumeUrl }) => {
                 className="w-full h-full border-0"
                 onLoad={() => setIsLoading(false)}
               />
-            </div>
-
-            {/* Footer fallback */}
-            <div className="px-4 py-2 border-t border-border bg-background/90 text-center font-mono text-[11px] text-muted-foreground flex flex-wrap items-center justify-between gap-2">
-              <span className="truncate">{modalText.fallback}</span>
-              <div className="flex items-center gap-3 shrink-0">
-                <a
-                  href={url}
-                  download="CV_TranMinhHieu.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="underline font-semibold hover:text-foreground transition-colors"
-                >
-                  {modalText.download}
-                </a>
-                <span>•</span>
-                <a
-                  href={url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="underline font-semibold hover:text-foreground transition-colors"
-                >
-                  {modalText.openTab}
-                </a>
-              </div>
             </div>
           </motion.div>
         </div>

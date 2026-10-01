@@ -16,7 +16,6 @@ export const translations = {
       download: 'Tải PDF',
       openTab: 'Mở tab mới',
       close: 'Đóng',
-      fallback: 'Trình duyệt không hỗ trợ xem trước PDF trực tiếp? Bạn có thể mở tab mới hoặc tải file về.',
     },
     approach: {
       eyebrow: 'ABOUT ME',
@@ -337,7 +336,6 @@ export const translations = {
       download: 'Download PDF',
       openTab: 'Open in new tab',
       close: 'Close',
-      fallback: 'Browser does not support inline PDF preview? You can open in a new tab or download the file.',
     },
     approach: {
       eyebrow: 'ABOUT ME',
