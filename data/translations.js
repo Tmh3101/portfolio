@@ -84,13 +84,13 @@ export const translations = {
       compactNote: 'Tóm tắt',
     },
     skills: {
-      eyebrow: 'SKILLS & METHODOLOGY',
-      title1: 'Năng lực Kỹ thuật &',
-      title2: 'Phương pháp Làm việc',
+      eyebrow: 'SKILLS',
+      title1: 'Kỹ năng Chuyên môn &',
+      title2: 'Kỹ năng mềm',
       description:
-        'Tổng hòa giữa bộ công cụ công nghệ chuyên sâu (Applied AI, Backend, Data, Cloud) và văn hóa kỹ nghệ chuẩn mực, tư duy giải quyết vấn đề thực tế.',
-      techHeading: 'Kỹ năng Kỹ thuật & Nền tảng Công nghệ',
-      softHeading: 'Kỹ năng Mềm',
+        'Tổng hòa giữa bộ khả năng kỹ thuật và phương pháp làm việc chuẩn mực.',
+      techHeading: 'Kỹ năng chuyên môn',
+      softHeading: 'Kỹ năng mềm',
       softSkills: [
         'Tư duy logic & giải quyết vấn đề',
         'Chủ động nghiên cứu công nghệ',
@@ -396,18 +396,18 @@ export const translations = {
       compactNote: 'Summary',
     },
     skills: {
-      eyebrow: 'SKILLS & METHODOLOGY',
-      title1: 'Technical Arsenal &',
-      title2: 'Engineering Mindset',
+      eyebrow: 'SKILLS',
+      title1: 'Technical &',
+      title2: 'Soft Skills',
       description:
-        'A synthesis of robust technical capabilities (Applied AI, Backend, Data, Cloud) and disciplined engineering practices with an applied problem-solving mindset.',
-      techHeading: 'Technical Capabilities & Technology Stack',
-      softHeading: 'Soft Skills',
+        'A synthesis of technical capabilities and disciplined engineering methodologies.',
+      techHeading: 'TECHNICAL EXPERTISE',
+      softHeading: 'SOFT SKILLS',
       softSkills: [
-        'Logical thinking & problem-solving',
-        'Proactive technology research',
-        'Teamwork',
-        'Proficiency with AI Agents',
+        'Logical Thinking & Problem Solving',
+        'Proactive Technology Research',
+        'Teamwork & Cross-functional Collaboration',
+        'AI Agents Workflow Proficiency',
       ],
     },
     experience: {

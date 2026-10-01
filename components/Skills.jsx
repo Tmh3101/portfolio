@@ -80,24 +80,24 @@ const Skills = ({ data, sectionData, categoriesData }) => {
       const descMap = {
         AI:
           lang === 'vi'
-            ? 'Thiết kế RAG pipeline, tích hợp mô hình ngôn ngữ và hệ thống AI end-to-end.'
-            : 'RAG pipeline design, LLM integration, and end-to-end AI systems.',
+            ? 'Xây dựng, huấn luyện và đánh giá mô hình ML/DL; tinh chỉnh mô hình ngôn ngữ (Fine-tuning). Thiết kế RAG pipeline, tích hợp mô hình ngôn ngữ lớn (LLM) vào ứng dụng thực tế.'
+            : 'Building, training, and evaluating ML/DL models; fine-tuning LLMs. Architecting RAG pipelines and integrating large language models into production.',
         Software:
           lang === 'vi'
-            ? 'Kiến trúc phân tầng, API Type-safe, xác thực bảo mật và logic nghiệp vụ.'
-            : 'Layered architecture, type-safe APIs, auth, and business logic.',
+            ? 'Phát triển Full-stack toàn trình: xây dựng giao diện tối ưu (React/Next.js), thiết kế kiến trúc Backend phân tầng, API Type-safe, xác thực bảo mật và xử lý nghiệp vụ.'
+            : 'End-to-end Full-stack engineering: responsive modern UIs (React/Next.js), layered backend architectures, type-safe APIs, and robust security.',
         Backend:
           lang === 'vi'
-            ? 'Kiến trúc phân tầng, API Type-safe, xác thực bảo mật và logic nghiệp vụ.'
-            : 'Layered architecture, type-safe APIs, auth, and business logic.',
+            ? 'Phát triển Full-stack toàn trình: xây dựng giao diện tối ưu (React/Next.js), thiết kế kiến trúc Backend phân tầng, API Type-safe, xác thực bảo mật và xử lý nghiệp vụ.'
+            : 'End-to-end Full-stack engineering: responsive modern UIs (React/Next.js), layered backend architectures, type-safe APIs, and robust security.',
         Data:
           lang === 'vi'
-            ? 'Thiết kế schema, tối ưu truy vấn và dữ liệu.'
-            : 'Schema design, query optimization, and data.',
+            ? 'Thiết kế schema chuẩn hóa (SQL/NoSQL), tối ưu hóa chỉ mục và câu truy vấn; trích xuất, tiền xử lý và lưu trữ dữ liệu phân tích quy mô lớn.'
+            : 'Designing normalized SQL/NoSQL schemas, optimizing complex queries and indexing; extracting, preprocessing, and managing analytical data at scale.',
         Delivery:
           lang === 'vi'
-            ? 'Containerization và quy trình triển khai.'
-            : 'Containerization and deployment workflows.',
+            ? 'Đóng gói ứng dụng (Containerization), tích hợp nền tảng Backend-as-a-Service (BaaS), dịch vụ lưu trữ dữ liệu (Storage) và quản lý phiên bản mã nguồn.'
+            : 'Application containerization, Backend-as-a-Service (BaaS) integration, cloud storage management, and clean version-controlled release workflows.',
       };
 
       return Object.keys(grouped).map((catName) => ({
@@ -115,25 +115,32 @@ const Skills = ({ data, sectionData, categoriesData }) => {
         title: 'AI',
         description:
           lang === 'vi'
-            ? 'Thiết kế RAG pipeline, tích hợp mô hình ngôn ngữ và hệ thống AI end-to-end.'
-            : 'RAG pipeline design, LLM integration, and end-to-end AI systems.',
+            ? 'Xây dựng, huấn luyện và đánh giá mô hình ML/DL; tinh chỉnh mô hình ngôn ngữ (Fine-tuning). Thiết kế RAG pipeline, tích hợp mô hình ngôn ngữ lớn (LLM) vào ứng dụng thực tế.'
+            : 'Building, training, and evaluating ML/DL models; fine-tuning LLMs. Architecting RAG pipelines and integrating large language models into production.',
         skills: [
+          { name: 'PyTorch' },
           { name: 'LangChain' },
           { name: 'Hugging Face' },
           { name: 'RAG Pipelines' },
+          { name: 'Notebook' },
         ],
       },
       {
         title: 'Software',
         description:
           lang === 'vi'
-            ? 'Kiến trúc phân tầng, API Type-safe, xác thực bảo mật và logic nghiệp vụ.'
-            : 'Layered architecture, type-safe APIs, auth, and business logic.',
+            ? 'Phát triển Full-stack toàn trình: xây dựng giao diện tối ưu (React/Next.js), thiết kế kiến trúc Backend phân tầng, API Type-safe, xác thực bảo mật và xử lý nghiệp vụ.'
+            : 'End-to-end Full-stack engineering: responsive modern UIs (React/Next.js), layered backend architectures, type-safe APIs, and robust security.',
         skills: [
           { name: 'Python' },
-          { name: 'FastAPI' },
+          { name: 'Java' },
+          { name: 'TypeScript' },
+          { name: 'JavaScript' },
+          { name: 'Next.js' },
+          { name: 'React' },
           { name: 'Node.js' },
           { name: 'NestJS' },
+          { name: 'Django' },
           { name: 'Spring Boot 3' },
         ],
       },
@@ -141,26 +148,27 @@ const Skills = ({ data, sectionData, categoriesData }) => {
         title: 'Data',
         description:
           lang === 'vi'
-            ? 'Thiết kế schema, tối ưu truy vấn và giữ dữ liệu nhất quán cho sản phẩm.'
-            : 'Schema design, query optimization, and data consistency for product workloads.',
+            ? 'Thiết kế schema chuẩn hóa (SQL/NoSQL), tối ưu hóa chỉ mục và câu truy vấn; trích xuất, tiền xử lý và lưu trữ dữ liệu phân tích quy mô lớn.'
+            : 'Designing normalized SQL/NoSQL schemas, optimizing complex queries and indexing; extracting, preprocessing, and managing analytical data at scale.',
         skills: [
           { name: 'PostgreSQL' },
           { name: 'MySQL' },
           { name: 'MongoDB' },
           { name: 'Redis' },
+          { name: 'BigQuery' },
         ],
       },
       {
         title: 'Delivery',
         description:
           lang === 'vi'
-            ? 'Containerization, môi trường triển khai và quy trình release ổn định.'
-            : 'Containerization, deployment environments, and reliable release workflows.',
+            ? 'Đóng gói ứng dụng (Containerization), tích hợp nền tảng Backend-as-a-Service (BaaS), dịch vụ lưu trữ dữ liệu (Storage) và quản lý phiên bản mã nguồn.'
+            : 'Application containerization, Backend-as-a-Service (BaaS) integration, cloud storage management, and clean version-controlled release workflows.',
         skills: [
           { name: 'Docker' },
-          { name: 'AWS' },
-          { name: 'BullMQ' },
           { name: 'Supabase' },
+          { name: 'Cloud Storage' },
+          { name: 'Git' },
         ],
       },
     ];
@@ -176,10 +184,10 @@ const Skills = ({ data, sectionData, categoriesData }) => {
           'Sử dụng AI Agents hiệu quả',
         ]
       : [
-          'Logical thinking & problem-solving',
-          'Proactive technology research',
-          'Teamwork',
-          'Proficiency with AI Agents',
+          'Logical Thinking & Problem Solving',
+          'Proactive Technology Research',
+          'Teamwork & Cross-functional Collaboration',
+          'AI Agents Workflow Proficiency',
         ]);
 
   const softSkills = softSkillList.map((name, index) => ({
@@ -219,8 +227,8 @@ const Skills = ({ data, sectionData, categoriesData }) => {
               <span>
                 {t.skills.techHeading ||
                   (lang === 'vi'
-                    ? 'Kỹ năng Kỹ thuật & Nền tảng Công nghệ'
-                    : 'Technical Capabilities & Technology Stack')}
+                    ? 'Kỹ năng chuyên môn'
+                    : 'TECHNICAL EXPERTISE')}
               </span>
             </div>
 
@@ -275,8 +283,8 @@ const Skills = ({ data, sectionData, categoriesData }) => {
               <span>
                 {t.skills.softHeading ||
                   (lang === 'vi'
-                    ? 'Kỹ năng Mềm'
-                    : 'Soft Skills')}
+                    ? 'Kỹ năng mềm'
+                    : 'SOFT SKILLS')}
               </span>
             </div>
 
