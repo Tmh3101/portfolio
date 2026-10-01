@@ -87,40 +87,13 @@ export const translations = {
       title2: 'Phương pháp Làm việc',
       description:
         'Tổng hòa giữa bộ công cụ công nghệ chuyên sâu (Applied AI, Backend, Data, Cloud) và văn hóa kỹ nghệ chuẩn mực, tư duy giải quyết vấn đề thực tế.',
-      filterAll: 'Tất cả',
-      filterTech: 'Kỹ năng Kỹ thuật',
-      filterSoft: 'Kỹ năng Mềm & Tư duy',
       techHeading: 'Kỹ năng Kỹ thuật & Nền tảng Công nghệ',
-      softHeading: 'Kỹ năng Mềm & Văn hóa Kỹ nghệ',
+      softHeading: 'Kỹ năng Mềm & Phẩm chất Kỹ sư',
       softSkills: [
-        {
-          code: '01',
-          title: 'Làm chủ Toàn trình & Tự chủ (Ownership)',
-          tag: 'END-TO-END DELIVERY',
-          description:
-            'Chủ động làm chủ toàn trình từ khâu đào sâu nghiệp vụ, đề xuất kiến trúc, hiện thực hóa mã nguồn cho tới triển khai production và giám sát vận hành; cam kết về chất lượng và tiến độ sản phẩm.',
-        },
-        {
-          code: '02',
-          title: 'Nghiên cứu Ứng dụng & Tư duy Thực nghiệm',
-          tag: 'EMPIRICAL RESEARCH',
-          description:
-            'Năng lực đọc hiểu và thẩm định các nghiên cứu mới (AI/ML papers), thực nghiệm đối sánh (empirical benchmarking) khách quan, và biến các giải pháp lý thuyết thành hệ thống phần mềm chạy thực tế.',
-        },
-        {
-          code: '03',
-          title: 'Tư duy Hệ thống & Kỹ nghệ Chuẩn mực',
-          tag: 'SYSTEMS THINKING',
-          description:
-            'Tiếp cận bài toán với tư duy kiến trúc phân tầng rõ ràng, coi trọng tính type-safe, idempotency, bảo mật đa lớp (RBAC, Rate Limiting), khả năng mở rộng và tính dễ bảo trì lâu dài của codebase.',
-        },
-        {
-          code: '04',
-          title: 'Giao tiếp Kỹ thuật & Phối hợp Đa chức năng',
-          tag: 'CROSS-FUNCTIONAL SYNC',
-          description:
-            'Diễn đạt vấn đề kỹ thuật súc tích, viết tài liệu kiến trúc/API chuẩn mực, trao đổi minh bạch về các trade-offs kỹ thuật và phối hợp hiệu quả với Product & Business stakeholders.',
-        },
+        'Tư duy logic & giải quyết vấn đề',
+        'Chủ động nghiên cứu công nghệ',
+        'Làm việc nhóm & phối hợp',
+        'Thích ứng nhanh trong môi trường áp lực cao',
       ],
     },
     experience: {
@@ -424,40 +397,13 @@ export const translations = {
       title2: 'Engineering Mindset',
       description:
         'A synthesis of robust technical capabilities (Applied AI, Backend, Data, Cloud) and disciplined engineering practices with an applied problem-solving mindset.',
-      filterAll: 'All',
-      filterTech: 'Technical Stack',
-      filterSoft: 'Soft Skills & Mindset',
       techHeading: 'Technical Capabilities & Technology Stack',
-      softHeading: 'Professional Skills & Engineering Culture',
+      softHeading: 'Professional & Soft Skills',
       softSkills: [
-        {
-          code: '01',
-          title: 'End-to-End Ownership & Autonomy',
-          tag: 'END-TO-END DELIVERY',
-          description:
-            'Taking full ownership from business requirement analysis and system architecture design to production deployment and monitoring; committed to shipping reliable, high-quality software.',
-        },
-        {
-          code: '02',
-          title: 'Applied Research & Empirical Mindset',
-          tag: 'EMPIRICAL RESEARCH',
-          description:
-            'Proven capability to read, critique, and synthesize research papers (AI/ML), conduct rigorous empirical benchmarking, and translate theoretical models into production-ready software systems.',
-        },
-        {
-          code: '03',
-          title: 'Systems Thinking & Code Craftsmanship',
-          tag: 'SYSTEMS THINKING',
-          description:
-            'Approaching engineering challenges through clean layered architectures, emphasizing type-safety, idempotency, multi-tier security (RBAC, Rate Limiting), maintainability, and horizontal scalability.',
-        },
-        {
-          code: '04',
-          title: 'Technical Communication & Cross-functional Sync',
-          tag: 'CROSS-FUNCTIONAL SYNC',
-          description:
-            'Communicating complex technical concepts concisely, writing comprehensive API and architecture documentation, articulating architectural trade-offs, and collaborating seamlessly across disciplines.',
-        },
+        'Logical thinking & problem-solving',
+        'Proactive technology research',
+        'Teamwork',
+        'Rapid adaptation to high-pressure environments',
       ],
     },
     experience: {
