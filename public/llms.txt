@@ -1,0 +1,69 @@
+# Trần Minh Hiểu - AI Software Engineer
+
+> Kỹ sư Khoa học Máy tính (chuyên sâu AI) tốt nghiệp Đại học Cần Thơ (GPA 3.64/4.00 Loại Giỏi), Đồ án tốt nghiệp Graph AI (điểm 9.8/10). Chuyên sâu về Graph Neural Networks (GNN), Production RAG Pipelines, Multi-tenant SaaS và kiến trúc hệ thống backend phân tầng.
+
+## Thông tin cốt lõi (Identity & Links)
+
+- **Họ và tên**: Trần Minh Hiểu (Tran Minh Hieu)
+- **Vai trò**: AI Software Engineer / Full-stack Developer
+- **Website chính thức**: https://hieutm.id.vn
+- **Tài liệu cho AI (LLM Index)**: https://hieutm.id.vn/llms.txt
+- **Tài liệu toàn trình (Full Dossier)**: https://hieutm.id.vn/llms-full.txt
+- **Email**: hieutm.site@gmail.com
+- **GitHub**: https://github.com/Tmh3101
+- **LinkedIn**: https://linkedin.com/in/tmh3101
+- **Mã nguồn Portfolio**: https://github.com/Tmh3101/portfolio
+- **Vị trí**: Cần Thơ / TP. Hồ Chí Minh, Việt Nam
+
+## Học vấn & Thành tích (Education & Credentials)
+
+- **Đại học Cần Thơ (Can Tho University)**: Kỹ sư Khoa học Máy tính (Chuyên sâu AI) | 09/2021 - 12/2025
+  - GPA: **3.64 / 4.00** (Tốt nghiệp Loại Giỏi)
+  - Điểm Khóa luận tốt nghiệp: **9.8 / 10** (SybilSignal - Hệ thống phát hiện tài khoản bất thường trên Social Graph với mạng nơ-ron đồ thị)
+
+## Năng lực Chuyên môn (Core Technical Competencies)
+
+- **AI & Data Science**: PyTorch, LangChain, Hugging Face, Graph Neural Networks (GATv2, GCN), RAG Pipelines (Vanilla RAG, HyDE RAG), Fine-tuning LLM, Recommender Systems (LightGBM, Two-Tower DSSM), Jupyter Notebook.
+- **Software Engineering**: Python, Java, TypeScript, JavaScript, Next.js 15, React, Node.js, NestJS, Django, FastAPI, Spring Boot 3.
+- **Databases & Caching**: PostgreSQL, pgvector (Vector Database), MySQL, MongoDB, Redis (Cache & Task Queue), Google BigQuery.
+- **System Architecture & Cloud**: Docker, Supabase, Cloud Storage, RESTful API, Microservices, Clean Architecture, Git.
+
+## Dự án Tiêu biểu (Featured Projects)
+
+- **Vielora - Nền tảng AI Chatbot SaaS Đa mục đích (Flagship Project)**
+  - Hệ thống AI Chatbot SaaS Multi-tenant hoàn chỉnh, giúp tạo trợ lý AI 24/7 tức thì.
+  - Thiết kế production RAG pipeline với hybrid search (dense vector + full-text) sử dụng PostgreSQL/pgvector.
+  - Hàng đợi tác vụ nền bất đồng bộ (Redis / BullMQ), tích hợp Google Gemini API, thanh toán tự động payOS, xuất hóa đơn điện tử EasyInvoice.
+  - Tech stack: Next.js, Node.js, Express, PostgreSQL, pgvector, Redis, BullMQ.
+
+- **SybilSignal - Hệ thống phát hiện tài khoản bất thường trên Social Graph với Graph AI**
+  - Đồ án tốt nghiệp đạt điểm 9.8/10.
+  - Trích xuất và tiền xử lý dữ liệu on-chain Lens Protocol từ BigQuery sang đồ thị 4 tầng.
+  - Thiết kế và thử nghiệm kiến trúc tách rời (GATv2 + Random Forest) hóa giải hiện tượng over-smoothing và mất cân bằng nhãn.
+  - Dashboard Next.js + FastAPI trực quan hóa Attention Weights.
+  - Tech stack: PyTorch, PyTorch Geometric, FastAPI, Next.js, Google BigQuery, Scikit-learn.
+
+- **Xpervia - AI LMS & Recommender Engine**
+  - Nền tảng quản lý học tập tích hợp RAG Assistant & Gợi ý khóa học cá nhân hóa.
+  - Thực nghiệm đối sánh hiệu quả giữa Vanilla RAG và HyDE RAG; fine-tune mô hình ngôn ngữ mã nguồn mở.
+  - Recommender System 2 giai đoạn: Candidate Generation (Two-Tower DSSM) + Ranking (LightGBM).
+  - Tech stack: FastAPI, Next.js, PyTorch, LightGBM, Docker, PostgreSQL.
+
+- **Slice SocialFi (SliceFi) - Cross-chain Bridge & Hệ thống xử lý giao dịch an toàn**
+  - Cầu nối token cross-chain giữa BNB Smart Chain và LensChain (cơ chế Lock/Mint & Burn/Unlock).
+  - Hàng đợi tác vụ Redis xử lý luồng giao dịch Fiat-to-Crypto (tích hợp nạp token DNPAY) bảo đảm tính toàn vẹn dữ liệu.
+  - Tech stack: Solidity, Web3.js, NestJS, Redis, BullMQ, Docker.
+
+- **Giftcards.vn - Giải pháp quà tặng doanh nghiệp**
+  - Tích hợp cổng thanh toán DNPAY Merchant.
+  - Thiết kế cơ chế retry payment flow giảm thiểu tỷ lệ rớt đơn hàng và tối ưu luồng đặt hàng.
+  - Tech stack: NestJS, MongoDB, Redis, React.
+
+## Kinh nghiệm Làm việc (Experience)
+
+- **TITOPS VIETNAM CO., LTD.**: Full-stack Developer Intern (09/2025 - 11/2025)
+  - Dự án Giftcards: Tích hợp cổng thanh toán DNPAY Merchant, cải thiện luồng đặt hàng và xử lý retry thanh toán an toàn.
+  - Stack: NestJS, MongoDB, Redis, ReactJS.
+- **Enterprise Identity Service**: Backend Engineer (08/2024 - 09/2024)
+  - Kiến trúc phân lớp, xác thực JWT + OAuth2, RBAC, hashing mật khẩu, refresh token rotation và token revocation list.
+  - Stack: Spring Boot 3, Java, Spring Security, Spring Data JPA, MySQL.

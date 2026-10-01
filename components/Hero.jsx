@@ -213,21 +213,21 @@ const Hero = ({ data, settings, socialLinks, onOpenResume }) => {
                 </div>
               )}
 
-              <div className="divide-y divide-border font-mono text-xs">
+              <dl className="divide-y divide-border font-mono text-xs">
                 {specList.map((item) => (
                   <div
                     key={item.label}
                     className="flex flex-col sm:flex-row sm:items-baseline justify-between py-3 gap-1"
                   >
-                    <span className="text-muted-foreground uppercase tracking-wider shrink-0 sm:w-28">
+                    <dt className="text-muted-foreground uppercase tracking-wider shrink-0 sm:w-28">
                       {item.label}
-                    </span>
-                    <span className="text-foreground sm:text-right break-words font-normal">
+                    </dt>
+                    <dd className="text-foreground sm:text-right break-words font-normal m-0">
                       {item.value}
-                    </span>
+                    </dd>
                   </div>
                 ))}
-              </div>
+              </dl>
             </div>
           </motion.div>
         </div>

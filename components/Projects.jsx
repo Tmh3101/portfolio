@@ -128,16 +128,16 @@ const Projects = ({ data }) => {
                       )}
                     </div>
 
-                    <div className="mt-4 flex flex-wrap gap-1.5">
+                    <ul className="mt-4 flex flex-wrap gap-1.5 list-none p-0 m-0" role="list">
                       {project.tech.map((tag) => (
-                        <span
+                        <li
                           key={tag}
                           className="font-mono text-[11px] text-muted-foreground bg-card border border-border px-2 py-0.5 rounded"
                         >
                           {tag}
-                        </span>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
 
                   {/* Actions */}
