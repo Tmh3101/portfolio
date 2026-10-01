@@ -49,8 +49,11 @@ const Hero = ({ data, settings, socialLinks, onOpenResume }) => {
   const contactEmail = settings?.email || defaultSiteConfig.email;
   const resumeUrl = settings?.resume_url || defaultSiteConfig.resumeUrl;
 
-  const socialOrder = ['Github', 'Linkedin', 'Facebook'];
-  const sortedSocial = [...(socialLinks || [])].sort(
+  const socialOrder = ['Github', 'Linkedin'];
+  const filteredSocial = (socialLinks || []).filter(
+    (link) => link.name?.toLowerCase() !== 'facebook' && link.icon?.toLowerCase() !== 'facebook'
+  );
+  const sortedSocial = [...filteredSocial].sort(
     (a, b) => socialOrder.indexOf(a.icon) - socialOrder.indexOf(b.icon)
   );
   const quickLinks =

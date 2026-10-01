@@ -1,6 +1,6 @@
 -- Portfolio DB backup
 -- project: https://uhhmsyhsbcvfvilphwdk.supabase.co
--- generated: 2026-10-01T09:56:39.592Z
+-- generated: 2026-10-01T10:02:53.778Z
 
 
 -- table: site_settings (1 rows)
@@ -77,9 +77,8 @@ INSERT INTO experiences (id, company, role_vi, location_vi, start_date, end_date
 INSERT INTO experiences (id, company, role_vi, location_vi, start_date, end_date, is_current, description_vi, highlights_vi, technologies, sort_order, created_at, updated_at, role_en, location_en, description_en, highlights_en, type) VALUES (5, 'TITOPS VIETNAM CO., LTD.', 'Full-stack Developer Intern', 'Việt Nam', '2025-09-01', '2025-11-01', false, 'Giftcards - Giải pháp quà tặng doanh nghiệp. Tích hợp cổng thanh toán DNPAY, tối ưu luồng đặt hàng.', 'Tích hợp gateway DNPAY Merchant,Cải thiện luồng đặt hàng + tính năng retry thanh toán', 'NestJS,MongoDB,Redis,ReactJS', 2, '2026-08-16T06:39:44.423112+00:00', '2026-09-30T16:40:55.527111+00:00', 'Full-stack Developer Intern', 'Vietnam', 'Giftcards - Corporate Gift Solution. DNPAY payment integration, order flow optimization.', 'DNPAY Merchant gateway integration,Order flow optimization + payment retry feature', 'work');
 INSERT INTO experiences (id, company, role_vi, location_vi, start_date, end_date, is_current, description_vi, highlights_vi, technologies, sort_order, created_at, updated_at, role_en, location_en, description_en, highlights_en, type) VALUES (8, 'Identity Service', 'Backend Engineer', 'Việt Nam', '2024-08-01', '2024-09-01', false, 'Auth RESTful API: JWT + OAuth2, RBAC, password hashing, refresh token rotation.', 'Kiến trúc phân lớp, xác thực JWT + OAuth2,Hashing mật khẩu, rotation refresh token, revocation list', 'Spring Boot 3,Java,Spring Security,Spring Data JPA,MySQL', 3, '2026-08-16T06:39:44.423112+00:00', '2026-09-30T09:42:49.339271+00:00', 'Backend Engineer', 'Vietnam', 'Auth RESTful API: JWT + OAuth2, RBAC, password hashing, refresh token rotation.', 'Layered architecture, JWT + OAuth2 auth,Password hashing, refresh token rotation, revocation list', 'work');
 
--- table: social_links (3 rows)
+-- table: social_links (2 rows)
 INSERT INTO social_links (id, name, url, icon, sort_order, created_at, updated_at) VALUES (1, 'Github', 'https://github.com/Tmh3101', 'Github', 1, '2026-03-16T14:45:42.295176+00:00', '2026-03-16T14:47:49.140129+00:00');
-INSERT INTO social_links (id, name, url, icon, sort_order, created_at, updated_at) VALUES (2, 'Facebook', 'https://www.facebook.com/Tmh3101/', 'Facebook', 0, '2026-03-16T14:48:16.516262+00:00', '2026-03-16T15:27:59.54187+00:00');
 INSERT INTO social_links (id, name, url, icon, sort_order, created_at, updated_at) VALUES (3, 'LinkedIn', 'https://www.linkedin.com/in/tmh3101/', 'Linkedin', 2, '2026-03-16T14:50:17.065851+00:00', '2026-03-16T14:52:06.680153+00:00');
 
 -- table: tech_marquee (12 rows)

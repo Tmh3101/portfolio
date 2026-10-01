@@ -10,10 +10,8 @@ export const siteConfig = {
   github: 'https://github.com/Tmh3101',
   linkedin: 'https://linkedin.com/in/tmh3101',
   portfolioRepo: 'https://github.com/Tmh3101/portfolio',
-  facebook: 'https://www.facebook.com/Tmh3101/',
   sameAs: [
     'https://github.com/Tmh3101',
-    'https://www.facebook.com/Tmh3101/',
     'https://linkedin.com/in/tmh3101',
   ],
   siteTitle: 'Trần Minh Hiểu | AI Software Engineer',

@@ -54,14 +54,20 @@ const Contact = ({ socialLinks, settings }) => {
 
   const displaySocialLinks =
     socialLinks && socialLinks.length > 0
-      ? socialLinks.map((link) => ({
-          icon: IconMap[link.icon] || Globe,
-          href: link.url,
-          label: link.name,
-        }))
+      ? socialLinks
+          .filter(
+            (link) =>
+              link.name?.toLowerCase() !== 'facebook' &&
+              link.icon?.toLowerCase() !== 'facebook'
+          )
+          .map((link) => ({
+            icon: IconMap[link.icon] || Globe,
+            href: link.url,
+            label: link.name,
+          }))
       : [
           { icon: Github, href: settings?.github_url || siteConfig.github, label: 'GitHub' },
-          { icon: Facebook, href: siteConfig.facebook, label: 'Facebook' },
+          { icon: Linkedin, href: siteConfig.linkedin, label: 'LinkedIn' },
         ];
 
   const handleSubmit = async (event) => {
