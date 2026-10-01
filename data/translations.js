@@ -14,7 +14,7 @@ export const translations = {
       title1: 'Kiến trúc Hệ thống &',
       title2: 'Nền tảng AI Ứng dụng',
       description: [
-        'Tốt nghiệp Kỹ sư Khoa học Máy tính (chuyên sâu AI) tại Đại học Cần Thơ (GPA 3.64/4.00), tôi rèn giũa năng lực từ nghiên cứu mô hình đến xây dựng phần mềm hoàn chỉnh qua đồ án SybilSignal (GNN + ML, điểm 9.8/10) và nền tảng LMS thông minh Xpervia (RAG chatbot & Recommender System).',
+        'Tốt nghiệp Kỹ sư Khoa học Máy tính (chuyên sâu AI) tại Đại học Cần Thơ (GPA 3.64/4.00), có nền tảng năng lực từ nghiên cứu, huấn luyện mô hình đến xây dựng phần mềm hoàn chỉnh qua đồ án tốt nghiệp SybilSignal (GNN + ML, điểm 9.8/10) và nền tảng LMS thông minh Xpervia (RAG chatbot & Recommender System).',
         'Trong môi trường làm việc thực tế, tôi tiếp cận AI dưới góc nhìn kỹ sư hệ thống. Với tinh thần chủ động học hỏi, tôi luôn sẵn sàng thử sức với các bài toán và công nghệ mới để tạo ra giá trị bền vững.',
       ],
       noteLabel: 'ROLE MỤC TIÊU',
