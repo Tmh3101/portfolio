@@ -14,7 +14,7 @@ import Experience from '../../../components/Experience.jsx';
 import { apiUrl } from '../../../lib/api.js';
 
 export default function PortfolioPage({ cmsData }) {
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState('light');
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
