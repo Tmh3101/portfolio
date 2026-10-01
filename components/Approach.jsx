@@ -59,13 +59,27 @@ const Approach = ({ data, sectionData }) => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.2 }}
-              className="font-display text-3xl md:text-4xl font-bold tracking-tight text-foreground"
+              className="font-display text-3xl md:text-4xl font-bold tracking-tight text-foreground text-balance"
             >
-              {section.title1} {section.title2}
+              {section.title1 && <span className="block">{section.title1}</span>}
+              <span>{section.title2}</span>
             </motion.h2>
-            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-              {section.description}
-            </p>
+            {Array.isArray(section.description) ? (
+              <div className="mt-4 space-y-4">
+                {section.description.map((paragraph, i) => (
+                  <p
+                    key={i}
+                    className="text-base leading-relaxed text-muted-foreground"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            ) : (
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+                {section.description}
+              </p>
+            )}
 
             {section.note && (
               <div className="mt-8 rounded-md border border-border bg-card p-5">

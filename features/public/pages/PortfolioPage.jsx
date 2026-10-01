@@ -9,18 +9,21 @@ import Projects from '../../../components/Projects';
 import Skills from '../../../components/Skills';
 import Contact from '../../../components/Contact';
 import Approach from '../../../components/Approach.jsx';
-import Stats from '../../../components/Stats.jsx';
 import TechMarquee from '../../../components/TechMarquee.jsx';
 import Experience from '../../../components/Experience.jsx';
-import Resume from '../../../components/Resume.jsx';
+import ResumeModal from '../../../components/ResumeModal';
 import { apiUrl } from '../../../lib/api.js';
 
 export default function PortfolioPage({ cmsData }) {
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState('light');
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
   };
+
+  const handleOpenResume = () => setIsResumeOpen(true);
+  const handleCloseResume = () => setIsResumeOpen(false);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -91,11 +94,15 @@ export default function PortfolioPage({ cmsData }) {
     <MotionConfig reducedMotion="user">
       <div className="relative isolate min-h-screen overflow-x-hidden bg-background">
         <div className="relative z-10">
-          <Navbar toggleTheme={toggleTheme} theme={theme} />
+          <Navbar toggleTheme={toggleTheme} theme={theme} onOpenResume={handleOpenResume} />
           <main className="pb-6">
-            <Hero data={cmsData.hero} settings={cmsData.settings} socialLinks={cmsData.socialLinks} />
+            <Hero
+              data={cmsData.hero}
+              settings={cmsData.settings}
+              socialLinks={cmsData.socialLinks}
+              onOpenResume={handleOpenResume}
+            />
             <TechMarquee data={cmsData.techMarquee} />
-            <Stats data={cmsData.stats} />
             <Approach data={cmsData.approaches} sectionData={cmsData.approachSection} />
             <Skills
               data={cmsData.skills}
@@ -104,11 +111,15 @@ export default function PortfolioPage({ cmsData }) {
             />
             <Projects data={cmsData.projects} />
             <Experience data={cmsData.experiences} sectionData={cmsData.experienceSection} />
-            <Resume experiences={cmsData.experiences} skills={cmsData.skills} />
             <Contact socialLinks={cmsData.socialLinks} settings={cmsData.settings} />
           </main>
           <Footer settings={cmsData.settings} />
         </div>
+        <ResumeModal
+          isOpen={isResumeOpen}
+          onClose={handleCloseResume}
+          resumeUrl={cmsData.settings?.resume_url}
+        />
       </div>
     </MotionConfig>
   );

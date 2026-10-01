@@ -30,7 +30,7 @@ const IconMap = {
   Phone,
 };
 
-const Hero = ({ data, settings, socialLinks }) => {
+const Hero = ({ data, settings, socialLinks, onOpenResume }) => {
   const { t, lang } = useLanguage();
   const localizedName = getLocalizedName(lang);
 
@@ -49,8 +49,11 @@ const Hero = ({ data, settings, socialLinks }) => {
   const contactEmail = settings?.email || defaultSiteConfig.email;
   const resumeUrl = settings?.resume_url || defaultSiteConfig.resumeUrl;
 
-  const socialOrder = ['Github', 'Linkedin', 'Facebook'];
-  const sortedSocial = [...(socialLinks || [])].sort(
+  const socialOrder = ['Github', 'Linkedin'];
+  const filteredSocial = (socialLinks || []).filter(
+    (link) => link.name?.toLowerCase() !== 'facebook' && link.icon?.toLowerCase() !== 'facebook'
+  );
+  const sortedSocial = [...filteredSocial].sort(
     (a, b) => socialOrder.indexOf(a.icon) - socialOrder.indexOf(b.icon)
   );
   const quickLinks =
@@ -85,7 +88,12 @@ const Hero = ({ data, settings, socialLinks }) => {
   const roles =
     lang === 'en' && data?.roles_en?.length > 0
       ? data.roles_en
-      : data?.roles_vi || [t.hero.focusValue, t.hero.opportunityValue, t.hero.noteValue];
+      : data?.roles_vi || [
+          t.hero.focusValue,
+          t.hero.opportunityValue,
+          t.hero.noteValue,
+          t.hero.experienceValue,
+        ];
 
   const detailCards = [
     {
@@ -100,14 +108,13 @@ const Hero = ({ data, settings, socialLinks }) => {
       label: getLoc('role3_label') || t.hero.noteLabel,
       value: roles[2] || t.hero.noteValue,
     },
-  ];
+    {
+      label: getLoc('role4_label') || t.hero.experienceLabel,
+      value: roles[3] || t.hero.experienceValue,
+    },
+  ].filter((item) => item.label && item.value);
 
-  const specList = [
-    ...detailCards.slice(0, 3).map((item) => ({
-      label: item.label,
-      value: item.value,
-    })),
-  ];
+  const specList = detailCards;
 
   return (
     <section
@@ -155,13 +162,14 @@ const Hero = ({ data, settings, socialLinks }) => {
                 {getLoc('cta_primary_label') || t.hero.btnContact}
                 <ArrowRight size={16} />
               </a>
-              <a
-                href={data?.cta_secondary_href || resumeUrl}
-                className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-900"
+              <button
+                type="button"
+                onClick={onOpenResume || (() => window.open(data?.cta_secondary_href || resumeUrl, '_blank'))}
+                className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer"
               >
                 {getLoc('cta_secondary_label') || t.hero.btnResume}
                 <ArrowUpRight size={16} />
-              </a>
+              </button>
             </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 pt-6 border-t border-border">

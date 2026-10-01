@@ -73,30 +73,89 @@ const Experience = ({ data, sectionData }) => {
     // Static Fallback
     return [
       {
-        company: 'TMA Solutions',
-        role: 'Backend Developer',
-        period: lang === 'vi' ? '08/2025 - Hiện tại' : '08/2025 - Present',
+        company: 'TITOPS VIETNAM CO., LTD.',
+        role: 'AI Software Engineer',
+        period: lang === 'vi' ? '01/2026 - Hiện tại' : '01/2026 - Present',
         description:
           lang === 'vi'
-            ? 'Phát triển backend services bằng Python và FastAPI.'
-            : 'Building backend services with Python and FastAPI.',
+            ? 'Vielora - Nền tảng AI Chatbot SaaS cho website. Thiết kế RAG pipeline (Gemini + pgvector), kiến trúc multi-tenant, queue bất đồng bộ (Redis/BullMQ), tích hợp thanh toán.'
+            : 'Vielora - AI Chatbot SaaS Platform. Built RAG pipeline (Gemini + pgvector), multi-tenant architecture, async queues (Redis/BullMQ), payment integration.',
         highlights:
           lang === 'vi'
-            ? ['Xây dựng API layers.', 'Tối ưu dữ liệu.']
-            : ['Built API layers.', 'Data optimization.'],
+            ? [
+                'Thiết kế RAG end-to-end với hybrid search (full-text + vector)',
+                'Kiến trúc multi-tenant workspace + REST API bảo mật (CORS, Rate Limiting, FingerprintJS)',
+                'Queue bất đồng bộ crawl/index/cron email',
+              ]
+            : [
+                'End-to-end RAG with hybrid search (full-text + vector)',
+                'Multi-tenant workspace + secured REST APIs (CORS, Rate Limiting, FingerprintJS)',
+                'Async queues for crawl/index/cron email',
+              ],
         type: 'work',
         is_current: true,
       },
       {
-        company: 'VKU University',
-        role: lang === 'vi' ? 'Sinh viên Kỹ thuật Phần mềm' : 'Software Engineering Student',
-        period: '2020 - 2025',
+        company: 'TITOPS VIETNAM CO., LTD. (Client: HVA Group)',
+        role: 'Backend Engineer Intern',
+        period: '11/2025 - 01/2026',
         description:
           lang === 'vi'
-            ? 'Tốt nghiệp chuyên ngành Kỹ thuật Phần mềm với nền tảng khoa học máy tính vững chắc.'
-            : 'Graduated in Software Engineering with strong foundations in computer science.',
-        highlights: [],
-        type: 'education',
+            ? 'Slice SocialFi - Nền tảng mạng xã hội Web3. Cross-chain token bridge, queue xử lý giao dịch bất đồng bộ, container hóa Docker/AWS EC2.'
+            : 'Slice SocialFi - Web3 Social Network. Cross-chain token bridge, async transaction queues, Docker/AWS EC2 deployment.',
+        highlights:
+          lang === 'vi'
+            ? [
+                'Cross-chain token bridge (BNB Smart Chain ↔ LensChain)',
+                'Queue Redis xử lý giao dịch an toàn (DNPAY Fiat-to-Crypto)',
+                'Container hóa microservices, deploy AWS EC2',
+              ]
+            : [
+                'Cross-chain token bridge (BNB Smart Chain ↔ LensChain)',
+                'Redis queue for safe tx flows (DNPAY Fiat-to-Crypto)',
+                'Docker microservices on AWS EC2',
+              ],
+        type: 'work',
+      },
+      {
+        company: 'TITOPS VIETNAM CO., LTD.',
+        role: 'Full-stack Developer Intern',
+        period: '09/2025 - 11/2025',
+        description:
+          lang === 'vi'
+            ? 'Giftcards - Giải pháp quà tặng doanh nghiệp. Tích hợp cổng thanh toán DNPAY, tối ưu luồng đặt hàng.'
+            : 'Giftcards - Corporate Gift Solution. DNPAY payment integration, order flow optimization.',
+        highlights:
+          lang === 'vi'
+            ? [
+                'Tích hợp gateway DNPAY Merchant',
+                'Cải thiện luồng đặt hàng + tính năng retry thanh toán',
+              ]
+            : [
+                'DNPAY Merchant gateway integration',
+                'Order flow optimization + payment retry feature',
+              ],
+        type: 'work',
+      },
+      {
+        company: 'Identity Service',
+        role: 'Backend Engineer',
+        period: '08/2024 - 09/2024',
+        description:
+          lang === 'vi'
+            ? 'Auth RESTful API: JWT + OAuth2, RBAC, password hashing, refresh token rotation.'
+            : 'Auth RESTful API: JWT + OAuth2, RBAC, password hashing, refresh token rotation.',
+        highlights:
+          lang === 'vi'
+            ? [
+                'Kiến trúc phân lớp, xác thực JWT + OAuth2',
+                'Hashing mật khẩu, rotation refresh token, revocation list',
+              ]
+            : [
+                'Layered architecture, JWT + OAuth2 auth',
+                'Password hashing, refresh token rotation, revocation list',
+              ],
+        type: 'personal',
       },
     ];
   }, [data, lang]);
@@ -143,6 +202,11 @@ const Experience = ({ data, sectionData }) => {
                 {exp.type === 'education' && (
                   <span className="block mt-1 text-[10px] uppercase tracking-wider text-muted-foreground">
                     [{section.educationLabel}]
+                  </span>
+                )}
+                {(exp.type === 'personal' || exp.company?.toLowerCase().includes('identity service')) && (
+                  <span className="block mt-1 text-[10px] uppercase tracking-wider text-muted-foreground">
+                    [{lang === 'vi' ? 'Dự án cá nhân' : 'Personal project'}]
                   </span>
                 )}
               </div>

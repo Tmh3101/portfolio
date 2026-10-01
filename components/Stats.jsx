@@ -21,61 +21,53 @@ const Stats = ({ data }) => {
       : lang === 'vi'
         ? [
             {
-              count: 1,
+              count: 3.64,
+              suffix: '/4.0',
+              title: 'GPA Kỹ sư CNTT (Loại Giỏi)',
+              copy: 'Đại học Cần Thơ',
+            },
+            {
+              count: 9.8,
+              suffix: '/10',
+              title: 'Điểm Khóa luận Tốt nghiệp',
+              copy: 'Graph Neural Networks',
+            },
+            {
+              count: 5,
               suffix: '+',
-              title: 'Năm kinh nghiệm',
-              copy: 'Từ giai đoạn intern đến backend product work trong môi trường thực tế.',
-            },
-            {
-              count: 1,
-              suffix: '+',
-              title: 'Freelance work',
-              copy: 'Các project nhận ngoài công việc chính, tập trung vào backend và workflow thực tế.',
-            },
-            {
-              count: 3,
-              suffix: '',
-              title: 'Ưu tiên chính',
-              copy: 'APIs, data flow và integrations cho các workflow nghiệp vụ.',
-            },
-            {
-              count: 4,
-              suffix: '',
-              title: 'Trụ cột kỹ năng',
-              copy: 'Backend, data, delivery và support cho end-to-end flow.',
+              title: 'Dự án Production & R&D',
+              copy: 'SaaS, Distributed, AI',
             },
           ]
         : [
             {
-              count: 1,
+              count: 3.64,
+              suffix: '/4.0',
+              title: 'Honors CS Degree',
+              copy: 'Can Tho University',
+            },
+            {
+              count: 9.8,
+              suffix: '/10',
+              title: 'Graduation Thesis Score',
+              copy: 'Graph Neural Networks',
+            },
+            {
+              count: 5,
               suffix: '+',
-              title: 'Years experience',
-              copy: 'From internship work into backend product delivery in real environments.',
-            },
-            {
-              count: 1,
-              suffix: '+',
-              title: 'Freelance work',
-              copy: 'Selected work outside full-time roles, focused on backend delivery and practical workflows.',
-            },
-            {
-              count: 3,
-              suffix: '',
-              title: 'Current priorities',
-              copy: 'APIs, data flow, and integrations for real business workflows.',
-            },
-            {
-              count: 4,
-              suffix: '',
-              title: 'Core pillars',
-              copy: 'Backend, data, delivery, and support across the full product flow.',
+              title: 'Production & R&D Projects',
+              copy: 'SaaS, Distributed, AI',
             },
           ];
 
   return (
     <section className="px-6 pb-16 md:px-10 lg:px-20 xl:px-24">
       <div className="container mx-auto">
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div
+          className={`grid gap-4 md:grid-cols-2 ${
+            statsData.length === 3 ? 'lg:grid-cols-3' : 'xl:grid-cols-4'
+          }`}
+        >
           {statsData.map((stat, index) => (
             <motion.div
               key={stat.title}
