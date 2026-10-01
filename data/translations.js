@@ -13,10 +13,12 @@ export const translations = {
       eyebrow: 'ABOUT ME',
       title1: 'Kiến trúc Hệ thống &',
       title2: 'Nền tảng AI Ứng dụng',
-      description:
-        'Tôi là một AI Software Engineer với nền tảng Khoa học Máy tính bài bản, tập trung vào việc thiết kế và vận hành các hệ thống phần mềm có độ ổn định cao. Tôi tiếp cận AI dưới góc nhìn kỹ thuật hệ thống: lấy kiến trúc phân tầng vững chắc, hàng đợi bất đồng bộ và tính toàn vẹn dữ liệu làm bệ phóng để đưa các giải pháp AI (Production RAG, Graph AI) cùng công nghệ phân tán vào giải quyết trực diện các bài toán thực tế.',
+      description: [
+        'Tốt nghiệp Kỹ sư Khoa học Máy tính (chuyên sâu Trí tuệ Nhân tạo) tại Đại học Cần Thơ với GPA 3.64/4.00, tôi xây dựng năng lực kỹ thuật từ các dự án AI hệ thống và ứng dụng thực tiễn. Quá trình nghiên cứu và phát triển — từ đồ án tốt nghiệp xuất sắc SybilSignal (ứng dụng Graph Neural Networks phân tích đồ thị on-chain, đạt điểm 9.8/10) đến nền tảng học tập Xpervia (tích hợp RAG chatbot và hệ thống gợi ý lai) — đã rèn luyện cho tôi khả năng làm chủ toàn trình một giải pháp AI: từ tiền xử lý dữ liệu, mô hình hóa giải thuật đến đóng gói và trực quan hóa thời gian thực.',
+        'Bước vào môi trường sản xuất, tôi tiếp cận AI dưới lăng kính kỹ thuật hệ thống: lấy kiến trúc phân tầng chuẩn mực, hàng đợi bất đồng bộ và tính toàn vẹn dữ liệu làm bệ phóng vững chắc để đưa các giải pháp AI (Production RAG) cùng công nghệ phân tán vào vận hành thực tế.',
+      ],
       noteLabel: 'ROLE MỤC TIÊU',
-      note: 'AI Software Engineer / Backend Engineer tại các đội ngũ sản phẩm SaaS, FinTech hoặc Web3/R&D — nơi tìm kiếm kỹ sư có tư duy phần mềm bài bản, khả năng làm chủ toàn trình từ thiết kế kiến trúc đến tích hợp các giải pháp AI tin cậy.',
+      note: 'AI Software Engineer / Backend Engineer tại các đội ngũ phát triển sản phẩm SaaS, FinTech hoặc Web3/R&D — nơi tìm kiếm kỹ sư có nền tảng Khoa học Máy tính bài bản, tư duy hệ thống vững chắc và khả năng làm chủ toàn trình vòng đời giải pháp AI.',
       items: [
         {
           title: 'Ứng dụng AI & Production RAG',
@@ -323,10 +325,12 @@ export const translations = {
       eyebrow: 'ABOUT ME',
       title1: 'Software Systems &',
       title2: 'Applied AI',
-      description:
-        'I am an AI Software Engineer with a strong Computer Science foundation, dedicated to designing and operating highly resilient software systems. I approach AI through an engineering lens: leveraging clean layered architectures, asynchronous task queues, and transactional integrity as the foundation to integrate applied AI (Production RAG, Graph AI) and decentralized technologies into real-world products.',
+      description: [
+        'Graduated with an Engineer\'s Degree in Computer Science (specializing in Artificial Intelligence) from Can Tho University with a 3.64/4.00 GPA, my technical foundation is anchored in both applied and systems-level AI projects. Through hands-on research and engineering — ranging from my graduation thesis SybilSignal (leveraging Graph Neural Networks for on-chain social graph analysis, graded 9.8/10) to architecting Xpervia (integrating RAG chatbots and hybrid recommender systems) — I developed end-to-end capabilities spanning data ingestion, model development, and real-time visualization.',
+        'In production environments, I approach AI through a disciplined software engineering lens: leveraging clean layered architectures, asynchronous task queues, and transactional data integrity as the bedrock to deploy resilient AI solutions (Production RAG) and decentralized technologies into real-world applications.',
+      ],
       noteLabel: 'TARGET ROLE',
-      note: 'AI Software Engineer / Backend Engineer in SaaS, FinTech, or Web3/R&D engineering teams seeking an engineer with solid system fundamentals, end-to-end ownership, and the capability to deploy reliable AI workflows into production.',
+      note: 'AI Software Engineer / Backend Engineer in SaaS, FinTech, or Web3/R&D engineering teams seeking an engineer with a strong academic Computer Science background, solid system craftsmanship, and the ability to take full ownership of the end-to-end AI lifecycle.',
       items: [
         {
           title: 'Applied AI & Production RAG',
