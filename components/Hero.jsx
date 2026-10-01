@@ -30,7 +30,7 @@ const IconMap = {
   Phone,
 };
 
-const Hero = ({ data, settings, socialLinks }) => {
+const Hero = ({ data, settings, socialLinks, onOpenResume }) => {
   const { t, lang } = useLanguage();
   const localizedName = getLocalizedName(lang);
 
@@ -159,13 +159,14 @@ const Hero = ({ data, settings, socialLinks }) => {
                 {getLoc('cta_primary_label') || t.hero.btnContact}
                 <ArrowRight size={16} />
               </a>
-              <a
-                href={data?.cta_secondary_href || resumeUrl}
-                className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-900"
+              <button
+                type="button"
+                onClick={onOpenResume || (() => window.open(data?.cta_secondary_href || resumeUrl, '_blank'))}
+                className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer"
               >
                 {getLoc('cta_secondary_label') || t.hero.btnResume}
                 <ArrowUpRight size={16} />
-              </a>
+              </button>
             </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 pt-6 border-t border-border">

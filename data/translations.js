@@ -9,6 +9,15 @@ export const translations = {
       profile: 'Hồ sơ online',
       resume: 'Mở CV',
     },
+    resumeModal: {
+      title: 'Hồ sơ năng lực (CV)',
+      badge: 'RESUME PREVIEW',
+      fileName: 'CV_TranMinhHieu.pdf',
+      download: 'Tải PDF',
+      openTab: 'Mở tab mới',
+      close: 'Đóng',
+      fallback: 'Trình duyệt không hỗ trợ xem trước PDF trực tiếp? Bạn có thể mở tab mới hoặc tải file về.',
+    },
     approach: {
       eyebrow: 'ABOUT ME',
       title1: 'Kiến trúc Hệ thống &',
@@ -320,6 +329,15 @@ export const translations = {
       contact: 'Contact',
       profile: 'Online Profile',
       resume: 'Open Resume',
+    },
+    resumeModal: {
+      title: 'Curriculum Vitae (CV)',
+      badge: 'RESUME PREVIEW',
+      fileName: 'CV_TranMinhHieu.pdf',
+      download: 'Download PDF',
+      openTab: 'Open in new tab',
+      close: 'Close',
+      fallback: 'Browser does not support inline PDF preview? You can open in a new tab or download the file.',
     },
     approach: {
       eyebrow: 'ABOUT ME',

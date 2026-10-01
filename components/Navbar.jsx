@@ -7,7 +7,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useToast } from '../context/ToastContext';
 import { siteConfig } from '../data/siteConfig';
 
-const Navbar = ({ theme, toggleTheme }) => {
+const Navbar = ({ theme, toggleTheme, onOpenResume }) => {
   const { lang, t, toggleLang } = useLanguage();
   const { showToast } = useToast();
   const [scrolled, setScrolled] = useState(false);
@@ -132,15 +132,14 @@ const Navbar = ({ theme, toggleTheme }) => {
 
           {/* Right Action buttons */}
           <div className="hidden sm:flex items-center gap-2">
-            <a
-              href={siteConfig.resumeUrl}
-              target="_blank"
-              rel="noreferrer"
+            <button
+              type="button"
+              onClick={onOpenResume || (() => window.open(siteConfig.resumeUrl, '_blank'))}
               className="inline-flex items-center gap-1 rounded-md border border-border bg-card px-3 py-1.5 font-mono text-xs text-foreground transition-colors hover:bg-muted"
             >
               <span>{t.nav.resume}</span>
               <ArrowUpRight size={13} />
-            </a>
+            </button>
 
             <button
               type="button"
@@ -217,16 +216,21 @@ const Navbar = ({ theme, toggleTheme }) => {
               </div>
 
               <div className="mt-3 pt-3 border-t border-border flex items-center justify-between gap-2">
-                <a
-                  href={siteConfig.resumeUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => setIsOpen(false)}
-                  className="inline-flex items-center gap-1 rounded border border-border px-3 py-1.5 text-foreground hover:bg-muted transition-colors"
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsOpen(false);
+                    if (onOpenResume) {
+                      onOpenResume();
+                    } else {
+                      window.open(siteConfig.resumeUrl, '_blank');
+                    }
+                  }}
+                  className="inline-flex items-center gap-1 rounded border border-border px-3 py-1.5 text-foreground hover:bg-muted transition-colors font-mono text-xs"
                 >
                   <span>{t.nav.resume}</span>
                   <ArrowUpRight size={12} />
-                </a>
+                </button>
 
                 <button
                   type="button"
