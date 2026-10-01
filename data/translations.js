@@ -18,7 +18,7 @@ export const translations = {
         'Trong môi trường làm việc thực tế, tôi tiếp cận AI dưới góc nhìn kỹ sư hệ thống. Với tinh thần chủ động học hỏi, tôi luôn sẵn sàng thử sức với các bài toán và công nghệ mới để tạo ra giá trị bền vững.',
       ],
       noteLabel: 'ROLE MỤC TIÊU',
-      note: 'AI Software Engineer tại các đội ngũ phát triển sản phẩm SaaS, FinTech hoặc R&D — nơi tìm kiếm kỹ sư có nền tảng Khoa học Máy tính vững vàng, tư duy hệ thống bài bản và khả năng làm chủ toàn trình giải pháp AI.',
+      note: 'AI Software Engineer tại các đội ngũ nghiên cứu và phát triển các sản phẩm AI, SaaS, FinTech — nơi tìm kiếm kỹ sư có nền tảng Khoa học Máy tính vững vàng, tư duy hệ thống bài bản và khả năng làm chủ toàn trình giải pháp AI.',
       items: [
         {
           title: 'Ứng dụng AI',
@@ -330,7 +330,7 @@ export const translations = {
         'In professional working environments, I approach AI from a systems engineering perspective. Driven by a proactive learning mindset, I am always ready to embrace emerging technologies and tackle new challenges to deliver sustainable value.',
       ],
       noteLabel: 'TARGET ROLE',
-      note: 'AI Software Engineer in SaaS, FinTech, or R&D engineering teams seeking an engineer with a solid Computer Science foundation, disciplined system craftsmanship, and end-to-end AI ownership.',
+      note: 'AI Software Engineer in teams researching and developing AI, SaaS, and FinTech products — seeking an engineer with a solid Computer Science foundation, disciplined system craftsmanship, and end-to-end AI ownership.',
       items: [
         {
           title: 'Applied AI',
