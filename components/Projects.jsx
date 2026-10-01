@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, ArrowUpRight, ExternalLink, Github, Lock } from 'lucide-react';
+import { ArrowUpRight, ExternalLink, Github, Lock } from 'lucide-react';
 import Image from 'next/image';
 import { useLanguage } from '../context/LanguageContext';
 import { projectData } from '../data/projectData';
@@ -45,13 +45,6 @@ const Projects = ({ data }) => {
     return Array.isArray(fallbackList) ? fallbackList : [];
   }, [data, lang]);
 
-  const [showAll, setShowAll] = useState(false);
-  const visibleProjects = useMemo(
-    () => (showAll ? projects : projects.slice(0, 4)),
-    [projects, showAll]
-  );
-  const hasMoreProjects = projects.length > 4;
-
   return (
     <section id="projects" className="px-6 py-20 md:px-10 lg:px-20 xl:px-24 border-t border-border">
       <div className="container mx-auto">
@@ -85,17 +78,15 @@ const Projects = ({ data }) => {
           </a>
         </div>
 
-        {visibleProjects.length ? (
+        {projects.length ? (
           <div>
             <div className="mb-4 flex items-center justify-between font-mono text-xs text-muted-foreground pb-2 border-b border-border">
               <span className="uppercase tracking-wider">{t.projects.archiveLabel}</span>
-              <span>
-                {visibleProjects.length}/{projects.length}
-              </span>
+              <span>0{projects.length}</span>
             </div>
 
             <div className="divide-y divide-border border-b border-border">
-              {visibleProjects.map((project, index) => (
+              {projects.map((project, index) => (
                 <motion.article
                   key={project.title}
                   initial={{ opacity: 0, y: 12 }}
@@ -120,13 +111,10 @@ const Projects = ({ data }) => {
                   {/* Details */}
                   <div className="md:col-span-6 flex flex-col justify-between h-full">
                     <div>
-                      <div className="flex items-center gap-3">
+                      <div>
                         <h3 className="font-display text-xl font-bold tracking-tight text-foreground">
                           {project.title}
                         </h3>
-                        <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground border border-border px-1.5 py-0.5 rounded">
-                          {project.featured ? t.projects.featuredLabel : project.status}
-                        </span>
                       </div>
 
                       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -196,22 +184,6 @@ const Projects = ({ data }) => {
                 </motion.article>
               ))}
             </div>
-
-            {hasMoreProjects && (
-              <div className="mt-8 flex justify-center">
-                <button
-                  type="button"
-                  onClick={() => setShowAll((current) => !current)}
-                  className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-4 py-2 font-mono text-xs text-foreground transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-900"
-                >
-                  {showAll ? t.projects.showLess : t.projects.showMore}
-                  <ArrowDown
-                    size={14}
-                    className={`transition-transform duration-200 ${showAll ? 'rotate-180' : ''}`}
-                  />
-                </button>
-              </div>
-            )}
           </div>
         ) : null}
       </div>

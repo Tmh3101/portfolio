@@ -65,11 +65,11 @@ export const translations = {
       btnResume: 'Mở CV',
     },
     projects: {
-      eyebrow: 'Selected Engineering & AI Projects',
-      title1: 'Dự án',
-      title2: 'đã triển khai',
+      eyebrow: 'PROJECTS',
+      title1: 'Projects',
+      title2: 'nổi bật',
       description:
-        'Danh sách rút gọn các project thể hiện cách tôi tổ chức backend, luồng dữ liệu và tích hợp cho những bài toán thực tế.',
+        'Danh sách các dự án tôi tham gia thiết kế và phát triển.',
       featuredLabel: 'Pinned',
       archiveLabel: 'Project list',
       viewAll: 'Khám phá GitHub',
@@ -377,11 +377,11 @@ export const translations = {
       btnResume: 'Open Resume',
     },
     projects: {
-      eyebrow: 'Selected Engineering & AI Projects',
-      title1: 'Projects',
-      title2: 'I have built',
+      eyebrow: 'PROJECTS',
+      title1: 'Featured',
+      title2: 'Projects',
       description:
-        'A curated selection of projects reflecting how I design software architecture, data pipelines, and applied AI systems for real-world scenarios.',
+        'A curated selection of projects I participated in designing and developing.',
       featuredLabel: 'Pinned',
       archiveLabel: 'Project list',
       viewAll: 'Explore GitHub',
