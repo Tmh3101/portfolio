@@ -23,7 +23,7 @@ export const translations = {
       title1: 'Kiến trúc Hệ thống &',
       title2: 'Nền tảng AI Ứng dụng',
       description: [
-        'Tốt nghiệp Kỹ sư Khoa học Máy tính (chuyên sâu AI) tại Đại học Cần Thơ (GPA 3.64/4.00), có nền tảng năng lực từ nghiên cứu, huấn luyện mô hình đến xây dựng phần mềm hoàn chỉnh qua đồ án tốt nghiệp SybilSignal (GNN + ML, điểm 9.8/10) và nền tảng LMS thông minh Xpervia (RAG chatbot & Recommender System).',
+        'Tốt nghiệp Kỹ sư Khoa học Máy tính (chuyên sâu AI) tại Đại học Cần Thơ (GPA 3.64/4.00), có nền tảng năng lực từ nghiên cứu, huấn luyện mô hình đến xây dựng phần mềm hoàn chỉnh. Đồ án tốt nghiệp SybilSignal (GNN + ML, điểm 9.8/10) và nền tảng LMS Xpervia (tích hợp RAG chatbot & ReSys).',
         'Trong môi trường làm việc thực tế, tôi tiếp cận AI dưới góc nhìn kỹ sư hệ thống. Với tinh thần chủ động học hỏi, tôi luôn sẵn sàng thử sức với các bài toán và công nghệ mới để tạo ra giá trị bền vững.',
       ],
       noteLabel: 'ROLE MỤC TIÊU',
@@ -344,7 +344,7 @@ export const translations = {
       title1: 'Software Systems &',
       title2: 'Applied AI',
       description: [
-        'Graduated with an Engineer\'s Degree in Computer Science (AI focus) from Can Tho University (GPA 3.64/4.00), I bridge the gap from model research to end-to-end software development — proven by my thesis SybilSignal (GNN + ML, graded 9.8/10) and the intelligent LMS platform Xpervia (RAG chatbot & Recommender System).',
+        'Graduated with an Engineer\'s Degree in Computer Science (AI focus) from Can Tho University (GPA 3.64/4.00), with a strong foundation from research and model training to end-to-end software development. Demonstrated by graduation thesis SybilSignal (GNN + ML, graded 9.8/10) and LMS platform Xpervia (integrated RAG chatbot & ReSys).',
         'In professional working environments, I approach AI from a systems engineering perspective. Driven by a proactive learning mindset, I am always ready to embrace emerging technologies and tackle new challenges to deliver sustainable value.',
       ],
       noteLabel: 'TARGET ROLE',
