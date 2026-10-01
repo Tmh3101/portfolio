@@ -6,6 +6,9 @@
 
 - **Họ và tên**: Trần Minh Hiểu (Tran Minh Hieu)
 - **Vai trò**: AI Software Engineer / Full-stack Developer
+- **Website chính thức**: https://hieutm.id.vn
+- **Tài liệu cho AI (LLM Index)**: https://hieutm.id.vn/llms.txt
+- **Tài liệu toàn trình (Full Dossier)**: https://hieutm.id.vn/llms-full.txt
 - **Email**: hieutm.site@gmail.com
 - **GitHub**: https://github.com/Tmh3101
 - **LinkedIn**: https://linkedin.com/in/tmh3101

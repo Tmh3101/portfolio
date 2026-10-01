@@ -10,6 +10,9 @@
 - **Tên quốc tế**: Tran Minh Hieu (MINHHIEU, Tmh3101)
 - **Chuyên môn cốt lõi**: AI Software Engineer / Full-stack Developer
 - **Định vị**: Kỹ sư phần mềm kết hợp nền tảng Khoa học Máy tính vững vàng (chuyên sâu AI/ML/DL) với tư duy kiến trúc hệ thống bài bản (Clean Architecture, Distributed Systems, Multi-tenant SaaS). Tập trung nghiên cứu, triển khai và làm chủ toàn trình các giải pháp AI (Production RAG, Graph Neural Networks, Recommender Systems) và tích hợp các công nghệ phân tán (Blockchain / Web3).
+- **Website chính thức**: https://hieutm.id.vn
+- **Tài liệu cho AI (LLM Index)**: https://hieutm.id.vn/llms.txt
+- **Tài liệu toàn trình (Full Dossier)**: https://hieutm.id.vn/llms-full.txt
 - **Email**: hieutm.site@gmail.com
 - **GitHub**: https://github.com/Tmh3101
 - **LinkedIn**: https://linkedin.com/in/tmh3101

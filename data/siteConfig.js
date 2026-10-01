@@ -7,6 +7,7 @@ export const siteConfig = {
   phone: '',
   emailHref: 'mailto:hieutm.site@gmail.com',
   phoneHref: '',
+  url: 'https://hieutm.id.vn',
   github: 'https://github.com/Tmh3101',
   linkedin: 'https://linkedin.com/in/tmh3101',
   portfolioRepo: 'https://github.com/Tmh3101/portfolio',
