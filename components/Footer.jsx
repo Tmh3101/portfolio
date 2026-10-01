@@ -7,16 +7,18 @@ import { getLocalizedName } from '../data/siteConfig';
 import { apiUrl } from '../lib/api';
 
 const Footer = () => {
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
   const year = new Date().getFullYear();
   const [visitorCount, setVisitorCount] = useState(null);
   const localizedName = getLocalizedName(lang);
 
   const footerStatus =
-    lang === 'vi'
-      ? 'Open cho backend role phù hợp và selected freelance work.'
-      : 'Open to the right backend roles and selected freelance work.';
-  const visitorLabel = lang === 'vi' ? 'Lượt truy cập' : 'Visitors';
+    t?.footer?.status ||
+    (lang === 'vi'
+      ? 'Sẵn sàng đón nhận cơ hội AI Software Engineer và các dự án kỹ thuật chọn lọc.'
+      : 'Available for AI Software Engineer opportunities and selected technical projects.');
+  const visitorLabel = t?.footer?.visitors || (lang === 'vi' ? 'Lượt truy cập' : 'Visitors');
+  const backToTopLabel = t?.footer?.backToTop || (lang === 'vi' ? 'Lên đầu trang' : 'Back to top');
 
   useEffect(() => {
     const controller = new AbortController();
@@ -73,7 +75,7 @@ const Footer = () => {
             href="#hero"
             className="inline-flex items-center gap-1 text-foreground transition-colors hover:underline"
           >
-            <span>{lang === 'vi' ? 'Lên đầu trang' : 'Back to top'}</span>
+            <span>{backToTopLabel}</span>
             <MoveUpRight size={12} />
           </a>
         </div>
