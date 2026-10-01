@@ -7,6 +7,7 @@ import {
   Compass,
   Users,
   Zap,
+  Bot,
   Cpu,
   Terminal,
   Database,
@@ -43,7 +44,7 @@ const Skills = ({ data, sectionData, categoriesData }) => {
     Delivery: Boxes,
   };
 
-  const softSkillIcons = [Brain, Compass, Users, Zap];
+  const softSkillIcons = [Brain, Compass, Users, Zap, Bot];
 
   const categories = useMemo(() => {
     if (categoriesData && categoriesData.length > 0) {
@@ -169,12 +170,14 @@ const Skills = ({ data, sectionData, categoriesData }) => {
           'Chủ động nghiên cứu công nghệ',
           'Làm việc nhóm & phối hợp',
           'Thích ứng nhanh trong môi trường áp lực cao',
+          'Sử dụng AI Agents hiệu quả',
         ]
       : [
           'Logical thinking & problem-solving',
           'Proactive technology research',
           'Teamwork',
           'Rapid adaptation to high-pressure environments',
+          'Proficiency with AI Agents',
         ]);
 
   const softSkills = softSkillList.map((name, index) => ({
@@ -270,12 +273,12 @@ const Skills = ({ data, sectionData, categoriesData }) => {
               <span>
                 {t.skills.softHeading ||
                   (lang === 'vi'
-                    ? 'Kỹ năng Mềm & Phẩm chất Kỹ sư'
-                    : 'Professional & Soft Skills')}
+                    ? 'Kỹ năng Mềm'
+                    : 'Soft Skills')}
               </span>
             </div>
 
-            <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
               {softSkills.map((item, index) => {
                 const IconComponent = item.icon;
                 return (

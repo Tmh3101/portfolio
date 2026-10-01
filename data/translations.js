@@ -88,12 +88,13 @@ export const translations = {
       description:
         'Tổng hòa giữa bộ công cụ công nghệ chuyên sâu (Applied AI, Backend, Data, Cloud) và văn hóa kỹ nghệ chuẩn mực, tư duy giải quyết vấn đề thực tế.',
       techHeading: 'Kỹ năng Kỹ thuật & Nền tảng Công nghệ',
-      softHeading: 'Kỹ năng Mềm & Phẩm chất Kỹ sư',
+      softHeading: 'Kỹ năng Mềm',
       softSkills: [
         'Tư duy logic & giải quyết vấn đề',
         'Chủ động nghiên cứu công nghệ',
         'Làm việc nhóm & phối hợp',
         'Thích ứng nhanh trong môi trường áp lực cao',
+        'Sử dụng AI Agents hiệu quả',
       ],
     },
     experience: {
@@ -398,12 +399,13 @@ export const translations = {
       description:
         'A synthesis of robust technical capabilities (Applied AI, Backend, Data, Cloud) and disciplined engineering practices with an applied problem-solving mindset.',
       techHeading: 'Technical Capabilities & Technology Stack',
-      softHeading: 'Professional & Soft Skills',
+      softHeading: 'Soft Skills',
       softSkills: [
         'Logical thinking & problem-solving',
         'Proactive technology research',
         'Teamwork',
         'Rapid adaptation to high-pressure environments',
+        'Proficiency with AI Agents',
       ],
     },
     experience: {
